@@ -1,0 +1,75 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/searchresults.css" />
+</head>
+
+
+<form id="stream-avail-title-search" asp-action="SeriesSearchResults" asp-controller="Home" method="get">
+    <input type="text" name="titleName" id="stream-title-input" maxlength="100" placeholder="Search for a TV series..." required />
+    <button id="stream-avail-search-btn" type="button">Search</button>
+</form>
+
+
+    <div id="side-nav" class="my-3">
+        <form id="watch-list-form">
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Hours to watch</th>
+                        <th></th> <!--Intentionally blank (meant for "X" when removing a watchlist item)-->
+                    </tr>
+                </thead>
+                <tbody id="watch-list">
+                </tbody>
+            </table>
+
+      
+
+                <div class="mb-3 row">
+                    <label for="tv-hours-per-day-input" class="col-sm-5 col-form-label">Hours of TV per day</label>
+                    <div class="col-md-4">
+                        <input type="number" placeholder="Ex: 2" class="form-control" id="tv-hours-per-day-input" min="0" max="24"/>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                <label for="streaming-cost-per-month" class="col-sm-5 col-form-label">Streaming subscription cost per month</label>
+                    <div class="col-md-4">
+                <input type="number" placeholder="Ex: 6.99 (USD only)" step="0.01" class="form-control" id="streaming-cost-per-month" min="0" />
+                    </div>
+                </div>
+
+
+
+
+
+                <button type="button" id="generate-watchlist-stats-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Generate stats</button>
+            </form>
+    </div>
+    <div class="d-flex flex-column gap-5 col-9" id="search-results-container">
+    
+    </div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="watchStatsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="watchStatsModalLabel">Watchlist stats</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="watchlist-stats-display">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script type="text/javascript" src="~/js/seriessearch.js"></script>
+    <script type="text/javascript" src="~/js/generatevisitorwatchliststats.js"></script>
+}

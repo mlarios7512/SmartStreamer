@@ -1,0 +1,40 @@
+﻿.series-item{
+    background-color:black;
+}
+
+.no-watchtime-item{
+    background-color:red;
+}
+
+#watchlist-stats-display{
+    background-color:white;
+    color:black;
+}
+
+#watchStatsModalLabel{
+    background-color:white;
+    color:black;
+}
+
+#side-nav{
+    background-color:black;
+    color:white;
+    padding: 25px;
+    border-radius: 25px;   
+}
+
+#search-results-container{
+    margin-left: 160px;
+    padding: 0px 10px;
+}
+
+.hoverable-indication:hover {
+    filter: contrast(.5);
+    cursor: pointer;
+}
+
+.watchlist-crud-alert{
+    position:fixed;
+    bottom: 0px;
+    right:0px;
+}

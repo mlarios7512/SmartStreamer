@@ -1,0 +1,11 @@
+﻿body {
+}
+
+
+.bold-text{
+    font-weight:bold;
+}
+
+#stream-avail-title-search{
+    display:none;
+}

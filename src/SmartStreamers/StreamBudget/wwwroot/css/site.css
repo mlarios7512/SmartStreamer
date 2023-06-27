@@ -1,22 +1,49 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    background-color: dimgrey;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: dimgrey;
+    color: white;
+}
+
+.green-check {
+    filter: invert(64%) sepia(37%) saturate(2156%) hue-rotate(105deg) brightness(104%) contrast(87%);
+}
+
+.red-xmark {
+    filter: invert(12%) sepia(100%) saturate(7061%) hue-rotate(2deg) brightness(113%) contrast(112%);
+}
+
+.platform-item {
+    background-color: black;
+}
+
+.platform-cost {
+    font-style: italic;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.hidden {
+    display: none;
 }

@@ -3,10 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using StreamBudget.Models;
 using StreamBudget.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using StreamBudget.Services.Abstract;
+using StreamBudget.Services.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
-    builder.Services.AddControllersWithViews();
+string StreamAvailKey = builder.Configuration["StreamAvailKey"];
+
+builder.Services.AddControllersWithViews();
 var SBconnectionString = builder.Configuration.GetConnectionString("SBConnection");
 builder.Services.AddDbContext<SBDbContext>(
     options => options.UseLazyLoadingProxies().UseSqlServer(SBconnectionString)
@@ -19,9 +23,12 @@ var connectionString = builder.Configuration.GetConnectionString("Authentication
 builder.Services.AddDbContext<ApplicationDbContext>(
     options =>options.UseSqlServer(connectionString)
     );
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<DbContext, SBDbContext>();
+//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IStreamAvailService, StreamAvailService>(s => new StreamAvailService(StreamAvailKey));
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();

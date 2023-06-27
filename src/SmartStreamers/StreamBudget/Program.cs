@@ -5,6 +5,8 @@ using StreamBudget.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using StreamBudget.Services.Abstract;
 using StreamBudget.Services.Concrete;
+using StreamBudget.DAL.Abstract;
+using StreamBudget.DAL.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,12 +29,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<DbContext, SBDbContext>();
-//builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IStreamAvailService, StreamAvailService>(s => new StreamAvailService(StreamAvailKey));
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

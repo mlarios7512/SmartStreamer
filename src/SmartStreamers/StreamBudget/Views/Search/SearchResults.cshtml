@@ -1,0 +1,81 @@
+﻿@model IEnumerable<StreamBudget.Models.DTO.StreamAvail.SearchResultDTO>
+
+<head>
+    <link rel="stylesheet" href="~/css/index.css" />
+    <link rel="stylesheet" href="~/css/searchresults.css" />
+</head>
+
+@{
+    foreach(var item in Model)
+    {
+        <div class="container p-4 series-item">
+            <div class="row bold-text">
+                <div class="col">
+                    <h4>@item.Title</h4>
+                </div>
+                <div class="col">
+                    <h5>@item.FirstAirYear-@item.LastAirYear</h5>
+                </div>
+                <div class="row">
+                    Recommended age: @item.AdvisedMinimumAudienceAge
+                </div>
+            </div>
+            <img src="@item.BackdropURL" alt="Poster Image" width="500">
+            <div class="row bold-text">
+                <div class="col-3">
+                    Seasons: @item.SeasonCount
+                </div>
+            </div>
+            <div class="row my-4 text-wrap">
+                @item.Overview
+            </div>
+
+            <!---Everything below this lines NEEDS adjusting for JS to C# (remember to process as many calculations server side as possible.-->
+
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Watch time stats
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body text-dark">
+
+
+                            <table class="table table-dark">
+                                <thead>
+                                <th>Description</th>
+                                <th>Time</th>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-active">
+                                        <td>Full series (in hours)</td>
+                                        <td id="full-series-watchtime-series-${imdbId}">${fullSeriesWatchtime}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Platform Availability
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body" id="series-body-to-add-avail-table-to-${index}">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <button class="btn btn-primary mt-3" id="add-to-watchlist-btn-series-${imdbId}">Add to watch list</button>
+        </div>
+    }
+}

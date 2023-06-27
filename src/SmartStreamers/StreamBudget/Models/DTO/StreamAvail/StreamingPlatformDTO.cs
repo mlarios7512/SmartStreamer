@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
-using StreamBudget.Models.DTO.StreamAvail;
 
-namespace StreamBudget.Models.DTO
+namespace StreamBudget.Models.DTO.StreamAvail
 {
     public class StreamingPlatformDTO
     {

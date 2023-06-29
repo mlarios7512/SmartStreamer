@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using StreamBudget.DAL.Abstract;
+using StreamBudget.Models;
 using StreamBudget.Models.DTO.StreamAvail;
 using StreamBudget.Models.Other;
 using StreamBudget.ViewModels;
@@ -7,8 +10,23 @@ namespace StreamBudget.Controllers
 {
     public class WatchlistController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IPersonRepository _personRepository;
+
+
+        public WatchlistController(UserManager<IdentityUser> userManager, IPersonRepository personRepository) 
+        {
+            _personRepository = personRepository;
+            _userManager = userManager;
+
+
+        }
+
         public IActionResult ViewItems()
         {
+            string aspId = _userManager.GetUserId(User);
+            Person curUser = _personRepository.FindPersonByAspId(aspId);
+
             IList<SearchResultDTO> someResults = new List<SearchResultDTO>{
                 new SearchResultDTO
                 {

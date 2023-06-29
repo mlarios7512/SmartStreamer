@@ -1,2 +1,2 @@
-﻿DROP TABLE [StreamingPlatform];
+﻿DROP TABLE [Watchlist];
 DROP TABLE [Person];

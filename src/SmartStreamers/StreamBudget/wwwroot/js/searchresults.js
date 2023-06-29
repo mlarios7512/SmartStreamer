@@ -30,7 +30,7 @@ function notifyUserItemWasAddedToWatchlist(seriesTitle, seriesImdbId) {
     const clearAlertTimeout = setTimeout(clearNotification, 3000, `series-${seriesImdbId}-added-to-watchlist-notification`);
 }
 
-
+//NEED TO RETURN "title" & "imdbId" of item that was removed!
 function displayItemSavedMsg(data) {
     console.log(`displayItemSavedMsg`);
 

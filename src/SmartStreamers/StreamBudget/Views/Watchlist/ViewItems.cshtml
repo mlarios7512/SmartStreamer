@@ -27,10 +27,14 @@
                         <td class="hidden"><input type="hidden" name="FullSeriesHoursWatchtime" value="0"></td>
                     }
 
-                    <td><span type="button" class="hoverable-indication" id="remove-watchlist-item-@item.ImdbId">X</span></td>
+                    <td><span type="button" class="hoverable-indication remove-watchlist-series-btn" id="remove-watchlist-item-@item.ImdbId">X</span></td>
                 </tr>
                 i++;
             }
         }
     </tbody>
 </table>
+
+@section Scripts{
+    <script type="text/javascript" src="~/js/serieswatchlist.js"></script>
+}

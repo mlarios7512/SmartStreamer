@@ -121,9 +121,13 @@
             </div>
 
 
-            <button class="btn btn-primary mt-3" id="add-to-watchlist-btn-series-@item.ImdbId">Add to watch list</button>
+                <button class="btn btn-primary mt-3 add-series-to-watchlist-btn" id="add-to-watchlist-btn-series-btn-@item.ImdbId">Add to watch list</button>
         </div>
         i++;
     }
 }
 </div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/js/searchresults.js"></script>
+}

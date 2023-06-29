@@ -1,12 +1,14 @@
-﻿@model IEnumerable<StreamBudget.Models.DTO.StreamAvail.SearchResultDTO>
+﻿@model StreamBudget.ViewModels.SeriesSearchVM
 
 <head>
     <link rel="stylesheet" href="~/css/index.css" />
     <link rel="stylesheet" href="~/css/searchresults.css" />
 </head>
 
+<div class="d-flex flex-column gap-5">
 @{
-    foreach(var item in Model)
+    int i = 0;
+    foreach(var item in Model.SearchResults)
     {
         <div class="container p-4 series-item">
             <div class="row bold-text">
@@ -20,17 +22,15 @@
                     Recommended age: @item.AdvisedMinimumAudienceAge
                 </div>
             </div>
+     
             <img src="@item.BackdropURL" alt="Poster Image" width="500">
+        
             <div class="row bold-text">
-                <div class="col-3">
-                    Seasons: @item.SeasonCount
-                </div>
+                Seasons: @item.SeasonCount
             </div>
             <div class="row my-4 text-wrap">
                 @item.Overview
             </div>
-
-            <!---Everything below this lines NEEDS adjusting for JS to C# (remember to process as many calculations server side as possible.-->
 
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
@@ -45,13 +45,24 @@
 
                             <table class="table table-dark">
                                 <thead>
-                                <th>Description</th>
-                                <th>Time</th>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Time</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="table-active">
                                         <td>Full series (in hours)</td>
-                                        <td id="full-series-watchtime-series-${imdbId}">${fullSeriesWatchtime}</td>
+                                        @{
+                                            if (@Model.CompletionTimes.ElementAtOrDefault(i).FullSeries != null)
+                                            {
+                                                <td id="full-series-watchtime-series-@item.ImdbId">~@Model.CompletionTimes.ElementAtOrDefault(i).FullSeries</td>
+                                            }
+                                            else
+                                            {
+                                                <td id="full-series-watchtime-series-@item.ImdbId">(N/A)</td>
+                                            }
+                                        }
                                     </tr>
                                 </tbody>
                             </table>
@@ -67,7 +78,42 @@
                         </button>
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body" id="series-body-to-add-avail-table-to-${index}">
+                        <div class="accordion-body">
+                                <table class="table text-dark">
+                                    <thead>
+                                        <tr>
+                                            @{
+                                                foreach(var platform in item.StreamingInfo)
+                                                {
+                                                    <th>@platform.PlatformName</th>
+                                                }
+                                            }
+                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            @{
+                                                foreach (var platform in item.StreamingInfo)
+                                                {
+                                                    if(platform.AvailableOnSubscription != null)
+                                                    {
+                                                        if(platform.AvailableOnSubscription == true)
+                                                        {
+                                                            <td><img src="~/img/check-solid.svg" class="green-check" alt="Yes" /></td>
+                                                        }else
+                                                        {
+                                                            <td><img src="~/img/xmark-solid.svg" class="red-xmark" alt="No" /></td>
+                                                        }
+                                                    }else
+                                                    {
+                                                        <td>???</td>
+                                                    }
+                                                }
+                                            }
+                                        </tr>
+                                    </tbody>
+                                </table>
                         </div>
                     </div>
                 </div>
@@ -75,7 +121,9 @@
             </div>
 
 
-            <button class="btn btn-primary mt-3" id="add-to-watchlist-btn-series-${imdbId}">Add to watch list</button>
+            <button class="btn btn-primary mt-3" id="add-to-watchlist-btn-series-@item.ImdbId">Add to watch list</button>
         </div>
+        i++;
     }
 }
+</div>

@@ -173,5 +173,42 @@ namespace StreamBudget.Controllers
 
             return View(watchlistDisplay);
         }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult CreateWatchlist() 
+        {
+            Watchlist watchlist = new Watchlist();
+            return View(watchlist);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateWatchlist(Watchlist newWatchlist) 
+        {
+            string aspId = _userManager.GetUserId(User);
+            Person curUser = _personRepository.FindPersonByAspId(aspId);
+            newWatchlist.OwnerId = curUser.Id;
+            ModelState.ClearValidationState("Owner");
+            newWatchlist.Owner = _personRepository.FindPersonByAspId(aspId);
+            TryValidateModel(newWatchlist);
+            if (!ModelState.IsValid) 
+            {
+                newWatchlist.OwnerId = 0;
+                return View(newWatchlist);
+            }
+
+            Watchlist watchlistToAdd = new Watchlist();
+            watchlistToAdd.Name = newWatchlist.Name;
+            watchlistToAdd.OwnerId = curUser.Id;
+
+
+            watchlistToAdd.StreamingPlatform = newWatchlist.StreamingPlatform;
+
+            _watchlistRepository.AddOrUpdate(watchlistToAdd);
+
+            return RedirectToAction("ViewWatchlists", "Watchlist");
+        }
     }
 }

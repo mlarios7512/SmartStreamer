@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Watchlist>
 
 <h2>My watchlists</h2>
-
+<div>
 @{
     foreach(var watchlist in Model)
     {
@@ -10,9 +10,6 @@
         <p>Selected steaming cost: @watchlist.SelectedStreamingCost</p>
     }
 }
+</div>
 
-<form>
-    <h3>Create a watchlist</h3>
-    <input type="text" placeholder="Watchlist name"/>
-    
-</form>
+<a role="button" class="btn btn-primary" asp-action="CreateWatchlist">Create a watchlist</a>

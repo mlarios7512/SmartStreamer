@@ -9,7 +9,7 @@ namespace StreamBudget.DAL.Concrete
         public WatchlistItemRepository(DbContext ctx) : base(ctx)
         {
         }
-        //Get watchlist ID.
+
         public void DeleteWatchlistItemBySeriesId(int watchlistId,string imdbId)
         {
             try

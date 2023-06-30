@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StreamBudget.DAL.Abstract;
 using StreamBudget.Models;
@@ -12,17 +13,30 @@ namespace StreamBudget.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IPersonRepository _personRepository;
+        private readonly IWatchlistRepository _watchlistRepository;
 
-
-        public WatchlistController(UserManager<IdentityUser> userManager, IPersonRepository personRepository) 
+        public WatchlistController(UserManager<IdentityUser> userManager, 
+            IPersonRepository personRepository, 
+            IWatchlistRepository watchlistRepository) 
         {
             _personRepository = personRepository;
             _userManager = userManager;
-
-            
+            _watchlistRepository = watchlistRepository;
         }
 
-        public IActionResult ViewItems()
+        [Authorize]
+        public IActionResult ViewWatchlists()
+        {
+            string aspId = _userManager.GetUserId(User);
+            int normalId = _personRepository.FindPersonByAspId(aspId).Id;
+            IEnumerable<Watchlist> userWatchlists = _watchlistRepository.GetAllWatchlistsForUser(normalId);
+
+
+            return View(userWatchlists);
+        }
+
+        [Authorize]
+        public IActionResult ViewWatchlistItems()
         {
             string aspId = _userManager.GetUserId(User);
             Person curUser = _personRepository.FindPersonByAspId(aspId);

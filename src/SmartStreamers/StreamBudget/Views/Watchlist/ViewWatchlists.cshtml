@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Watchlist>
+
+<h2>My watchlists</h2>
+
+@{
+    foreach(var watchlist in Model)
+    {
+        <h4>@watchlist.Name</h4>
+        <p>Selected platform: @watchlist.StreamingPlatform</p>
+        <p>Selected steaming cost: @watchlist.SelectedStreamingCost</p>
+    }
+}
+
+<form>
+    <h3>Create a watchlist</h3>
+    <input type="text" placeholder="Watchlist name"/>
+    
+</form>

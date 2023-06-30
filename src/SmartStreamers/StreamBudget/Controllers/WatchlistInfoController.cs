@@ -38,13 +38,14 @@ namespace StreamBudget.Controllers
         {
             try 
             {
-                int? curwatchlistId = _watchlistRepository.FindById(curWatchlistId).Id;
+                int curwatchlistId = _watchlistRepository.FindById(curWatchlistId).Id;
+                _watchlistItemRepository.DeleteWatchlistItemBySeriesId(curwatchlistId, imdbId);
 
                 
                 //_watchlistRepository.DeleteEntryBySeriesId(imdbId);
                 return Ok(imdbId);
             }
-            catch (Exception)  //IDK WHAT EXCEPTION THIS WOULD BE.
+            catch (NullReferenceException)  //IDK WHAT EXCEPTION THIS WOULD BE.
             {
                 return BadRequest("tt-ERROR-DELETION");
             }

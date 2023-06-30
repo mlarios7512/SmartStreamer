@@ -30,6 +30,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<DbContext, SBDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IWatchlistRepository, WatchlistRepository>();
 builder.Services.AddScoped<IWatchlistItemRepository, WatchlistItemRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IStreamAvailService, StreamAvailService>(s => new StreamAvailService(StreamAvailKey));

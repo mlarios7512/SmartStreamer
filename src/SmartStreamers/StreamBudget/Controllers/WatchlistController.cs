@@ -202,8 +202,7 @@ namespace StreamBudget.Controllers
             Watchlist watchlistToAdd = new Watchlist();
             watchlistToAdd.Name = newWatchlist.Name;
             watchlistToAdd.OwnerId = curUser.Id;
-
-
+            watchlistToAdd.SelectedStreamingCost = newWatchlist.SelectedStreamingCost;
             watchlistToAdd.StreamingPlatform = newWatchlist.StreamingPlatform;
 
             _watchlistRepository.AddOrUpdate(watchlistToAdd);

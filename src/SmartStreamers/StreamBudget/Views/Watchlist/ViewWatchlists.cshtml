@@ -1,13 +1,47 @@
 ﻿@model IEnumerable<Watchlist>
 
+<head>
+    <link rel="stylesheet" href="~/css/watchlist.css"/> 
+</head>
+
 <h2>My watchlists</h2>
-<div>
+<div class="d-flex flex-column my-5 gap-5">
 @{
     foreach(var watchlist in Model)
     {
-        <h4>@watchlist.Name</h4>
-        <p>Selected platform: @watchlist.StreamingPlatform</p>
-        <p>Selected steaming cost: @watchlist.SelectedStreamingCost</p>
+        <div class="SB-container watchlist">
+            <h4 class="mb-3">@watchlist.Name</h4>
+            <p><span class="fw-bold">Streaming Platform:</span> 
+                    @{
+                        if(watchlist.StreamingPlatform == null)
+                        {
+                            <span class="fst-italic">(none)</span>
+                        }
+                        else
+                        {
+                            @watchlist.StreamingPlatform
+                        }
+                    }
+                
+            </p>
+            <p><span class="fw-bold">Subscription cost (monthly)</span>:
+                    @{
+                        if (watchlist.SelectedStreamingCost == null)
+                        {
+                            <span class="fst-italic">(none)</span>
+                        }
+                        else
+                        {
+                            @watchlist.SelectedStreamingCost
+                        }
+                    }
+            </p>
+
+            <div class="btn-group gap-3 mt-4" role="group">
+                <a role="button" class="btn btn-primary" asp-action="ViewItems">View items</a>
+                <a role="button" class="btn btn-success" asp-action="SearchResults">Add items</a> <!--Maybe just consider changing "search results" to "search" (& removing the other view)-->
+            </div>
+        </div>
     }
 }
 </div>

@@ -66,3 +66,8 @@ body {
 .required-field{
     color:red;
 }
+
+.SB-container{
+    background-color:black;
+    color:white;
+}

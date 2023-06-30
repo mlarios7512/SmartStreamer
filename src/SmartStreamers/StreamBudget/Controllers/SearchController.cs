@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using StreamBudget.DAL.Abstract;
+using StreamBudget.Models;
 using StreamBudget.Models.DTO.StreamAvail;
 using StreamBudget.Models.Other;
 using StreamBudget.Services.Abstract;
@@ -12,25 +16,34 @@ namespace StreamBudget.Controllers
         private readonly IStreamAvailService _streamAvailService;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IPersonRepository _personRepository;
+        private readonly IWatchlistRepository _watchlistRepository;
 
         public SearchController(
             IStreamAvailService streamAvailService,
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            IPersonRepository personRepository,
+            IWatchlistRepository watchlistRepository)
         {
             _streamAvailService = streamAvailService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _personRepository = personRepository;
+            _watchlistRepository = watchlistRepository;
         }
 
-        [HttpGet]
-        public IActionResult Search()
+        [Authorize]
+        public IActionResult Search(int watchlistId, string titleName)
         {
-            return View();
-        }
+            string aspId = _userManager.GetUserId(User);
+            Person curUser = _personRepository.FindPersonByAspId(aspId);
+            if (_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, watchlistId) == false)
+            {
+                return NotFound();
+            }
 
-        public async Task<IActionResult> SearchResults(string titleName)
-        {
+
             //IEnumerable<SearchResultDTO> searchResults = await _streamAvailService.GetBasicSearch(titleName);
 
             //return View(searchResults);
@@ -159,9 +172,11 @@ namespace StreamBudget.Controllers
 
             SeriesSearchVM searchVM = new SeriesSearchVM();
             searchVM.SearchResults = resultsToReturn;
+            searchVM.WatchlistId = watchlistId;
+            
 
             CompletionTime seriesCompletionTime = new CompletionTime();
-            foreach(var item in resultsToReturn) 
+            foreach (var item in searchVM.SearchResults)
             {
                 seriesCompletionTime = new CompletionTime(item.EpisodeCount, item.Runtime);
                 searchVM.CompletionTimes.Add(seriesCompletionTime);

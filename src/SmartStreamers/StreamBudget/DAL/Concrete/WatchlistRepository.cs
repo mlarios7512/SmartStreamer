@@ -21,5 +21,24 @@ namespace StreamBudget.DAL.Concrete
                 return Enumerable.Empty<Watchlist>();
             }    
         }
+
+        public bool DoesUserOwnWatchlist(int curUserId, int watchlistId) 
+        {
+            try 
+            {
+                Watchlist watchlist = _dbSet.SingleOrDefault(w => w.OwnerId == curUserId && w.Id == watchlistId);
+                if (watchlist == null)
+                {
+                    return false;
+                }
+            }
+            catch(InvalidOperationException)
+            {
+                return false;
+            }
+            
+         
+            return true;    
+        }
     }
 }

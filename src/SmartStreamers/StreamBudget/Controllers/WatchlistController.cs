@@ -19,7 +19,7 @@ namespace StreamBudget.Controllers
             _personRepository = personRepository;
             _userManager = userManager;
 
-
+            
         }
 
         public IActionResult ViewItems()

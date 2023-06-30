@@ -19,6 +19,8 @@ public partial class SBDbContext : DbContext
 
     public virtual DbSet<Watchlist> Watchlists { get; set; }
 
+    public virtual DbSet<WatchlistItem> WatchlistItems { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=SBConnection");
 
@@ -26,7 +28,7 @@ public partial class SBDbContext : DbContext
     {
         modelBuilder.Entity<Person>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Person__3214EC27EDF64DB8");
+            entity.HasKey(e => e.Id).HasName("PK__Person__3214EC271B18E8D3");
 
             entity.ToTable("Person");
 
@@ -38,7 +40,7 @@ public partial class SBDbContext : DbContext
 
         modelBuilder.Entity<Watchlist>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Watchlis__3214EC27DD035D26");
+            entity.HasKey(e => e.Id).HasName("PK__Watchlis__3214EC27FD9086C1");
 
             entity.ToTable("Watchlist");
 
@@ -52,6 +54,22 @@ public partial class SBDbContext : DbContext
                 .HasForeignKey(d => d.OwnerId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Fk_Watchlist_Person_ID");
+        });
+
+        modelBuilder.Entity<WatchlistItem>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Watchlis__3214EC27E944A28C");
+
+            entity.ToTable("WatchlistItem");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.ImdbId).HasMaxLength(64);
+            entity.Property(e => e.WatchlistId).HasColumnName("WatchlistID");
+
+            entity.HasOne(d => d.Watchlist).WithMany(p => p.WatchlistItems)
+                .HasForeignKey(d => d.WatchlistId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Fk_WatchlistItem_Watchlist_ID");
         });
 
         OnModelCreatingPartial(modelBuilder);

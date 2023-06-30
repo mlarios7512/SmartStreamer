@@ -1,13 +1,12 @@
 ﻿$(".remove-watchlist-series-btn").click(function () {
-    let imdbIdOfSeries = $(this).attr('id').substring(22);
-    console.log(`Attempting to remove: ${imdbIdOfSeries}`);
+    let imdbId = $(this).attr('id').substring(22);
+    console.log(`Attempting to remove: ${imdbId}`);
 
     $.ajax({
-        type: "POST",
-        url: `/api/`,
-        dataType: "json",
+        method: "POST",
+        url: `/api/watchlistinfo/remove/series/${imdbId}`,
         contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify(imdbIdOfSeries),
+        data: String(imdbId),
         success: watchlistItemSuccessfullyRemoved,
         error: failedWatchlistItemRemoval
     });
@@ -15,10 +14,19 @@
 
 //NEED TO RETURN THE IMDBID OF THE item removed!
 function watchlistItemSuccessfullyRemoved(data) {
-    console.log(`Watchlist item successfully removed!`);
 
-    $(`#watchlist-entry-${data["imdbId"]}`).empty();
-    $(`#watchlist-entry-${data["imdbId"]}`).remove();
+    if (data == "tt-ERROR-DELETION") {
+        failedWatchlistItemRemoval();
+    }
+    else
+    {
+        console.log(`Watchlist item successfully removed!`);
+
+        console.log(`'Data' returned: ${data}`);
+
+        $(`#watchlist-entry-${data}`).empty();
+        $(`#watchlist-entry-${data}`).remove();
+    }
 
 }
 

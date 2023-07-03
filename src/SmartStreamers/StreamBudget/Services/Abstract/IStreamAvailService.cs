@@ -4,8 +4,8 @@ namespace StreamBudget.Services.Abstract
 {
     public interface IStreamAvailService
     {
-        public Task<IEnumerable<WatchlistItemDTO>> GetBasicSearch(string titleName);
+        public Task<IEnumerable<SearchResultDTO>> GetBasicSearch(string titleName);
 
-        public Task<WatchlistItemDTO> GetSeriesDetails(string imdbId);
+        public Task<SearchResultDTO> GetSeriesDetails(string imdbId);
     }
 }

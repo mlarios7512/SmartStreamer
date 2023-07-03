@@ -1,16 +1,32 @@
 ﻿$(".remove-watchlist-series-btn").click(function () {
-    let imdbId = $(this).attr('id').substring(22);
-    console.log(`Attempting to remove: ${imdbId}`);
+    let itemToRemoveImdbId = $(this).attr('id').substring(22);
+    const values = getInfoRequiredToDeleteWatchlistItem(itemToRemoveImdbId);
+
+    console.log(`imdbID: ${values.imdbId}`);
+    console.log(`watchlistId: ${values.watchlistId}`);
+
+    console.log(`Attempting to remove: ${itemToRemoveImdbId}`);
 
     $.ajax({
         method: "POST",
-        url: `/api/watchlistinfo/remove/series/${imdbId}`,
+        url: `/api/watchlistinfo/remove/series/${values.imdbId}/${values.watchlistId}`,
         contentType: "application/json; charset=UTF-8",
-        data: String(imdbId),
+        data: JSON.stringify(values),
         success: watchlistItemSuccessfullyRemoved,
         error: failedWatchlistItemRemoval
     });
 });
+
+function getInfoRequiredToDeleteWatchlistItem(itemToRemoveimdbId) {
+    let curWatchlistId = $("#watchlist-id").text();
+    curWatchlistId = Number(curWatchlistId);
+    console.log(`watchlistId (getInfo): ${curWatchlistId}`)
+
+    return {
+        imdbId: itemToRemoveimdbId,
+        watchlistId: curWatchlistId
+    }
+}
 
 //NEED TO RETURN THE IMDBID OF THE item removed!
 function watchlistItemSuccessfullyRemoved(data) {

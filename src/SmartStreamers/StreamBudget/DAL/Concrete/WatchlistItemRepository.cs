@@ -15,7 +15,7 @@ namespace StreamBudget.DAL.Concrete
             try
             {
                 WatchlistItem itemToRemove = _dbSet.SingleOrDefault(i => i.WatchlistId == watchlistId && i.ImdbId == imdbId);
-                _dbSet.Remove(itemToRemove);
+                Delete(itemToRemove);
             }
             catch (InvalidOperationException) 
             {

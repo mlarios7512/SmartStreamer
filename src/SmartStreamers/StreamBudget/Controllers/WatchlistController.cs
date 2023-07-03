@@ -53,7 +53,7 @@ namespace StreamBudget.Controllers
 
 
 
-            ////-------------------------HARD CODED ITEMS to save on API calls (below)-----------------------
+            ////-------------------------HARD CODED ITEMS to save on API calls (below). Need to change each item into "WatchlistItem" to use again.-----------------------
 
             //IList<SearchResultDTO> searchResults = new List<SearchResultDTO>{
             //    new SearchResultDTO
@@ -187,13 +187,14 @@ namespace StreamBudget.Controllers
 
             //return View(watchlistDisplay);
 
-            ////-------------------------HARD CODED ITEMS to save on API calls (above)-----------------------
+            ////-------------------------HARD CODED ITEMS to save on API calls (above). Need to change each item into "WatchlistItem" to use again.-----------------------
 
 
             List<WatchlistItem> itemsInWatchlist = _watchlistItemRepository.GetWatchlistItemByWatchlistId(watchlistId);
 
 
             WatchlistVM watchlistDisplay = new WatchlistVM();
+            watchlistDisplay.WatchlistId = watchlistId;
             watchlistDisplay.WatchlistItems = itemsInWatchlist.AsEnumerable();
 
             CompletionTime seriesCompletionTime = new CompletionTime();

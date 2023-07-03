@@ -72,14 +72,14 @@ namespace StreamBudget.Controllers
             return BadRequest();   
         }
 
-        [HttpPost("remove/series/{imdbId}")]
+        [HttpPost("remove/series/{imdbId}/{watchlistId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<string>> RemoveSeriesFromWatchlist(string imdbId, int curWatchlistId)
+        public async Task<ActionResult<string>> RemoveSeriesFromWatchlist(string imdbId, int watchlistId)
         {
             try 
             {
-                int curwatchlistId = _watchlistRepository.FindById(curWatchlistId).Id;
+                int curwatchlistId = _watchlistRepository.FindById(watchlistId).Id;
                 _watchlistItemRepository.DeleteWatchlistItemBySeriesId(curwatchlistId, imdbId);
 
                 

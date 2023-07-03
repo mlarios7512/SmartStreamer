@@ -8,7 +8,7 @@ namespace StreamBudget.ViewModels
         public string CurUserUsername { get; set; }
         public int WatchlistId { get; set; }
 
-        public IEnumerable<WatchlistItemDTO> SearchResults { get; set; } = new List<WatchlistItemDTO>();
+        public IEnumerable<SearchResultDTO> SearchResults { get; set; } = new List<SearchResultDTO>();
         public List<CompletionTime> CompletionTimes { get; set; } = new List<CompletionTime>();
 
         public SeriesSearchVM()

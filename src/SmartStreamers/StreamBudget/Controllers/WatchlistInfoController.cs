@@ -17,19 +17,20 @@ namespace StreamBudget.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IPersonRepository _personRepo;
         private readonly IWatchlistItemRepository _watchlistItemRepository;
-        private readonly IRepository<Watchlist> _watchlistRepository;
+        private readonly IWatchlistRepository _watchlistRepository;
         
 
         public WatchlistInfoController(IStreamAvailService streamAvailService, 
             UserManager<IdentityUser> userManager, 
             IPersonRepository personRepository, 
             IWatchlistItemRepository watchlistItemRepository,
-            IRepository<Watchlist> watchlistRepository)
+            IWatchlistRepository watchlistRepository)
         {
             _streamAvailService = streamAvailService;
             _userManager = userManager;
             _personRepo = personRepository;
             _watchlistItemRepository = watchlistItemRepository;
+            _watchlistRepository = watchlistRepository;
         }
 
         [HttpPost("add/series")]
@@ -40,15 +41,32 @@ namespace StreamBudget.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool alreadyInDB = true;
+                string aspId = _userManager.GetUserId(User);
+                Person curUser = _personRepo.FindPersonByAspId(aspId);
 
-                if (alreadyInDB == true)
+                if(_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, newWatchlistItemInfo.CurWatchlistId) == true)
                 {
-                    newWatchlistItemInfo.RuntimeSTA = -304;
+                   
+
+                    if (_watchlistItemRepository.DoesItemAlreadyExistInWatchlist(newWatchlistItemInfo.ImdbIdSTA, newWatchlistItemInfo.CurWatchlistId) == true)
+                    {
+                        newWatchlistItemInfo.RuntimeSTA = -304;
+                        return Ok(newWatchlistItemInfo);
+                    }
+
+                    WatchlistItem newEntry = new WatchlistItem();
+                    newEntry.Title = newWatchlistItemInfo.TitleSTA;
+                    newEntry.ImdbId = newWatchlistItemInfo.ImdbIdSTA;
+                    newEntry.FirstAirYear = newWatchlistItemInfo.FirstYearSTA;
+                    newEntry.EpisodeRuntime = newWatchlistItemInfo.RuntimeSTA;
+                    newEntry.TotalEpisodeCount = newWatchlistItemInfo.TotalEpisodeCountSTA;
+                    newEntry.WatchlistId = newWatchlistItemInfo.CurWatchlistId;
+
+                    _watchlistItemRepository.AddOrUpdate(newEntry);
+
                     return Ok(newWatchlistItemInfo);
                 }
-    
-                return Ok(newWatchlistItemInfo);
+                
             }
 
             return BadRequest();

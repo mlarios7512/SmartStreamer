@@ -7,7 +7,7 @@
 </head>
 
 <form asp-action="Search" asp-controller="Search" method="get">
-    <input type="hidden" name="watchlistId" value="@Model.WatchlistId"/>
+    <input type="hidden" name="watchlistId" value="@Model.WatchlistId" id="watchlist-id"/>
     <input type="text" name="titleName" placeholder="Search for a TV series..." maxlength="100" required />
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
@@ -17,16 +17,16 @@
     int i = 0;
     foreach(var item in Model.SearchResults)
     {
-        <div class="container p-4 series-item">
+        <div class="container p-4 series-item" id="container-for-@item.ImdbId">
             <div class="row bold-text">
                 <div class="col">
-                    <h4>@item.Title</h4>
+                    <h4 id="series-title-@item.ImdbId">@item.Title</h4>
                 </div>
                 <div class="col">
-                    <h5>@item.FirstAirYear-@item.LastAirYear</h5>
+                    <h5><span id="first-air-year-@item.ImdbId">@item.FirstAirYear</span>-@item.LastAirYear</h5>
                 </div>
                 <div class="row">
-                    Recommended age: @item.AdvisedMinimumAudienceAge
+                    Recommended age: <span id="advised-audience-age-@item.ImdbId">@item.AdvisedMinimumAudienceAge</span>
                 </div>
             </div>
      
@@ -38,6 +38,8 @@
             <div class="row my-4 text-wrap">
                 @item.Overview
             </div>
+            <span class="hidden" id="episode-run-time-@item.ImdbId">@item.Runtime</span>
+            <span class="hidden" id="episode-count-@item.ImdbId">@item.EpisodeCount</span>
 
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
@@ -127,7 +129,7 @@
 
             </div>
 
-
+                
                 <button class="btn btn-primary mt-3 add-series-to-watchlist-btn" id="add-to-watchlist-btn-series-btn-@item.ImdbId">Add to watch list</button>
         </div>
         i++;

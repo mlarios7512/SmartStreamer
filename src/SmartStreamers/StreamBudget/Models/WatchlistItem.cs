@@ -7,6 +7,8 @@ public partial class WatchlistItem
 {
     public int Id { get; set; }
 
+    public string Title { get; set; } = null!;
+
     public string ImdbId { get; set; } = null!;
 
     public int FirstAirYear { get; set; }

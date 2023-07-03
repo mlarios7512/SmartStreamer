@@ -28,7 +28,7 @@ public partial class SBDbContext : DbContext
     {
         modelBuilder.Entity<Person>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Person__3214EC271B18E8D3");
+            entity.HasKey(e => e.Id).HasName("PK__Person__3214EC273906D6BC");
 
             entity.ToTable("Person");
 
@@ -40,7 +40,7 @@ public partial class SBDbContext : DbContext
 
         modelBuilder.Entity<Watchlist>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Watchlis__3214EC27FD9086C1");
+            entity.HasKey(e => e.Id).HasName("PK__Watchlis__3214EC27A416D62F");
 
             entity.ToTable("Watchlist");
 
@@ -58,12 +58,13 @@ public partial class SBDbContext : DbContext
 
         modelBuilder.Entity<WatchlistItem>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Watchlis__3214EC27E944A28C");
+            entity.HasKey(e => e.Id).HasName("PK__Watchlis__3214EC27F7A855D9");
 
             entity.ToTable("WatchlistItem");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.ImdbId).HasMaxLength(64);
+            entity.Property(e => e.Title).HasMaxLength(64);
             entity.Property(e => e.WatchlistId).HasColumnName("WatchlistID");
 
             entity.HasOne(d => d.Watchlist).WithMany(p => p.WatchlistItems)

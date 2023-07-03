@@ -21,7 +21,18 @@ namespace StreamBudget.DAL.Concrete
             {
                
             }
-         
+        }
+
+        public bool DoesItemAlreadyExistInWatchlist(string newWatchlistItemImdbId, int watchlistId) 
+        {
+            WatchlistItem existingWatchlistItem = _dbSet.SingleOrDefault(i => i.ImdbId == newWatchlistItemImdbId 
+                && i.WatchlistId == watchlistId);
+            if(existingWatchlistItem != null) 
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -14,6 +14,7 @@ CREATE TABLE [Watchlist](
 
 CREATE TABLE [WatchlistItem](
     [ID]                    int             PRIMARY KEY IDENTITY(1, 1),
+    [Title]                 nvarchar(64)        NOT NULL,
     [ImdbId]                nvarchar(64)        NOT NULL,
     [FirstAirYear]          int         NOT NULL,
     [EpisodeRuntime]        int         NULL, --Should be in minutes

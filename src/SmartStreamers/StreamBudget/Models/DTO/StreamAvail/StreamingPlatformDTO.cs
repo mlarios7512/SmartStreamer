@@ -12,7 +12,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
 
         }
 
-        public static void GetPlatformDetails_FromJSON(List<JToken> allTitles, List<SearchResultDTO> mediaItems)
+        public static void GetPlatformDetails_FromJSON(List<JToken> allTitles, List<WatchlistItemDTO> mediaItems)
         {
 
             List<StreamingPlatformDTO> PlatformDetails = new List<StreamingPlatformDTO>();

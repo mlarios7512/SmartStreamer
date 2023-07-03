@@ -24,10 +24,10 @@ namespace StreamBudget.Controllers
 
         //PRACTICE VER (to save on API calls).
         [HttpGet("search/title/{titleName}")]
-        public async Task<IEnumerable<SearchResultDTO>> GetSearchResults(string titleName)
+        public async Task<IEnumerable<WatchlistItemDTO>> GetSearchResults(string titleName)
         {
-            IList<SearchResultDTO> someResults = new List<SearchResultDTO>{
-                new SearchResultDTO
+            IList<WatchlistItemDTO> someResults = new List<WatchlistItemDTO>{
+                new WatchlistItemDTO
                 {
                     Type = "show",
                     Title = "Psycho Pass",
@@ -55,7 +55,7 @@ namespace StreamBudget.Controllers
                         },
                     }
                 },
-                new SearchResultDTO
+                new WatchlistItemDTO
                 {
                     Type = "show",
                     Title = "Batman: The Animated Series",
@@ -113,7 +113,7 @@ namespace StreamBudget.Controllers
                 //        }
                 //    }
                 //},
-                new SearchResultDTO
+                new WatchlistItemDTO
                 {
                     Type = "show",
                     Title = "Spider-man",
@@ -144,7 +144,7 @@ namespace StreamBudget.Controllers
 
             };
 
-            IEnumerable<SearchResultDTO> resultsToReturn = someResults.AsEnumerable();
+            IEnumerable<WatchlistItemDTO> resultsToReturn = someResults.AsEnumerable();
 
             return someResults;
         }

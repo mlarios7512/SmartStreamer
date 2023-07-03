@@ -1,12 +1,12 @@
 ﻿$(".add-series-to-watchlist-btn").click(function () {
     let imdbIdOfSeries = $(this).attr('id').substring(32);
 
-    const MUHvalues = getSeriesToAddInfo(imdbIdOfSeries);
-    console.log(`watchlist ID (thing): ${MUHvalues.CurWatchlistId}`)
-    console.log(`Title (thing): ${MUHvalues.TitleSTA}`);
-    console.log(`FirstYear (thing): ${MUHvalues.FirstYearSTA}`);
-    console.log(`runtime (thing): ${MUHvalues.RuntimeSTA}`);
-    console.log(`totalEpisodes (thing): ${MUHvalues.TotalEpisodeCountSTA}`);
+    const valuesToSubmit = getSeriesToAddInfo(imdbIdOfSeries);
+    console.log(`watchlist ID (thing): ${valuesToSubmit.CurWatchlistId}`)
+    console.log(`Title (thing): ${valuesToSubmit.TitleSTA}`);
+    console.log(`FirstYear (thing): ${valuesToSubmit.FirstYearSTA}`);
+    console.log(`runtime (thing): ${valuesToSubmit.RuntimeSTA}`);
+    console.log(`totalEpisodes (thing): ${valuesToSubmit.TotalEpisodeCountSTA}`);
 
     //The error message still triggers but the HTTP response is 200. Try:
     // 1) Make sure the "$.ajax" method (below) is correct. (Even 1 mistake can trigger the error.)
@@ -14,7 +14,7 @@
         type: "POST",
         url: `/api/WatchlistInfo/add/series`,
         contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify(MUHvalues),
+        data: JSON.stringify(valuesToSubmit),
         success: displayItemSavedMsg,
         error: errorSavingItemMsg
 

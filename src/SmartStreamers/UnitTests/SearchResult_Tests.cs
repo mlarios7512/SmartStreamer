@@ -52,10 +52,10 @@ public class Tests
 
 
         //Act
-        IEnumerable<SearchResultDTO> ParsedJson = SearchResultDTO.FromJSON(responseFromAPI);
+        IEnumerable<WatchlistItemDTO> ParsedJson = WatchlistItemDTO.FromJSON(responseFromAPI);
 
         //Assert
-        foreach (SearchResultDTO i in ParsedJson)
+        foreach (WatchlistItemDTO i in ParsedJson)
         {
             Assert.That(i.Type.Equals(correctType));
             Assert.That(i.Title.Equals(correctTitle));
@@ -77,7 +77,7 @@ public class Tests
     public void FromJson_WithInvalidAPIResponse_ShouldReturnEnumerableWithZeroItems()
     {
         //Arrange
-        IEnumerable<SearchResultDTO> ParsedJson = SearchResultDTO.FromJSON("");
+        IEnumerable<WatchlistItemDTO> ParsedJson = WatchlistItemDTO.FromJSON("");
 
         //Act
 
@@ -145,10 +145,10 @@ public class Tests
         }";
 
         //Act
-        IEnumerable<SearchResultDTO> SeriesSearchResults = SearchResultDTO.FromJSON(responseFromAPI);
+        IEnumerable<WatchlistItemDTO> SeriesSearchResults = WatchlistItemDTO.FromJSON(responseFromAPI);
 
         //Assert
-        foreach (SearchResultDTO mediaItem in SeriesSearchResults)
+        foreach (WatchlistItemDTO mediaItem in SeriesSearchResults)
         {
 
             Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault(0).AvailableOnSubscription == false);
@@ -190,10 +190,10 @@ public class Tests
         }";
 
         //Act
-        IEnumerable<SearchResultDTO> SeriesSearchResults = SearchResultDTO.FromJSON(responseFromAPI);
+        IEnumerable<WatchlistItemDTO> SeriesSearchResults = WatchlistItemDTO.FromJSON(responseFromAPI);
 
         //Assert
-        foreach (SearchResultDTO mediaItem in SeriesSearchResults)
+        foreach (WatchlistItemDTO mediaItem in SeriesSearchResults)
         {
             foreach (StreamingPlatformDTO platformInfo in mediaItem.StreamingInfo)
             {
@@ -260,11 +260,11 @@ public class Tests
         }";
 
         //Act
-        IEnumerable<SearchResultDTO> SeriesSearchResults = SearchResultDTO.FromJSON(responseFromAPI);
+        IEnumerable<WatchlistItemDTO> SeriesSearchResults = WatchlistItemDTO.FromJSON(responseFromAPI);
 
 
         //Assert
-        foreach (SearchResultDTO mediaItem in SeriesSearchResults)
+        foreach (WatchlistItemDTO mediaItem in SeriesSearchResults)
         {
             foreach (StreamingPlatformDTO platformInfo in mediaItem.StreamingInfo)
             {

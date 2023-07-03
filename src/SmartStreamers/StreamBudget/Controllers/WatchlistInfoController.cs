@@ -69,13 +69,7 @@ namespace StreamBudget.Controllers
                 
             }
 
-            return BadRequest();
-       
-            
-            
-
-         
-            
+            return BadRequest();   
         }
 
         [HttpPost("remove/series/{imdbId}")]

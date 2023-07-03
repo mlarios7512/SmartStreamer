@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace StreamBudget.Models.DTO.StreamAvail
 {
-    public class SearchResultDTO
+    public class WatchlistItemDTO
     {
         public string Type { get; set; }
         public string Title { get; set; }
@@ -54,7 +54,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
             }
         }
 
-        public static IList<SearchResultDTO> FromJSON(object? obj)
+        public static IList<WatchlistItemDTO> FromJSON(object? obj)
         {
             JObject? jObject = null;
             try
@@ -67,7 +67,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
             }
             if (jObject != null)
             {
-                IEnumerable<SearchResultDTO> MediaItemsAsEnum = jObject["result"].Select(i => new SearchResultDTO()
+                IEnumerable<WatchlistItemDTO> MediaItemsAsEnum = jObject["result"].Select(i => new WatchlistItemDTO()
                 {
                     Type = (string)i["type"],
                     Title = (string)i["title"],
@@ -83,7 +83,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     SeasonCount = (int)i["seasonCount"]
 
                 });
-                List<SearchResultDTO> MediaItems = MediaItemsAsEnum.ToList();
+                List<WatchlistItemDTO> MediaItems = MediaItemsAsEnum.ToList();
 
                 var allTitles = jObject["result"].Children().ToList();
                 StreamingPlatformDTO.GetPlatformDetails_FromJSON(allTitles, MediaItems);
@@ -91,7 +91,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
                 return MediaItems;
             }
 
-            return new List<SearchResultDTO>();
+            return new List<WatchlistItemDTO>();
         }
     }
 }

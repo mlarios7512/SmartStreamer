@@ -47,20 +47,20 @@ namespace StreamBudget.Services.Concrete
         }
 
 
-        public async Task<IEnumerable<SearchResultDTO>> GetBasicSearch(string titleName)
+        public async Task<IEnumerable<WatchlistItemDTO>> GetBasicSearch(string titleName)
         {
             string source = BaseSource + "/search/title?title=" + titleName + "&country=us&show_type=series&output_language=en";
 
             string response = await GetJsonStringFromEndpointGet(Key, source);
-            return SearchResultDTO.FromJSON(response).AsEnumerable();
+            return WatchlistItemDTO.FromJSON(response).AsEnumerable();
         }
 
-        public async Task<SearchResultDTO> GetSeriesDetails(string imdbId)
+        public async Task<WatchlistItemDTO> GetSeriesDetails(string imdbId)
         {
             string source = BaseSource + "get/basic?imdb_id=" + imdbId + "&country=us";
             source = "https://streaming-availability.p.rapidapi.com/v2/get/basic?imdb_id=" + imdbId + "&country=us";
             string response = await GetJsonStringFromEndpointGet(Key, source);
-            SearchResultDTO series = new SearchResultDTO();
+            WatchlistItemDTO series = new WatchlistItemDTO();
             series.FromJSON_SingleSeriesDetails(response);
 
             return series;

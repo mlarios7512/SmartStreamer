@@ -13,14 +13,18 @@ namespace StreamBudget.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IPersonRepository _personRepository;
+        private readonly IWatchlistItemRepository _watchlistItemRepository;
         private readonly IWatchlistRepository _watchlistRepository;
+        
 
         public WatchlistController(UserManager<IdentityUser> userManager, 
-            IPersonRepository personRepository, 
+            IPersonRepository personRepository,
+             IWatchlistItemRepository watchlistItemRepository,
             IWatchlistRepository watchlistRepository) 
         {
             _personRepository = personRepository;
             _userManager = userManager;
+            _watchlistItemRepository = watchlistItemRepository;
             _watchlistRepository = watchlistRepository;
         }
 
@@ -36,138 +40,166 @@ namespace StreamBudget.Controllers
         }
 
         [Authorize]
-        public IActionResult ViewWatchlistItems()
+        public IActionResult ViewWatchlistItems(int watchlistId)
         {
             string aspId = _userManager.GetUserId(User);
             Person curUser = _personRepository.FindPersonByAspId(aspId);
 
-            IList<SearchResultDTO> someResults = new List<SearchResultDTO>{
-                new SearchResultDTO
-                {
-                    Type = "show",
-                    Title = "Psycho Pass",
-                    Overview = "Psycho-Pass is set in a futuristic era in Japan where ...",
-                    FirstAirYear = 2012,
-                    LastAirYear = 2019,
-                    ImdbRating = 82,
-                    BackdropURL = "https://image.tmdb.org/t/p/original/2HtnTJLs3CDUTu6ug8rib5vNnU2.jpg",
-                    AdvisedMinimumAudienceAge = 16,
-                    ImdbId = "tt2379308",
-                    Runtime = 28,
-                    EpisodeCount = 41,
-                    SeasonCount = 3,
-                    StreamingInfo = new List<StreamingPlatformDTO>
-                    {
-                        new StreamingPlatformDTO
-                        {
-                            PlatformName = "HBO",
-                            AvailableOnSubscription = false,
-                        },
-                        new StreamingPlatformDTO
-                        {
-                            PlatformName = "Hulu",
-                            AvailableOnSubscription = true,
-                        },
-                    }
-                },
-                new SearchResultDTO
-                {
-                    Type = "show",
-                    Title = "Batman: The Animated Series",
-                    Overview = "Vowing to avenge the murder of his parents ...",
-                    FirstAirYear = 1992,
-                    LastAirYear = 1995,
-                    ImdbRating = 90,
-                    BackdropURL = "https://image.tmdb.org/t/p/original/2Eib5rvQXl2TTp4GBLgTnvAQNUL.jpg",
-                    AdvisedMinimumAudienceAge = 6,
-                    ImdbId = "tt0103359",
-                    Runtime = 22,
-                    EpisodeCount = 85,
-                    SeasonCount = 4,
-                    StreamingInfo = new List<StreamingPlatformDTO>
-                    {
-                        new StreamingPlatformDTO
-                        {
-                            PlatformName = "HBO",
-                            AvailableOnSubscription = true,
-                        },
-                        new StreamingPlatformDTO
-                        {
-                            PlatformName = "Disney",
-                            AvailableOnSubscription = false,
-                        }
-                    }
-                },
+            //NEED TO ADD SAFEGUARD TO PREVENT a user accessing another user's items!
+            if (_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, watchlistId) == false)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
 
-                //new SearchResultDTO
-                //{
-                //    Type = "show",
-                //    Title = "Dude in Cape",
-                //    Overview = "What the title says ...",
-                //    FirstAirYear = 1992,
-                //    LastAirYear = 1995,
-                //    ImdbRating = 90,
-                //    BackdropURL = "https://image.tmdb.org/t/p/original/2Eib5rvQXl2TTp4GBLgTnvAQNUL.jpg",
-                //    AdvisedMinimumAudienceAge = 6,
-                //    ImdbId = "tt0103359",
-                //    Runtime = 60,
-                //    EpisodeCount = 1480,
-                //    SeasonCount = 4,
-                //    StreamingInfo = new List<StreamingPlatformDTO>
-                //    {
-                //        new StreamingPlatformDTO
-                //        {
-                //            PlatformName = "HBO",
-                //            AvailableOnSubscription = true,
-                //        },
-                //        new StreamingPlatformDTO
-                //        {
-                //            PlatformName = "Disney",
-                //            AvailableOnSubscription = false,
-                //        }
-                //    }
-                //},
-                new SearchResultDTO
-                {
-                    Type = "show",
-                    Title = "Spider-man",
-                    Overview = "Bitten by a radioactive spider, Peter Parker...",
-                    FirstAirYear = 1994,
-                    LastAirYear = 1998,
-                    ImdbRating = 82,
-                    BackdropURL = "https://image.tmdb.org/t/p/original/cYt2vWSHMpwAg9uJ24vb4g5CC4Y.jpg",
-                    AdvisedMinimumAudienceAge = 16,
-                    ImdbId = "tt0112175",
-                    Runtime = null, //PRETENDING THIS HAS NO RUNTIME.
-                    EpisodeCount = 41,
-                    SeasonCount = 3,
-                    StreamingInfo = new List<StreamingPlatformDTO>
-                    {
-                        new StreamingPlatformDTO
-                        {
-                            PlatformName = "HBO",
-                            AvailableOnSubscription = false,
-                        },
-                        new StreamingPlatformDTO
-                        {
-                            PlatformName = "Hulu",
-                            AvailableOnSubscription = true,
-                        },
-                    }
-                },
 
-            };
+            ////-------------------------HARD CODED ITEMS to save on API calls (below)-----------------------
 
-            IEnumerable<SearchResultDTO> resultsToReturn = someResults.AsEnumerable();
+            //IList<SearchResultDTO> searchResults = new List<SearchResultDTO>{
+            //    new SearchResultDTO
+            //    {
+            //        Type = "show",
+            //        Title = "Psycho Pass",
+            //        Overview = "Psycho-Pass is set in a futuristic era in Japan where ...",
+            //        FirstAirYear = 2012,
+            //        LastAirYear = 2019,
+            //        ImdbRating = 82,
+            //        BackdropURL = "https://image.tmdb.org/t/p/original/2HtnTJLs3CDUTu6ug8rib5vNnU2.jpg",
+            //        AdvisedMinimumAudienceAge = 16,
+            //        ImdbId = "tt2379308",
+            //        Runtime = 28,
+            //        EpisodeCount = 41,
+            //        SeasonCount = 3,
+            //        StreamingInfo = new List<StreamingPlatformDTO>
+            //        {
+            //            new StreamingPlatformDTO
+            //            {
+            //                PlatformName = "HBO",
+            //                AvailableOnSubscription = false,
+            //            },
+            //            new StreamingPlatformDTO
+            //            {
+            //                PlatformName = "Hulu",
+            //                AvailableOnSubscription = true,
+            //            },
+            //        }
+            //    },
+            //    new SearchResultDTO
+            //    {
+            //        Type = "show",
+            //        Title = "Batman: The Animated Series",
+            //        Overview = "Vowing to avenge the murder of his parents ...",
+            //        FirstAirYear = 1992,
+            //        LastAirYear = 1995,
+            //        ImdbRating = 90,
+            //        BackdropURL = "https://image.tmdb.org/t/p/original/2Eib5rvQXl2TTp4GBLgTnvAQNUL.jpg",
+            //        AdvisedMinimumAudienceAge = 6,
+            //        ImdbId = "tt0103359",
+            //        Runtime = 22,
+            //        EpisodeCount = 85,
+            //        SeasonCount = 4,
+            //        StreamingInfo = new List<StreamingPlatformDTO>
+            //        {
+            //            new StreamingPlatformDTO
+            //            {
+            //                PlatformName = "HBO",
+            //                AvailableOnSubscription = true,
+            //            },
+            //            new StreamingPlatformDTO
+            //            {
+            //                PlatformName = "Disney",
+            //                AvailableOnSubscription = false,
+            //            }
+            //        }
+            //    },
+
+
+            //    //new SearchResultDTO
+            //    //{
+            //    //    Type = "show",
+            //    //    Title = "Dude in Cape",
+            //    //    Overview = "What the title says ...",
+            //    //    FirstAirYear = 1992,
+            //    //    LastAirYear = 1995,
+            //    //    ImdbRating = 90,
+            //    //    BackdropURL = "https://image.tmdb.org/t/p/original/2Eib5rvQXl2TTp4GBLgTnvAQNUL.jpg",
+            //    //    AdvisedMinimumAudienceAge = 6,
+            //    //    ImdbId = "tt0103359",
+            //    //    Runtime = 60,
+            //    //    EpisodeCount = 1480,
+            //    //    SeasonCount = 4,
+            //    //    StreamingInfo = new List<StreamingPlatformDTO>
+            //    //    {
+            //    //        new StreamingPlatformDTO
+            //    //        {
+            //    //            PlatformName = "HBO",
+            //    //            AvailableOnSubscription = true,
+            //    //        },
+            //    //        new StreamingPlatformDTO
+            //    //        {
+            //    //            PlatformName = "Disney",
+            //    //            AvailableOnSubscription = false,
+            //    //        }
+            //    //    }
+            //    //},
+            //    new SearchResultDTO
+            //    {
+            //        Type = "show",
+            //        Title = "Spider-man",
+            //        Overview = "Bitten by a radioactive spider, Peter Parker...",
+            //        FirstAirYear = 1994,
+            //        LastAirYear = 1998,
+            //        ImdbRating = 82,
+            //        BackdropURL = "https://image.tmdb.org/t/p/original/cYt2vWSHMpwAg9uJ24vb4g5CC4Y.jpg",
+            //        AdvisedMinimumAudienceAge = 16,
+            //        ImdbId = "tt0112175",
+            //        Runtime = null, //PRETENDING THIS HAS NO RUNTIME.
+            //        EpisodeCount = 41,
+            //        SeasonCount = 3,
+            //        StreamingInfo = new List<StreamingPlatformDTO>
+            //        {
+            //            new StreamingPlatformDTO
+            //            {
+            //                PlatformName = "HBO",
+            //                AvailableOnSubscription = false,
+            //            },
+            //            new StreamingPlatformDTO
+            //            {
+            //                PlatformName = "Hulu",
+            //                AvailableOnSubscription = true,
+            //            },
+            //        }
+            //    },
+
+            //};
+            //IEnumerable<SearchResultDTO> resultsToReturn = searchResults.AsEnumerable();
+
+
+            //WatchlistVM watchlistDisplay = new WatchlistVM();
+            //watchlistDisplay.SearchResults = resultsToReturn;
+
+            //CompletionTime seriesCompletionTime = new CompletionTime();
+            //foreach (var item in resultsToReturn)
+            //{
+            //    seriesCompletionTime = new CompletionTime(item.EpisodeCount, item.Runtime);
+            //    watchlistDisplay.CompletionTimes.Add(seriesCompletionTime);
+            //}
+
+            //return View(watchlistDisplay);
+
+            ////-------------------------HARD CODED ITEMS to save on API calls (above)-----------------------
+
+
+            List<WatchlistItem> itemsInWatchlist = _watchlistItemRepository.GetWatchlistItemByWatchlistId(watchlistId);
+
 
             WatchlistVM watchlistDisplay = new WatchlistVM();
-            watchlistDisplay.SearchResults = resultsToReturn;
+            watchlistDisplay.WatchlistItems = itemsInWatchlist.AsEnumerable();
 
             CompletionTime seriesCompletionTime = new CompletionTime();
-            foreach (var item in resultsToReturn)
+            foreach (var item in itemsInWatchlist)
             {
-                seriesCompletionTime = new CompletionTime(item.EpisodeCount, item.Runtime);
+                seriesCompletionTime = new CompletionTime(item.TotalEpisodeCount, item.EpisodeRuntime);
                 watchlistDisplay.CompletionTimes.Add(seriesCompletionTime);
             }
 

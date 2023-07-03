@@ -34,5 +34,18 @@ namespace StreamBudget.DAL.Concrete
 
             return false;
         }
+
+        public List<WatchlistItem> GetWatchlistItemByWatchlistId(int watchlistId)
+        {
+            try
+            {
+                List<WatchlistItem> watchlistItems = _dbSet.Where(wi => wi.WatchlistId == watchlistId).ToList();
+                return watchlistItems;
+            }
+            catch (InvalidOperationException) 
+            {
+                return new List<WatchlistItem>();
+            }
+        }
     }
 }

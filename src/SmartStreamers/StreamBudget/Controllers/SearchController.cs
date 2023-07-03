@@ -50,8 +50,8 @@ namespace StreamBudget.Controllers
 
             //---------HARD CODED to save API calls (below)-------------------
 
-            IList<SearchResultDTO> someResults = new List<SearchResultDTO>{
-                new SearchResultDTO
+            IList<Models.DTO.StreamAvail.WatchlistItemDTO> someResults = new List<Models.DTO.StreamAvail.WatchlistItemDTO>{
+                new Models.DTO.StreamAvail.WatchlistItemDTO
                 {
                     Type = "show",
                     Title = "Psycho Pass",
@@ -79,7 +79,7 @@ namespace StreamBudget.Controllers
                         },
                     }
                 },
-                new SearchResultDTO
+                new Models.DTO.StreamAvail.WatchlistItemDTO
                 {
                     Type = "show",
                     Title = "Batman: The Animated Series",
@@ -137,7 +137,7 @@ namespace StreamBudget.Controllers
                 //        }
                 //    }
                 //},
-                new SearchResultDTO
+                new Models.DTO.StreamAvail.WatchlistItemDTO
                 {
                     Type = "show",
                     Title = "Spider-man",
@@ -168,7 +168,7 @@ namespace StreamBudget.Controllers
 
             };
 
-            IEnumerable<SearchResultDTO> resultsToReturn = someResults.AsEnumerable();
+            IEnumerable<Models.DTO.StreamAvail.WatchlistItemDTO> resultsToReturn = someResults.AsEnumerable();
 
             SeriesSearchVM searchVM = new SeriesSearchVM();
             searchVM.SearchResults = resultsToReturn;

@@ -20,4 +20,19 @@ public partial class WatchlistItem
     public int WatchlistId { get; set; }
 
     public virtual Watchlist Watchlist { get; set; } = null!;
+
+    public bool WatchlistItemsAreEqual(ref WatchlistItem other) 
+    {
+        if(other.Id == this.Id
+            && other.Title == this.Title
+            && other.ImdbId == this.ImdbId
+            && other.FirstAirYear == this.FirstAirYear
+            && other.EpisodeRuntime == this.EpisodeRuntime
+            && other.TotalEpisodeCount == this.TotalEpisodeCount
+            && other.WatchlistId == this.WatchlistId) 
+        {
+            return true;
+        }
+        return false;
+    }
 }

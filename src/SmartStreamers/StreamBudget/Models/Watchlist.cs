@@ -18,4 +18,16 @@ public partial class Watchlist
     public virtual Person Owner { get; set; } = null!;
 
     public virtual ICollection<WatchlistItem> WatchlistItems { get; set; } = new List<WatchlistItem>();
+
+    public bool AreWatchlistsEqual(ref Watchlist other)
+    {
+        if(other.Id == this.Id 
+            && other.Name == this.Name 
+            && other.SelectedStreamingCost == this.SelectedStreamingCost
+            && other.OwnerId == this.OwnerId) 
+        {
+            return true;
+        }
+        return false;
+    }
 }

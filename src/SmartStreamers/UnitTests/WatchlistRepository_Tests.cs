@@ -94,17 +94,8 @@ namespace UnitTests
 
 
             //Assert
-            Assert.That(WatchlistsRetrieved.ElementAt(0).Name == ExpectedWatchlistOne.Name);
-            Assert.That(WatchlistsRetrieved.ElementAt(0).StreamingPlatform == ExpectedWatchlistOne.StreamingPlatform);
-            Assert.That(WatchlistsRetrieved.ElementAt(0).SelectedStreamingCost == ExpectedWatchlistOne.SelectedStreamingCost);
-            Assert.That(WatchlistsRetrieved.ElementAt(0).OwnerId == ExpectedWatchlistOne.OwnerId);
-
-            Assert.That(WatchlistsRetrieved.ElementAt(1).Name == ExpectedWatchlistTwo.Name);
-            Assert.That(WatchlistsRetrieved.ElementAt(1).StreamingPlatform == ExpectedWatchlistTwo.StreamingPlatform);
-            Assert.That(WatchlistsRetrieved.ElementAt(1).SelectedStreamingCost == ExpectedWatchlistTwo.SelectedStreamingCost);
-            Assert.That(WatchlistsRetrieved.ElementAt(1).OwnerId == ExpectedWatchlistTwo.OwnerId);
-
-
+            Assert.That(WatchlistsRetrieved.ElementAt(0).AreWatchlistsEqual(ref ExpectedWatchlistOne));
+            Assert.That(WatchlistsRetrieved.ElementAt(1).AreWatchlistsEqual(ref ExpectedWatchlistTwo));
             Assert.That(WatchlistsRetrieved.Count == 2);
         }
 

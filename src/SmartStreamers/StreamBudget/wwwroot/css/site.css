@@ -47,3 +47,27 @@ body {
 .hidden {
     display: none;
 }
+
+.no-watchtime-item {
+    background-color: red;
+}
+
+.hoverable-indication:hover {
+    filter: contrast(.5);
+    cursor: pointer;
+}
+
+.watchlist-crud-alert {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+}
+
+.required-field{
+    color:red;
+}
+
+.SB-container{
+    background-color:black;
+    color:white;
+}

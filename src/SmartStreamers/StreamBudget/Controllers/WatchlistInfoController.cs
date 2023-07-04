@@ -79,14 +79,19 @@ namespace StreamBudget.Controllers
         {
             try 
             {
+                string aspId = _userManager.GetUserId(User);
+                Person curUser = _personRepo.FindPersonByAspId(aspId);
+
+                if (_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, watchlistId) == false) 
+                {
+                    return BadRequest("tt-ERROR-DELETION");
+                }
+
                 int curwatchlistId = _watchlistRepository.FindById(watchlistId).Id;
                 _watchlistItemRepository.DeleteWatchlistItemBySeriesId(curwatchlistId, imdbId);
-
-                
-                //_watchlistRepository.DeleteEntryBySeriesId(imdbId);
                 return Ok(imdbId);
             }
-            catch (NullReferenceException)  //IDK WHAT EXCEPTION THIS WOULD BE.
+            catch (NullReferenceException)
             {
                 return BadRequest("tt-ERROR-DELETION");
             }

@@ -94,8 +94,8 @@ namespace UnitTests
 
 
             //Assert
-            Assert.That(WatchlistsRetrieved.ElementAt(0).AreWatchlistsEqual(ref ExpectedWatchlistOne));
-            Assert.That(WatchlistsRetrieved.ElementAt(1).AreWatchlistsEqual(ref ExpectedWatchlistTwo));
+            Assert.That(WatchlistsRetrieved.ElementAt(0).WatchlistsAreEqual(ref ExpectedWatchlistOne));
+            Assert.That(WatchlistsRetrieved.ElementAt(1).WatchlistsAreEqual(ref ExpectedWatchlistTwo));
             Assert.That(WatchlistsRetrieved.Count == 2);
         }
 

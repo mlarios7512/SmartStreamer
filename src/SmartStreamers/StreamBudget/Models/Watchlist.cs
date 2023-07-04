@@ -19,10 +19,11 @@ public partial class Watchlist
 
     public virtual ICollection<WatchlistItem> WatchlistItems { get; set; } = new List<WatchlistItem>();
 
-    public bool AreWatchlistsEqual(ref Watchlist other)
+    public bool WatchlistsAreEqual(ref Watchlist other)
     {
         if(other.Id == this.Id 
             && other.Name == this.Name 
+            && other.StreamingPlatform == this.StreamingPlatform
             && other.SelectedStreamingCost == this.SelectedStreamingCost
             && other.OwnerId == this.OwnerId) 
         {

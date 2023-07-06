@@ -1,6 +1,33 @@
 ﻿@model StreamBudget.ViewModels.WatchlistVM
 
+<head>
+    <link rel="stylesheet" href="~/css/regwatchlist.css" />
+</head>
+
+
 <span class="hidden" id="watchlist-id">@Model.WatchlistId</span>
+
+
+
+    <form class="SB-container mb-5" id="watchlist-stats-form">
+        <div class="mb-3 row">
+            <label for="tv-hours-per-day-input" class="col-sm-5 col-form-label">Hours of TV per day</label>
+            <div class="col-md-4">
+                <input type="number" placeholder="Ex: 2" class="form-control" id="tv-hours-per-day-input" min="0" max="24" />
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="streaming-cost-per-month" class="col-sm-5 col-form-label">Streaming subscription cost per month</label>
+            <div class="col-md-4">
+                <input type="number" placeholder="Ex: 6.99 (USD only)" step="0.01" class="form-control" id="streaming-cost-per-month-input" min="0" />
+            </div>
+        </div>
+        <button type="button" id="generate-watchlist-stats-btn" class="btn btn-primary">Generate stats</button>
+    </form>
+
+
+
+
 <table class="table table-dark table-hover">
     <thead>
         <tr>
@@ -20,12 +47,12 @@
                     @if(Model.CompletionTimes.ElementAtOrDefault(i).FullSeries != null)
                     {
                         <td>@Model.CompletionTimes.ElementAtOrDefault(i).FullSeries</td>
-                        <td class="hidden"><input type="hidden" name="FullSeriesHoursWatchtime" value="@Model.CompletionTimes.ElementAtOrDefault(i).FullSeries"></td>
+                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" value="@Model.CompletionTimes.ElementAtOrDefault(i).FullSeries"></td>
                     }
                     else
                     {
                         <td>(N/A)</td>
-                        <td class="hidden"><input type="hidden" name="FullSeriesHoursWatchtime" value="0"></td>
+                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" value="0"></td>
                     }
 
                     <td><span type="button" class="hoverable-indication remove-watchlist-series-btn" id="remove-watchlist-item-@item.ImdbId">X</span></td>
@@ -38,4 +65,5 @@
 
 @section Scripts{
     <script type="text/javascript" src="~/js/serieswatchlist.js"></script>
+    <script type="text/javascript" src="~/js/generatewatchliststats.js"></script>
 }

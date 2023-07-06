@@ -1,4 +1,8 @@
-﻿.series-item{
+﻿body{
+    color:white;
+}
+
+.series-item{
     background-color:black;
 }
 

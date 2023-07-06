@@ -22,7 +22,9 @@
                 <input type="number" placeholder="Ex: 6.99 (USD only)" step="0.01" class="form-control" id="streaming-cost-per-month-input" min="0" />
             </div>
         </div>
-        <button type="button" id="generate-watchlist-stats-btn" class="btn btn-primary">Generate stats</button>
+        <button type="button" id="generate-watchlist-stats-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchlistStatsModal">
+            Generate stats
+        </button>
     </form>
 
 
@@ -62,6 +64,26 @@
         }
     </tbody>
 </table>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="watchlistStatsModal" tabindex="-1" aria-labelledby="watchlistStatsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="watchlistStatsModalLabel">Watchlist stats</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="watchlist-stats-modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 @section Scripts{
     <script type="text/javascript" src="~/js/serieswatchlist.js"></script>

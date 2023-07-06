@@ -32,9 +32,15 @@ $("#generate-watchlist-stats-btn").click(function () {
 
     let totalSubscriptionCosts = monthsToFinishAllSeries * formValues.monthlySubscriptionCost;
 
-    console.log(`Months to finish all series: ${monthsToFinishAllSeries}`);
-    console.log(`Total subscription costs: ~ $${totalSubscriptionCosts}`);
+    //console.log(`Months to finish all series: ${monthsToFinishAllSeries}`);
+    //console.log(`Total subscription costs: ~ $${totalSubscriptionCosts}`);
 
+    //------
+    if (totalWatchlistTimeInHours > 0) {
+        totalSubscriptionCosts = formValues.monthlySubscriptionCost;
+    }
+
+    displayWatchlistStats(totalWatchlistTimeInHours, monthsToFinishAllSeries, totalSubscriptionCosts);
 });
 
 function getWatchlistStatsFormValues() {
@@ -56,4 +62,29 @@ function getWatchlistStatsFormValues() {
         tvHours: Number(tvHoursPerDayInput.value),
         monthlySubscriptionCost: Number(streamingCostPerMonthInput.value)
     }
+}
+
+function displayWatchlistStats(totalWatchtimeInHours, monthsToWatchAllItems, totalSubCosts) {
+        totalWatchtimeInHours = Number(totalWatchtimeInHours);
+        monthsToWatchAllItems = Number(monthsToWatchAllItems);
+        totalSubCosts = Number(totalSubCosts);
+
+    console.log(monthsToWatchAllItems);
+
+    let monthsToWatchDisplay = null;
+    if (monthsToWatchAllItems < 1) {
+        monthsToWatchDisplay = "Less than 1 month"
+    }
+    else {
+        monthsToWatchDisplay = monthsToWatchAllItems.toString();
+    }
+
+    let stats = `
+        <p><span class="fw-bold">Total hours to watch:</span> ${totalWatchtimeInHours}</p>
+        <p><span class="fw-bold">Months to finish:</span> ${monthsToWatchDisplay}</p>
+        <p><span class="fw-bold">Total subscription costs:</span> $${totalSubCosts}</p>
+    `;
+
+    $("#watchlist-stats-modal-body").empty();
+    $("#watchlist-stats-modal-body").append(stats);
 }

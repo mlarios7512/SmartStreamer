@@ -24,6 +24,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
             foreach (var item in mediaItems)
             {
                 bool? availableOnappleSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("apple")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
+                bool? availableOnDisneySub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("disney")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
                 bool? availableOnHboSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("hbo")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
                 bool? availableOnHuluSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("hulu")?.Any(x => x.SelectToken("type")?.ToString() == "subscription"); ;
                 bool? availableOnNetflixSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("netflix")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
@@ -43,6 +44,17 @@ namespace StreamBudget.Models.DTO.StreamAvail
                 }
                 item.StreamingInfo.Add(StreamingPlatformInfo);
 
+                //-----------------
+                StreamingPlatformInfo = new StreamingPlatformDTO();
+                StreamingPlatformInfo.PlatformName = "Disney+";
+                if (availableOnDisneySub != null)
+                {
+                    if (availableOnDisneySub == true)
+                    {
+                        StreamingPlatformInfo.AvailableOnSubscription = true;
+                    }
+                }
+                item.StreamingInfo.Add(StreamingPlatformInfo);
 
                 //---------
                 StreamingPlatformInfo = new StreamingPlatformDTO();

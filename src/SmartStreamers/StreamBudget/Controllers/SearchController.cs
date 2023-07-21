@@ -170,7 +170,7 @@ namespace StreamBudget.Controllers
 
             //IEnumerable<Models.DTO.StreamAvail.WatchlistItemDTO> resultsToReturn = someResults.AsEnumerable();
 
-            ////---------HARD CODED to save API calls (below).-------------------
+            ////---------HARD CODED to save API calls (above).-------------------
 
             SeriesSearchVM searchVM = new SeriesSearchVM();
             searchVM.SearchResults = searchResults;

@@ -18,7 +18,7 @@ namespace StreamBudget.Services.Abstract
         /// streaming platforms the TV series is hosted on.)
         /// </summary>
         /// <param name="imdbId">ImdbId of the show to get info about.</param>
-        /// <returns>A SearchResult if the imdbID is valid. Returns a new SearchResultDTO otherwise.</returns>
+        /// <returns>A SearchResultDTO if the imdbID is valid. Returns a new SearchResultDTO otherwise.</returns>
         public Task<SearchResultDTO> GetSeriesDetails(string imdbId);
     }
 }

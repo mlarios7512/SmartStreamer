@@ -24,6 +24,8 @@ namespace StreamBudget.Models.DTO.StreamAvail
         public int SeasonCount { get; set; }
         public string BackdropURL { get; set; }
 
+        public List<SeasonDetailsDTO> SeasonDetails { get; set; } = new List<SeasonDetailsDTO>();
+
         public void FromJSON_SingleSeriesDetails(object? obj)
         {
             JObject jObject = null;
@@ -80,13 +82,16 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     ImdbId = (string)i["imdbId"],
                     Runtime = (int?)i["episodeRuntimes"]?.FirstOrDefault(),
                     EpisodeCount = (int)i["episodeCount"],
-                    SeasonCount = (int)i["seasonCount"]
-
+                    SeasonCount = (int)i["seasonCount"],
                 });
                 List<SearchResultDTO> MediaItems = MediaItemsAsEnum.ToList();
 
                 var allTitles = jObject["result"].Children().ToList();
                 StreamingPlatformDTO.GetPlatformDetails_FromJSON(allTitles, MediaItems);
+                SeasonDetailsDTO.GetSeasonDetails_FromJSON(allTitles, MediaItems);
+
+              
+                
 
                 return MediaItems;
             }

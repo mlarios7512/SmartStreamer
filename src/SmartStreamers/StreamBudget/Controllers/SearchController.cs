@@ -44,7 +44,12 @@ namespace StreamBudget.Controllers
             }
 
 
-            IEnumerable<SearchResultDTO> searchResults = await _streamAvailService.GetBasicSearch(titleName);
+            IEnumerable<SearchResultDTO> searchResults = Enumerable.Empty<SearchResultDTO>();
+            if (!titleName.IsNullOrEmpty()) 
+            {
+                searchResults = await _streamAvailService.GetBasicSearch(titleName);
+            }
+            
 
             //return View(searchResults);
 

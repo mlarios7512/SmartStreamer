@@ -4,6 +4,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
 {
     public class SeasonDetailsDTO
     {
+        public string OfficialName { get; set; } = null;
         public int EpisodeCount { get; set; } = 0;
 
         public SeasonDetailsDTO() 
@@ -24,7 +25,9 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     {
                         foreach (var season in seasonsInfo)
                         {
+
                             SeasonDetailsDTO seasonDetails = new SeasonDetailsDTO();
+                            seasonDetails.OfficialName = (string)season.SelectToken("title");
                             var episodes = season.SelectToken("episodes");
 
                             if (episodes != null)
@@ -83,6 +86,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     var episodes = season.SelectToken("episodes");
 
                     SeasonDetailsDTO seasonDetails = new SeasonDetailsDTO();
+                    seasonDetails.OfficialName = (string)season?.SelectToken("title");
                     if (episodes != null) 
                     {
                         seasonDetails.EpisodeCount = episodes.ToList().Count;

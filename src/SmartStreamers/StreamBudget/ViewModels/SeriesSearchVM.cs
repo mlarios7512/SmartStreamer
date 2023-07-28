@@ -9,7 +9,7 @@ namespace StreamBudget.ViewModels
         public int WatchlistId { get; set; }
 
         public IEnumerable<SearchResultDTO> SearchResults { get; set; } = new List<SearchResultDTO>();
-        public List<CompletionTime> CompletionTimes { get; set; } = new List<CompletionTime>();
+        public List<SeriesWatchtimeEstimate> CompletionTimes { get; set; } = new List<SeriesWatchtimeEstimate>();
 
         public SeriesSearchVM()
         {

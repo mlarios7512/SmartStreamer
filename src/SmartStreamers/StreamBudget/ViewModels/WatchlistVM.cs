@@ -8,7 +8,7 @@ namespace StreamBudget.ViewModels
     {
         public int WatchlistId { get; set; }
         public IEnumerable<WatchlistItem> WatchlistItems { get; set; } = new List<WatchlistItem>();
-        public List<CompletionTime> CompletionTimes { get; set; } = new List<CompletionTime>();
+        public List<SeriesWatchtimeEstimate> CompletionTimes { get; set; } = new List<SeriesWatchtimeEstimate>();
 
         public WatchlistVM()
         {

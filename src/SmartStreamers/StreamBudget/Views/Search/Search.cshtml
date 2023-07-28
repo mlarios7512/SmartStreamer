@@ -14,7 +14,7 @@
 
 <div class="d-flex flex-column gap-5">
 @{
-    int i = 0;
+    int seriesIndex = 0;
     foreach(var item in Model.SearchResults)
     {
         <div class="container p-4 series-item" id="container-for-@item.ImdbId">
@@ -56,16 +56,19 @@
                                 <thead>
                                 <tr>
                                     <th>Description</th>
-                                    <th>Time</th>
+                                    <th>Time (in hours)</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="table-active">
-                                        <td>Full series (in hours)</td>
+  
+                                        
+                                    <!----OLD VERSION (below)----->
+                                        <td>Full series</td>
                                         @{
-                                            if (@Model.CompletionTimes.ElementAtOrDefault(i).FullSeries != null)
+                                            if (Model.CompletionTimes.ElementAtOrDefault(seriesIndex).EstimatedWatchtime != null)
                                             {
-                                                <td id="full-series-watchtime-series-@item.ImdbId">~@Model.CompletionTimes.ElementAtOrDefault(i).FullSeries</td>
+                                                <td id="full-series-watchtime-series-@item.ImdbId">~@Model.CompletionTimes.ElementAtOrDefault(seriesIndex).EstimatedWatchtime</td>
                                             }
                                             else
                                             {
@@ -73,6 +76,28 @@
                                             }
                                         }
                                     </tr>
+                                    
+                                    @{
+                                        
+                                        @foreach(var season in Model.CompletionTimes.ElementAt(seriesIndex).SeasonWatchtimes)
+                                        {
+                                            <tr>
+               
+                                                <td>@season.SeasonName</td> <!--Should be "(Unknown)" if blank. Else the season number.-->
+
+                                                @if(season.EstimatedWatchtime != null)
+                                                {
+                                                    <td>~@season.EstimatedWatchtime</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>(N/A)</td>
+                                                }
+
+                                            </tr>
+                                        }
+                                    }
+                                    
                                 </tbody>
                             </table>
 
@@ -132,7 +157,7 @@
                 
                 <button class="btn btn-primary mt-3 add-series-to-watchlist-btn" id="add-to-watchlist-btn-series-btn-@item.ImdbId">Add to watch list</button>
         </div>
-        i++;
+        seriesIndex++;
     }
 }
 </div>

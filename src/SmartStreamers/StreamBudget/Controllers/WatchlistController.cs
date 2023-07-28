@@ -197,10 +197,11 @@ namespace StreamBudget.Controllers
             watchlistDisplay.WatchlistId = watchlistId;
             watchlistDisplay.WatchlistItems = itemsInWatchlist.AsEnumerable();
 
-            CompletionTime seriesCompletionTime = new CompletionTime();
+            //CompletionTime seriesCompletionTime = new CompletionTime();
+            SeriesWatchtimeEstimate seriesCompletionTime = null; //QUICK & LIKELY BAD FIX. Breaks functionality. (Just to shut up errors while working on "search" view.)
             foreach (var item in itemsInWatchlist)
             {
-                seriesCompletionTime = new CompletionTime(item.TotalEpisodeCount, item.EpisodeRuntime);
+                seriesCompletionTime = new SeriesWatchtimeEstimate("full series", item.TotalEpisodeCount, item.EpisodeRuntime); //NOT DONE. FINISH LATER.
                 watchlistDisplay.CompletionTimes.Add(seriesCompletionTime);
             }
 

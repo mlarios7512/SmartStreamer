@@ -182,12 +182,25 @@ namespace StreamBudget.Controllers
             searchVM.WatchlistId = watchlistId;
             
 
-            CompletionTime seriesCompletionTime = new CompletionTime();
+            SeriesWatchtimeEstimate seriesCompletionTime = null;
+           
             foreach (var item in searchVM.SearchResults)
             {
-                seriesCompletionTime = new CompletionTime(item.EpisodeCount, item.Runtime);
+                seriesCompletionTime = new SeriesWatchtimeEstimate("full series" ,item.EpisodeCount, item.Runtime);
+                
+                if(item.SeasonDetails.Count > 0) 
+                {
+                    SeasonWatchtimeEstimate seasonWatchtime = null;
+                    seriesCompletionTime.SeasonWatchtimes = new List<SeasonWatchtimeEstimate>();
+                    foreach (var season in item.SeasonDetails)
+                    {
+                        seasonWatchtime = new SeasonWatchtimeEstimate(season.OfficialName, season.EpisodeCount, item.Runtime);
+                        seriesCompletionTime.SeasonWatchtimes.Add(seasonWatchtime);
+                    }
+                }
                 searchVM.CompletionTimes.Add(seriesCompletionTime);
             }
+            
 
             return View(searchVM);
         }

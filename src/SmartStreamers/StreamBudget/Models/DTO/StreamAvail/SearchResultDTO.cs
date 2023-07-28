@@ -83,23 +83,14 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     Runtime = (int?)i["episodeRuntimes"]?.FirstOrDefault(),
                     EpisodeCount = (int)i["episodeCount"],
                     SeasonCount = (int)i["seasonCount"],
-                    SeasonDetails = (List<SeasonDetailsDTO>)SeasonDetailsDTO.GetSeasonDetailsSINGLE_FromJSON_V2(i.SelectToken("seasons")
-                                                                                                        .ToList()  //allTitles
+                    SeasonDetails = (List<SeasonDetailsDTO>)SeasonDetailsDTO.GetSeasonDetails_FromJSON(i.SelectToken("seasons")
+                                                                                                        .ToList()
                                                                                                          )
-
-                    ////NEEDS TESTING. NOTE: This is now the OLD version (proved to have the wrongish results.
-                    //SeasonDetails = (List<SeasonDetailsDTO>)SeasonDetailsDTO.GetSeasonDetails_FromJSON(i.Children().ToList())
                 });
                 List<SearchResultDTO> MediaItems = MediaItemsAsEnum.ToList();
 
                 var allTitles = jObject["result"].Children().ToList();
                 StreamingPlatformDTO.GetPlatformDetails_FromJSON(allTitles, MediaItems);
-                //List<SeasonDetailsDTO> seasonDetailsOld = SeasonDetailsDTO.GetSeasonDetails_FromJSON(allTitles);
-
-
-
-
-
 
                 return MediaItems;
             }

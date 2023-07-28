@@ -26,7 +26,20 @@
                     <h5><span id="first-air-year-@item.ImdbId">@item.FirstAirYear</span>-@item.LastAirYear</h5>
                 </div>
                 <div class="row">
-                    Recommended age: <span id="advised-audience-age-@item.ImdbId">@item.AdvisedMinimumAudienceAge</span>
+                    Recommended age:
+                    <span id="advised-audience-age-@item.ImdbId">
+                        @{if(item.AdvisedMinimumAudienceAge > 0)
+                        {
+                            @item.AdvisedMinimumAudienceAge
+                        }
+                        else
+                        {
+                            <i>(N/A)</i> 
+                        }
+                  
+                        }
+                    </span>
+
                 </div>
             </div>
      
@@ -61,9 +74,6 @@
                                 </thead>
                                 <tbody>
                                     <tr class="table-active">
-  
-                                        
-                                    <!----OLD VERSION (below)----->
                                         <td>Full series</td>
                                         @{
                                             if (Model.CompletionTimes.ElementAtOrDefault(seriesIndex).EstimatedWatchtime != null)
@@ -83,7 +93,7 @@
                                         {
                                             <tr>
                
-                                                <td>@season.SeasonName</td> <!--Should be "(Unknown)" if blank. Else the season number.-->
+                                                <td>@season.SeasonName</td>
 
                                                 @if(season.EstimatedWatchtime != null)
                                                 {

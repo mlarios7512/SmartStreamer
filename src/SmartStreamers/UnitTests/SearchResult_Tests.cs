@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using StreamBudget.Models.DTO.StreamAvail;
 
 namespace UnitTests;
@@ -282,4 +283,60 @@ public class Tests
             }
         }
     }
+
+
+    [Test]
+    public void GetSeasonDetailsFromJSON_WithOneSeason_ShouldReturnListOfOneSeasonDetails()
+    {
+
+        //Arrange
+        string responseFromAPI = @"{
+            ""result"": [
+                {
+                    ""type"": ""series"",
+                    ""title"": ""The Runaround"",
+                    ""overview"": ""simple overview"",
+                    ""firstAirYear"": 1996,
+                    ""lastAirYear"": 2001,
+                    ""imdbRating"": 82,
+                    ""backdropURLs"":{
+                        ""original"": ""theimagetosee""
+                    },
+                    ""advisedMinimumAudienceAge"": 16,
+                    ""seasonCount"": 3,
+                    ""seasons"":[
+                        {
+                            ""type"":""season"",
+                            ""title"":""Season 1"",
+                            ""episodes"":[
+                                {
+                                    ""type"":""episode"",
+                                    ""title"":""pilot""
+                                },
+                                {
+                                    ""type"":""episode"",
+                                    ""title"":""pilot""
+                                }
+                            ]
+                        }
+                    ]
+                    
+                }
+            ]
+        }"
+        ;
+
+        JObject? jObject = JObject.Parse((string)responseFromAPI);
+        var myScope = jObject.SelectToken("result").First.SelectToken("seasons").ToList();
+
+        //Act
+        List<SeasonDetailsDTO> SeasonInfo = new List<SeasonDetailsDTO>();
+        SeasonInfo = SeasonDetailsDTO.GetSeasonDetails_FromJSON(myScope);
+
+        //Assert
+        Assert.That(SeasonInfo.Count == 1);
+        Assert.That(SeasonInfo.First().OfficialName == "Season 1");
+        Assert.That(SeasonInfo.First().EpisodeCount == 2);
+    }
+
 }

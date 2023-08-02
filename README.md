@@ -17,4 +17,4 @@ Looking for shows to watch but not sure what streaming platforms have them? Look
 
 <br/>
 
-[![Search feature video for guests](https://i9.ytimg.com/vi/dMqtYNaP5-o/mqdefault.jpg?sqp=CPz-7qQG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGggaChoMA8=&rs=AOn4CLAqmwwctwWt1nUXZZbjKeKqTrforg)](https://youtu.be/dMqtYNaP5-o)
+[![Showcase of logged in user](https://i9.ytimg.com/vi/Y2crXasqnu0/mqdefault.jpg?sqp=CJTyp6YG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGggaChoMA8=&rs=AOn4CLCYyBOYk834d6AZ0SjzcEmZzHKSiA)](https://youtu.be/Y2crXasqnu0)

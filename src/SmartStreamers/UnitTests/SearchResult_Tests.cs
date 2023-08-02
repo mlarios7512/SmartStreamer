@@ -303,7 +303,7 @@ public class Tests
                         ""original"": ""theimagetosee""
                     },
                     ""advisedMinimumAudienceAge"": 16,
-                    ""seasonCount"": 3,
+                    ""seasonCount"": 1,
                     ""seasons"":[
                         {
                             ""type"":""season"",
@@ -315,7 +315,7 @@ public class Tests
                                 },
                                 {
                                     ""type"":""episode"",
-                                    ""title"":""pilot""
+                                    ""title"":""Some second episode""
                                 }
                             ]
                         }
@@ -327,7 +327,7 @@ public class Tests
         ;
 
         JObject? jObject = JObject.Parse((string)responseFromAPI);
-        var myScope = jObject.SelectToken("result").First.SelectToken("seasons").ToList();
+        List<JToken> myScope = jObject.SelectToken("result").First.SelectToken("seasons").ToList();
 
         //Act
         List<SeasonDetailsDTO> SeasonInfo = new List<SeasonDetailsDTO>();
@@ -337,6 +337,57 @@ public class Tests
         Assert.That(SeasonInfo.Count == 1);
         Assert.That(SeasonInfo.First().OfficialName == "Season 1");
         Assert.That(SeasonInfo.First().EpisodeCount == 2);
+    }
+
+    [Test]
+    public void GetSeasonDetailsFromJSON_WithTwoSeasons_ShouldReturnListOfTwoSeasonDetails()
+    {
+
+        //Arrange
+        string responseFromAPI = @"{
+                ""seasons"":[
+                    {
+                        ""type"":""season"",
+                        ""title"":""Season 1"",
+                        ""episodes"":[
+                            {
+                                ""type"":""episode"",
+                                ""title"":""pilot""
+                            },
+                            {
+                                ""type"":""episode"",
+                                ""title"":""Fried Delicacy""
+                            }
+                        ]
+                    },
+                    {
+                        ""type"":""season"",
+                        ""title"":""Season 2"",
+                        ""episodes"":[
+                            {
+                                ""type"":""episode"",
+                                ""title"":""Good Business""
+                            }
+                        ]
+                    }
+                ]
+        }"
+        ;
+
+        JObject? jObject = JObject.Parse((string)responseFromAPI);
+        List<JToken> myScope = jObject.SelectToken("seasons").ToList();
+
+        //Act
+        List<SeasonDetailsDTO> SeasonInfo = new List<SeasonDetailsDTO>();
+        SeasonInfo = SeasonDetailsDTO.GetSeasonDetails_FromJSON(myScope);
+
+        //Assert
+        Assert.That(SeasonInfo.Count == 2);
+        Assert.That(SeasonInfo.First().OfficialName == "Season 1");
+        Assert.That(SeasonInfo.First().EpisodeCount == 2);
+
+        Assert.That(SeasonInfo.ElementAt(1).OfficialName == "Season 2");
+        Assert.That(SeasonInfo.ElementAt(1).EpisodeCount == 1);
     }
 
 }

@@ -291,43 +291,27 @@ public class Tests
 
         //Arrange
         string responseFromAPI = @"{
-            ""result"": [
+            ""seasons"":[
                 {
-                    ""type"": ""series"",
-                    ""title"": ""The Runaround"",
-                    ""overview"": ""simple overview"",
-                    ""firstAirYear"": 1996,
-                    ""lastAirYear"": 2001,
-                    ""imdbRating"": 82,
-                    ""backdropURLs"":{
-                        ""original"": ""theimagetosee""
-                    },
-                    ""advisedMinimumAudienceAge"": 16,
-                    ""seasonCount"": 1,
-                    ""seasons"":[
+                    ""type"":""season"",
+                    ""title"":""Season 1"",
+                    ""episodes"":[
                         {
-                            ""type"":""season"",
-                            ""title"":""Season 1"",
-                            ""episodes"":[
-                                {
-                                    ""type"":""episode"",
-                                    ""title"":""pilot""
-                                },
-                                {
-                                    ""type"":""episode"",
-                                    ""title"":""Some second episode""
-                                }
-                            ]
+                            ""type"":""episode"",
+                            ""title"":""pilot""
+                        },
+                        {
+                            ""type"":""episode"",
+                            ""title"":""Some second episode""
                         }
                     ]
-                    
                 }
             ]
         }"
         ;
 
         JObject? jObject = JObject.Parse((string)responseFromAPI);
-        List<JToken> myScope = jObject.SelectToken("result").First.SelectToken("seasons").ToList();
+        List<JToken> myScope = jObject.SelectToken("seasons").ToList();
 
         //Act
         List<SeasonDetailsDTO> SeasonInfo = new List<SeasonDetailsDTO>();

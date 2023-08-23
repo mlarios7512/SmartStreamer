@@ -7,20 +7,37 @@
 </head>
 
 <div class="text-center mb-5">
-    <h1 class="display-4">StreamBudget</h1>
-    <p>Need to tell how long it'll take you to binge watch those shows on your watchlist? Want a quick overview before you watch it? You've come to the right place. </p>
+    <p>On a budget? Need to know if you can finish your favorite shows in a limited time frame? We've got you covered.</p>
 </div>
-<div class="container text-center my-5">
+
+
+<div class="text-center my-5 px-5 pt-5 pb-4 bg-dark">
     <div class="row">
-        <div class="col-4">
-            <h4>Search for a TV series</h4>
+        <div class="col">
+            <h4 class="mb-5">Search for titles
+                <br />
+                <i class="mt-5  fa-solid fa-magnifying-glass" style="font-size:54px; color: #ffffff;"></i>
+            </h4>
+            <p class="mb-5">All the standard features of a search. Release date, age rating, popularity, & more.</p>
+            
         </div>
-        <div class="col-8">
-            A simple search allows you get a quick overview about that show you've thought about watching.
-            <br />
-            <a role="button" class="btn btn-primary" asp-action="SeriesSearchResults" asp-controller="Home" id="try-it-btn">Try it</a>
+        <div class="col">
+            <h4 class="mb-5">Get watchtime estimates
+                <br />
+                <i class="mt-5  fa-solid fa-clock" style="font-size:54px; color: #ffffff;"></i>
+            </h4>
+            <p class="mb-5">Get estimates to finish particular seasons of series or from start to finish.</p>
+           
         </div>
-
+        <div class="col">
+            <h4 class="mb-5">Use multiple watchlists
+                <br />
+                <i class="mt-5 fa-solid fa-list" style="font-size:54px; color: #ffffff;"></i>
+            </h4>
+            <p class="mb-5">Organizing shows using different watchlists helps keep things if you want to track series by groups.</p>
+        </div>
     </div>
-
+    <div class="row">
+        <a role="button" class="btn btn-primary form-control" asp-action="SeriesSearchResults" asp-controller="Home" id="try-it-btn">Try it</a>
+    </div>
 </div>

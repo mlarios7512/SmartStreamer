@@ -198,6 +198,8 @@ namespace StreamBudget.Controllers
             watchlistDisplay.WatchlistItems = itemsInWatchlist.AsEnumerable();
 
             //CompletionTime seriesCompletionTime = new CompletionTime();
+
+            //Probably best to try to implement the watchtime estimates using the factory patterns (in case we want to use "movie" type from API too).
             SeriesWatchtimeEstimate seriesCompletionTime = null; //QUICK & LIKELY BAD FIX. Breaks functionality. (Just to shut up errors while working on "search" view.)
             foreach (var item in itemsInWatchlist)
             {

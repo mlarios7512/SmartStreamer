@@ -13,6 +13,8 @@ Looking for shows to watch but not sure what streaming platforms have them? Look
 
 
 
-## Demo of search feature (for site visitors)
+## Demo of site
 
-[![Showcase of logged in user](https://i9.ytimg.com/vi/Y2crXasqnu0/mqdefault.jpg?sqp=CJTyp6YG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGggaChoMA8=&rs=AOn4CLCYyBOYk834d6AZ0SjzcEmZzHKSiA)](https://youtu.be/Y2crXasqnu0)
+* Note: The video shows only features for a logged in user. The "visitor" page (the link that is visible at the start but not demoed in the video) does not allow for the creation of multiple watchlists (just one that can't be saved) and it does not display watchtime estimates for each season in the results.
+
+[![Link to YouTube video demo](https://i9.ytimg.com/vi/Y2crXasqnu0/mqdefault.jpg?sqp=CJTyp6YG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGggaChoMA8=&rs=AOn4CLCYyBOYk834d6AZ0SjzcEmZzHKSiA)](https://youtu.be/N8o0_7rnaMM)

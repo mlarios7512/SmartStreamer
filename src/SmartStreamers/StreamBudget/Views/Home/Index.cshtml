@@ -1,46 +1,105 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = null;
 }
+
+<!DOCTYPE html>
+<html lang="en" class="bg-dark">
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StreamBudget</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/index.css" />
     <link rel="stylesheet" href="~/css/searchresults.css" />
+    <link rel="stylesheet" href="~/StreamBudget.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/a189c30564.js" crossorigin="anonymous"></script>
 </head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">StreamBudget</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Watchlist" asp-action="ViewWatchlists">Watchlists</a>
+                        </li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="">
 
-<div class="text-center mb-5">
-    <h5>On a budget? Need to know if you can finish your favorite shows in a limited time frame? We've got you covered.</h5>
-</div>
+        <div class="text-center mt-5">
+            <p class="mb-4 fs-4">On a budget? Need to know if you can finish your favorite shows in a limited time frame? We've got you covered.</p>
+            <p class="mb-5 mt-5 fs-5">
+                StreamBudget allows for a quick search of any TV series that will show essential info about your favorite shows, such as release
+                date, popularity, platform avaiability, and more.
+                </p>
+        </div>
 
 
-<div class="text-center my-5 px-5 pt-5 pb-4 bg-dark">
-    <div class="row">
-        <div class="col">
-            <h4 class="mb-5">Search for titles
-                <br />
-                <i class="mt-5  fa-solid fa-magnifying-glass" style="font-size:54px; color: #ffffff;"></i>
-            </h4>
-            <p class="mb-5">All the essentials of a search for any show. Release date, popularity, platform avaiability, & more.</p>
-            
+        <div class="text-center my-5 px-5 pt-5 pb-4 bg-dark">
+            <div class="row" id="core-features-container">
+                <div class="col">
+                    <h4 class="mb-5">
+                        Compare platform availability
+                        <br />
+                        <i class="mt-5  fa-solid fa-magnifying-glass" style="font-size:54px; color: #ffffff;"></i>
+                    </h4>
+                    <p class="mb-5">Find out which streaming platform hosts that show. We provide results for 8 
+                        platforms, including some of the most popular like Netflix, Disney+, and HBO.
+                    </p>
+
+                </div>
+                <div class="col">
+                    <h4 class="mb-5">
+                        Get watchtime estimates
+                        <br />
+                        <i class="mt-5  fa-solid fa-clock" style="font-size:54px; color: #ffffff;"></i>
+                    </h4>
+                    <p class="mb-5">Get estimates to finish particular seasons of series or from start to finish.</p>
+
+                </div>
+                <div class="col">
+                    <h4 class="mb-5">
+                        Use multiple watchlists
+                        <br />
+                        <i class="mt-5 fa-solid fa-list" style="font-size:54px; color: #ffffff;"></i>
+                    </h4>
+                    <p class="mb-5">Organizing shows using different watchlists helps keep things if you want to track series by groups.</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="d-flex justify-content-center gap-5">
+                    <a role="button" class="w-25 btn btn-primary form-control" asp-controller="Watchlist" asp-action="ViewWatchlists" id="try-it-btn">Get started</a>
+                    <a role="button" class="w-25 btn btn-light form-control" asp-action="SeriesSearchResults" asp-controller="Home" id="try-it-btn">Try as guest (limited features)</a>
+                </div>
+            </div>
         </div>
-        <div class="col">
-            <h4 class="mb-5">Get watchtime estimates
-                <br />
-                <i class="mt-5  fa-solid fa-clock" style="font-size:54px; color: #ffffff;"></i>
-            </h4>
-            <p class="mb-5">Get estimates to finish particular seasons of series or from start to finish.</p>
-           
-        </div>
-        <div class="col">
-            <h4 class="mb-5">Use multiple watchlists
-                <br />
-                <i class="mt-5 fa-solid fa-list" style="font-size:54px; color: #ffffff;"></i>
-            </h4>
-            <p class="mb-5">Organizing shows using different watchlists helps keep things if you want to track series by groups.</p>
-        </div>
+
+
+
     </div>
-    <div class="row mt-5">
-        <div class="d-flex justify-content-center gap-5">
-            <a role="button" class="w-25 btn btn-primary form-control" asp-controller="Watchlist" asp-action="ViewWatchlists" id="try-it-btn">Get started</a>
-            <a role="button" class="w-25 btn btn-light form-control" asp-action="SeriesSearchResults" asp-controller="Home" id="try-it-btn">Try as guest (limited features)</a>
-        </div>
+
+    @*  <footer class="border-top footer text-muted">
+    <div class="container">
+    &copy; 2023 - StreamBudget - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
-</div>
+    </footer>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+  @*  @await RenderSectionAsync("Scripts", required: false)*@
+</body>
+</html>

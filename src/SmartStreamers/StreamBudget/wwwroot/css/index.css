@@ -1,9 +1,9 @@
 ﻿html {
-  /*  background-color:black;*/
+    background-color:black;
 }
 
 body{
-/*    background-color:black;*/
+    /*background-color:black;*/
 }
 
 
@@ -13,4 +13,8 @@ body{
 
 #stream-avail-title-search{
     display:none;
+}
+
+#core-features-container {
+        padding-top: 50px;
 }

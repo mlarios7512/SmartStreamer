@@ -48,7 +48,6 @@
             </div>
      
 
-            <!--NEW container for background IMG AND text side-by-side. -->
             <div class="d-flex align-items-start flex-row gap-2">
                     <img src="@item.BackdropURL" alt="Poster Image" class="w-25">
                     <div class="text-wrap w-75 overflow-y-scroll">@item.Overview</div>
@@ -74,12 +73,12 @@
                             <table class="table table-dark">
                                 <thead>
                                 <tr>
-                                    <th>Description</th>
+                                    <th>Season #</th>
                                     <th>Time (in hours)</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="table-active">
+                                    <tr>
                                         <td>Full series</td>
                                         @{
                                             if (Model.CompletionTimes.ElementAtOrDefault(seriesIndex).EstimatedWatchtime != null)

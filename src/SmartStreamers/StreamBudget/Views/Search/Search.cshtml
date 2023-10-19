@@ -8,10 +8,10 @@
 
 <form asp-action="Search" asp-controller="Search" method="get" class="row g-3 mb-5">
     <input type="hidden" name="watchlistId" value="@Model.WatchlistId" id="watchlist-id"/>
-    <div class="col-9">
+    <div class="col-9 ms-xxl-5 col-xxl-7">
         <input type="text" class="form-control" name="titleName" placeholder="Search for a TV series..." maxlength="100" required />
     </div>
-    <div class="col-3">
+    <div class="col-3 col-xxl-3">
         <button type="submit" class="btn btn-primary">Search</button>
     </div>
 </form>
@@ -33,27 +33,28 @@
                     Recommended age:
                     <span id="advised-audience-age-@item.ImdbId">
                         @{if(item.AdvisedMinimumAudienceAge > 0)
-                        {
-                            @item.AdvisedMinimumAudienceAge
-                        }
-                        else
-                        {
-                            <i>(N/A)</i> 
-                        }
-                  
+                            {
+                                @item.AdvisedMinimumAudienceAge
+                            }
+                            else
+                            {
+                                <i>(N/A)</i> 
+                            }
                         }
                     </span>
 
                 </div>
             </div>
      
-            <img src="@item.BackdropURL" alt="Poster Image" width="500">
+
+            <!--NEW container for background IMG AND text side-by-side. -->
+            <div class="d-flex align-items-start flex-row gap-2 max-vh-25">
+                    <img src="@item.BackdropURL" alt="Poster Image" class="w-25">
+                    <div class="text-wrap w-75 overflow-y-scroll">@item.Overview</div>
+            </div>
         
             <div class="row bold-text">
                 Seasons: @item.SeasonCount
-            </div>
-            <div class="row my-4 text-wrap">
-                @item.Overview
             </div>
             <span class="hidden" id="episode-run-time-@item.ImdbId">@item.Runtime</span>
             <span class="hidden" id="episode-count-@item.ImdbId">@item.EpisodeCount</span>
@@ -153,7 +154,8 @@
                                                         {
                                                             <td><img src="~/img/xmark-solid.svg" class="red-xmark" alt="No" /></td>
                                                         }
-                                                    }else
+                                                    }
+                                                    else
                                                     {
                                                         <td>???</td>
                                                     }

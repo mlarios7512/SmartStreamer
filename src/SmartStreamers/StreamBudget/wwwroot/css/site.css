@@ -15,12 +15,12 @@ html {
 html {
     position: relative;
     min-height: 100%;
-    background-color: #082f49;
+    background-color: #1e1b4b;
 }
 
 body {
     margin-bottom: 60px;
-    background-color: #082f49; /*Tailwind Blue Alt 1*/
+    background-color: #1e1b4b;
 }
 
 .green-check {

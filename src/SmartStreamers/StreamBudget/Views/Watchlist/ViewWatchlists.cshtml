@@ -9,7 +9,7 @@
 @{
     foreach(var watchlist in Model)
     {
-        <div class="SB-container watchlist">
+        <div class="SB-container watchlist col-xxl-5">
             <h4 class="mb-3">@watchlist.Name</h4>
             <p><span class="fw-bold">Streaming Platform:</span> 
                     @{
@@ -24,7 +24,7 @@
                     }
                 
             </p>
-            <p><span class="fw-bold">Subscription cost (monthly)</span>:
+            <p><span class="fw-bold">Monthly subscription cost</span>:
                     @{
                         if (watchlist.SelectedStreamingCost == null)
                         {
@@ -32,18 +32,35 @@
                         }
                         else
                         {
-                            @watchlist.SelectedStreamingCost
+                            <span>$@watchlist.SelectedStreamingCost</span>
                         }
                     }
             </p>
 
-            <div class="btn-group gap-3 mt-4" role="group">
-                <a role="button" class="btn btn-primary" asp-action="ViewWatchlistItems" asp-controller="Watchlist" asp-route-watchlistId="@watchlist.Id">View items</a>
-                <a role="button" class="btn btn-success" asp-action="Search" asp-route-watchlistId="@watchlist.Id" asp-controller="Search">Add items</a> <!--Maybe just consider changing "search results" to "search" (& removing the other view)-->
+            <div class="btn-group gap-5 mt-4" role="group">
+                <div>
+                    <a class="text-white custom-link" asp-action="ViewWatchlistItems" asp-controller="Watchlist" asp-route-watchlistId="@watchlist.Id">
+                        View items
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </a>
+                    
+                </div>
+
+
+                    <a class="text-white custom-link" asp-action="Search" asp-route-watchlistId="@watchlist.Id" asp-controller="Search">
+                        Add items
+                        <i class="fa-solid fa-circle-plus" style="color: #FFF;"></i>
+                    </a> <!--Maybe just consider changing "search results" to "search" (& removing the other view)-->
+                
             </div>
         </div>
     }
 }
 </div>
+
+<!--New container that will have a "plus" icon and say "create a watchlist" directly below it.-->
+<div>
+</div>
+
 
 <a role="button" class="btn btn-primary" asp-action="CreateWatchlist">Create a watchlist</a>

@@ -2,3 +2,7 @@
     padding: 20px 45px;
     border-radius: 20px;
 }
+
+.custom-link:hover {    
+    cursor: pointer;
+}

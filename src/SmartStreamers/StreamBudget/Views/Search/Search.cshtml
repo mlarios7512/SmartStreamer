@@ -30,25 +30,26 @@
                     <h5><span id="first-air-year-@item.ImdbId">@item.FirstAirYear</span>-@item.LastAirYear</h5>
                 </div>
                 <div class="row">
-                    Recommended age:
-                    <span id="advised-audience-age-@item.ImdbId">
-                        @{if(item.AdvisedMinimumAudienceAge > 0)
-                            {
-                                @item.AdvisedMinimumAudienceAge
+                    <div>
+                        Recommended age:
+                        <span id="advised-audience-age-@item.ImdbId">
+                            @{if(item.AdvisedMinimumAudienceAge > 0)
+                                {
+                                    @item.AdvisedMinimumAudienceAge
+                                }
+                                else
+                                {
+                                    <i>(N/A)</i> 
+                                }
                             }
-                            else
-                            {
-                                <i>(N/A)</i> 
-                            }
-                        }
-                    </span>
-
+                        </span>
+                    </div>
                 </div>
             </div>
      
 
             <!--NEW container for background IMG AND text side-by-side. -->
-            <div class="d-flex align-items-start flex-row gap-2 max-vh-25">
+            <div class="d-flex align-items-start flex-row gap-2">
                     <img src="@item.BackdropURL" alt="Poster Image" class="w-25">
                     <div class="text-wrap w-75 overflow-y-scroll">@item.Overview</div>
             </div>
@@ -61,12 +62,12 @@
 
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <h2 class="accordion-header text-white">
+                        <button class="accordion-button bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Watch time stats
                         </button>
                     </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div id="collapseOne" class="accordion-collapse collapse show bg-secondary" data-bs-parent="#accordionExample">
                         <div class="accordion-body text-dark">
 
 
@@ -122,13 +123,13 @@
                 </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <button class="accordion-button collapsed bg-secondary text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                             Platform Availability
                         </button>
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                                <table class="table text-dark">
+                        <div class="accordion-body bg-secondary">
+                                <table class="table text-white">
                                     <thead>
                                         <tr>
                                             @{

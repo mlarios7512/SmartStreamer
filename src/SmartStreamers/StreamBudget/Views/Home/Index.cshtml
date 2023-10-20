@@ -41,17 +41,17 @@
     </header>
     <div class="">
         <div class="row mt-5">
-            <div class="text-center col-5">
+            <div class="text-center col-xxl-5">
                 <h3>StreamBudget</h3>
             </div>
-            <div class="col-6">
-                Introducing StreamBudget. A site to watch your favorite shows like Netflix, Disney+, & Hulu while managing a budget.
+            <div class="col-xxl-6">
+                Introducing StreamBudget. A site intended to help you watch your favorite shows like Netflix, Disney+, & Hulu while on a budget.
             </div>
         </div>
 
         <div class="text-center px-5 pt-5 pb-4 bg-dark" id="core-feature-outer-container">
             <div class="row" id="core-features-container">
-                <div class="col">
+                <div class="col-xxl-4">
                     <h4 class="mb-5">
                         Compare platform availability
                         <br />
@@ -62,7 +62,9 @@
                     </p>
 
                 </div>
-                <div class="col">
+                <!--MOBILE BORDER 1 -->
+                <div class="d-xl-none my-3 border-bottom"></div>
+                <div class="col-xxl-4 mb-sm-5">
                     <h4 class="mb-5">
                         Get watchtime estimates
                         <br />
@@ -71,7 +73,9 @@
                     <p class="mb-5">Get estimates to finish particular seasons of series or from start to finish.</p>
 
                 </div>
-                <div class="col">
+                <!--MOBILE BORDER 2--->
+                <div class="d-xl-none my-3 border-bottom"></div>
+                <div class="col-xxl-4 mb-sm-5">
                     <h4 class="mb-5">
                         Use multiple watchlists
                         <br />
@@ -79,13 +83,15 @@
                     </h4>
                     <p class="mb-5">Organizing shows using different watchlists helps keep things if you want to track series by groups.</p>
                 </div>
-            </div>
-            <div class="row mt-5">
-                <div class="d-flex justify-content-center gap-5">
-                    <a role="button" class="w-25 btn btn-primary form-control" asp-controller="Watchlist" asp-action="ViewWatchlists" id="try-it-btn">Get started</a>
-                    <a role="button" class="w-25 btn btn-light form-control" asp-action="SeriesSearchResults" asp-controller="Home" id="try-it-btn">Try as guest (limited features)</a>
+
+                <div class="row mt-5">
+                    <div class="d-flex justify-content-center gap-5">
+                        <a role="button" class="w-25 btn btn-primary form-control" asp-controller="Watchlist" asp-action="ViewWatchlists" id="try-it-btn">Get started</a>
+                        <a role="button" class="w-25 btn btn-light form-control" asp-action="SeriesSearchResults" asp-controller="Home" id="try-it-btn">Try as guest (limited features)</a>
+                    </div>
                 </div>
             </div>
+            
         </div>
 
 

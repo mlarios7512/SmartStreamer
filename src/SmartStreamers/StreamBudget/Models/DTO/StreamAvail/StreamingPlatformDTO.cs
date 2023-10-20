@@ -5,7 +5,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
     public class StreamingPlatformDTO
     {
         public string PlatformName { get; set; } = "(???)";
-        public bool AvailableOnSubscription { get; set; } = false;
+        public bool? AvailableOnSubscription { get; set; } = null;
 
         public StreamingPlatformDTO()
         {
@@ -41,6 +41,10 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     {
                         StreamingPlatformInfo.AvailableOnSubscription = true;
                     }
+                    else
+                    {
+                        StreamingPlatformInfo.AvailableOnSubscription = false;
+                    }
                 }
                 item.StreamingInfo.Add(StreamingPlatformInfo);
 
@@ -52,6 +56,10 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     if (availableOnDisneySub == true)
                     {
                         StreamingPlatformInfo.AvailableOnSubscription = true;
+                    }
+                    else
+                    {
+                        StreamingPlatformInfo.AvailableOnSubscription = false;
                     }
                 }
                 item.StreamingInfo.Add(StreamingPlatformInfo);
@@ -65,6 +73,10 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     {
                         StreamingPlatformInfo.AvailableOnSubscription = true;
                     }
+                    else
+                    {
+                        StreamingPlatformInfo.AvailableOnSubscription = false;
+                    }
                 }
                 item.StreamingInfo.Add(StreamingPlatformInfo);
                 //-----
@@ -75,6 +87,10 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     if (availableOnHuluSub == true)
                     {
                         StreamingPlatformInfo.AvailableOnSubscription = true;
+                    }
+                    else
+                    {
+                        StreamingPlatformInfo.AvailableOnSubscription = false;
                     }
                 }
                 item.StreamingInfo.Add(StreamingPlatformInfo);
@@ -87,6 +103,10 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     {
                         StreamingPlatformInfo.AvailableOnSubscription = true;
                     }
+                    else
+                    {
+                        StreamingPlatformInfo.AvailableOnSubscription = false;
+                    }
                 }
                 item.StreamingInfo.Add(StreamingPlatformInfo);
                 //-------
@@ -97,6 +117,10 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     if (availableOnParamountSub == true)
                     {
                         StreamingPlatformInfo.AvailableOnSubscription = true;
+                    }
+                    else
+                    {
+                        StreamingPlatformInfo.AvailableOnSubscription = false;
                     }
                 }
                 item.StreamingInfo.Add(StreamingPlatformInfo);
@@ -109,6 +133,10 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     {
                         StreamingPlatformInfo.AvailableOnSubscription = true;
                     }
+                    else
+                    {
+                        StreamingPlatformInfo.AvailableOnSubscription = false;
+                    }
                 }
                 item.StreamingInfo.Add(StreamingPlatformInfo);
                 //--------
@@ -118,8 +146,11 @@ namespace StreamBudget.Models.DTO.StreamAvail
                 {
                     if (availableOnPrimeSub == true) //Ensures the series is avaiable through that platform as part of the platform's "subscription".
                     {
-
                         StreamingPlatformInfo.AvailableOnSubscription = true;
+                    }
+                    else
+                    {
+                        StreamingPlatformInfo.AvailableOnSubscription = false;
                     }
 
                 }

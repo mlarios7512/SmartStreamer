@@ -47,11 +47,12 @@
                 </div>
             </div>
      
-
+            
             <div class="d-flex align-items-start flex-row gap-2">
-                    <img src="@item.BackdropURL" alt="Poster Image" class="w-25">
-                    <div class="text-wrap w-75 overflow-y-scroll">@item.Overview</div>
+                <img src="@item.BackdropURL" alt="Poster Image" class="w-25">
+                <div class="text-wrap w-75 overflow-y-scroll">@item.Overview</div>
             </div>
+
         
             <div class="row bold-text">
                 Seasons: @item.SeasonCount
@@ -152,12 +153,12 @@
                                                             <td><img src="~/img/check-solid.svg" class="green-check" alt="Yes" /></td>
                                                         }else
                                                         {
-                                                            <td><img src="~/img/xmark-solid.svg" class="red-xmark" alt="No" /></td>
+                                                            <td><img src="~/img/xmark-solid.svg" class="red-xmark" alt="No"/></td>
                                                         }
                                                     }
                                                     else
                                                     {
-                                                        <td>???</td>
+                                                        <td class="fw-bold">???</td>
                                                     }
                                                 }
                                             }

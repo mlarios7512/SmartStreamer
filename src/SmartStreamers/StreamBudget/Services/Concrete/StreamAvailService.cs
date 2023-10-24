@@ -1,7 +1,11 @@
-﻿using Microsoft.Net.Http.Headers;
+﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+
+using Microsoft.Net.Http.Headers;
 using StreamBudget.Services.Abstract;
 using System.Diagnostics;
 using StreamBudget.Models.DTO.StreamAvail;
+
 
 
 namespace StreamBudget.Services.Concrete
@@ -52,7 +56,19 @@ namespace StreamBudget.Services.Concrete
             string source = BaseSource + "/search/title?title=" + titleName + "&country=us&show_type=series&output_language=en";
 
             string response = await GetJsonStringFromEndpointGet(Key, source);
-            return SearchResultDTO.FromJSON(response).AsEnumerable();
+
+            //Get basic info of search results.
+            IEnumerable<SearchResultDTO> SearchResults = SearchResultDTO.FromJSON(response).AsEnumerable();
+
+            //Get the list avail status of each streaming platform.
+            JObject? jObj = JObject.Parse((string)response);
+            if (jObj != null)
+            {
+                jObj["result"].Children().ToList();
+                StreamingPlatformDTO.GetPlatformDetails_FromJSON(jObj["result"].Children().ToList(), SearchResults.ToList());
+            }
+
+            return SearchResults; //Return search results & use "StreamingPlatformDTO.GetPlatformDetails_FromJSON".
         }
 
         public async Task<SearchResultDTO> GetSeriesDetails(string imdbId)

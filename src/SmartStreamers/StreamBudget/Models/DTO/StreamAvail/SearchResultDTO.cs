@@ -87,12 +87,8 @@ namespace StreamBudget.Models.DTO.StreamAvail
                                                                                                         .ToList()
                                                                                                          )
                 });
-                List<SearchResultDTO> MediaItems = MediaItemsAsEnum.ToList();
 
-                var allTitles = jObject["result"].Children().ToList();
-                StreamingPlatformDTO.GetPlatformDetails_FromJSON(allTitles, MediaItems);
-
-                return MediaItems;
+                return MediaItemsAsEnum.ToList();
             }
 
             return new List<SearchResultDTO>();

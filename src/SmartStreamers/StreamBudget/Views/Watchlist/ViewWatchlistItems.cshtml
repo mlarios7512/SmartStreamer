@@ -2,6 +2,7 @@
 
 <head>
     <link rel="stylesheet" href="~/css/regwatchlist.css" />
+    <link rel="stylesheet" href="~/css/viewwatchlistitems.css" />
 </head>
 
 
@@ -19,7 +20,7 @@
         <div class="mb-3 row">
             <label for="streaming-cost-per-month" class="col-sm-5 col-form-label">Streaming subscription cost per month</label>
             <div class="col-md-4">
-                <input type="number" placeholder="Ex: 6.99 (USD only)" step="0.01" class="form-control" id="streaming-cost-per-month-input" min="0" />
+                <input type="number" placeholder="Ex: 6.99 (USD only)" step="0.01" class="form-control" id="streaming-cost-per-month-input" min="0" /> <!--Input from "create watchlist" should be pre-existing value.-->
             </div>
         </div>
         <button type="button" id="generate-watchlist-stats-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchlistStatsModal">
@@ -35,6 +36,7 @@
         <tr>
             <th>Title</th>
             <th>Hours to watch</th>
+            <th></th> <!--Intentionall blank (meant for "O" when toggling whether to count an item's total watchtime hours).-->
             <th></th> <!--Intentionally blank (meant for "X" when removing a watchlist item)-->
         </tr>
     </thead>
@@ -50,15 +52,16 @@
                     @if(Model.CompletionTimes.ElementAtOrDefault(i).EstimatedWatchtime != null)
                     {
                         <td>@Model.CompletionTimes.ElementAtOrDefault(i).EstimatedWatchtime</td>
-                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" value="@Model.CompletionTimes.ElementAtOrDefault(i).EstimatedWatchtime"></td>
+                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input"  value="@Model.CompletionTimes.ElementAtOrDefault(i).EstimatedWatchtime"></td>
                     }
                     else
                     {
                         <td>(N/A)</td>
-                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" value="0"></td>
+                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input" value="0"></td>
                     }
 
                     <td><span type="button" class="hoverable-indication remove-watchlist-series-btn" id="remove-watchlist-item-@item.ImdbId">X</span></td>
+                    <td><span type="button" class="hoverable-indication togglable-watchlist-item-icon" id="toggle-watchtime-inclusion-btn-item-@item.ImdbId">O</span></td>
                 </tr>
                 i++;
             }
@@ -89,4 +92,5 @@
 @section Scripts{
     <script type="text/javascript" src="~/js/serieswatchlist.js"></script>
     <script type="text/javascript" src="~/js/generatewatchliststats.js"></script>
+    <script type="text/javascript" src="~/js/ViewWatchllistItems/togglewatchlistitem.js"></script>
 }

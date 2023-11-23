@@ -63,26 +63,55 @@ function getWatchlistStatsFormValues() {
         monthlySubscriptionCost: Number(streamingCostPerMonthInput.value)
     }
 }
+ //WIP
+function getMonthsToWatchDisplayValue(monthsToWatchAllItems) {
+    if (monthsToWatchAllItems < 1) {
+        return "Less than 1 month";
+    }
+    else if (monthsToWatchAllItems == 0) {
+        return "(N/A)";
+    }
+    else {
+        if ((monthsToWatchAllItems != NaN) && (monthsToWatchAllItems != Infinity)) {
+            return monthsToWatchAllItems.toString();
+        }
+    }
+    
+}
+
+function getTotalSubCostsDisplayValue(monthlySubCost, totalWatchlistTimeInHours) {
+    if (typeof monthlySubCost == 'number' && typeof totalWatchlistTimeInHours == 'number') {
+        if (monthlySubCost > 0 && totalWatchlistTimeInHours > 0) {
+            return "$" + monthlySubCost.toString();
+        }
+    }
+    return "(N/A)";
+}
 
 function displayWatchlistStats(totalWatchtimeInHours, monthsToWatchAllItems, totalSubCosts) {
         totalWatchtimeInHours = Number(totalWatchtimeInHours);
         monthsToWatchAllItems = Number(monthsToWatchAllItems);
         totalSubCosts = Number(totalSubCosts);
 
-    console.log(monthsToWatchAllItems);
+    let totalWatchtimeInHoursDisplay = "(N/A)";
+    let monthsToWatchDisplay = "(N/A)";
+    let totalSubCostsDisplay = "(N/A)";
 
-    let monthsToWatchDisplay = null;
-    if (monthsToWatchAllItems < 1) {
-        monthsToWatchDisplay = "Less than 1 month"
+    console.log("totalWatchtimeInHours (type): " + typeof totalWatchtimeInHours);
+
+    if (typeof (totalWatchtimeInHours)) {
+        totalWatchtimeInHoursDisplay = totalWatchtimeInHours.toString();
     }
-    else {
-        monthsToWatchDisplay = monthsToWatchAllItems.toString();
-    }
+    
+
+    monthsToWatchDisplay = getMonthsToWatchDisplayValue(monthsToWatchAllItems);
+    totalSubCostsDisplay = getTotalSubCostsDisplayValue(totalSubCosts, totalWatchtimeInHours);
+   
 
     let stats = `
-        <p><span class="fw-bold">Total hours to watch:</span> ${totalWatchtimeInHours}</p>
+        <p><span class="fw-bold">Total hours to watch:</span> ${totalWatchtimeInHoursDisplay}</p>
         <p><span class="fw-bold">Months to finish:</span> ${monthsToWatchDisplay}</p>
-        <p><span class="fw-bold">Total subscription costs:</span> $${totalSubCosts}</p>
+        <p><span class="fw-bold">Total subscription costs:</span> ${totalSubCostsDisplay}</p>
     `;
 
     $("#watchlist-stats-modal-body").empty();

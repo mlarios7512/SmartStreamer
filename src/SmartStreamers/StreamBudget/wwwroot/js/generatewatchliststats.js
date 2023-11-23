@@ -8,7 +8,7 @@ $("#generate-watchlist-stats-btn").click(function () {
     const formValues = getWatchlistStatsFormValues();
 
     if (!formValues.status) {
-        console.log(`Form returned "false" status. Discontinuing.`)
+  /*      console.log(`Form returned "false" status. Discontinuing.`)*/
         return;
     }
 
@@ -16,11 +16,11 @@ $("#generate-watchlist-stats-btn").click(function () {
 
     let totalWatchlistTimeInHours = 0;
     $.each(watchtimesArray, function (index, item) {
-        console.log(`item: ${item.value}`);
+     /*   console.log(`item: ${item.value}`);*/
         totalWatchlistTimeInHours += parseInt(item.value);
     });
 
-    console.log(`total: ${totalWatchlistTimeInHours}`)
+/*    console.log(`total: ${totalWatchlistTimeInHours}`)*/
 
     //------------
 
@@ -49,11 +49,7 @@ function getWatchlistStatsFormValues() {
     const tvHoursPerDayInput = document.getElementById("tv-hours-per-day-input");
     const streamingCostPerMonthInput = document.getElementById("streaming-cost-per-month-input");
 
-    console.log(`Tv hours input: ${tvHoursPerDayInput.value}`)
-    console.log(`Streaming cost per month input: ${streamingCostPerMonthInput.value}`)
-
     if (!form.checkValidity()) {
-        console.log("Missing 1 or more input values from form.");
         return { status: false };
     }
 
@@ -63,18 +59,21 @@ function getWatchlistStatsFormValues() {
         monthlySubscriptionCost: Number(streamingCostPerMonthInput.value)
     }
 }
- //WIP
+function getTotalWatchtimeInHoursDisplayValue(totalWatchtimeInHours) {
+    if (typeof (totalWatchtimeInHours) == 'number') {
+        return totalWatchtimeInHours.toString();
+    }
+    return "(N/A)";
+}
 function getMonthsToWatchDisplayValue(monthsToWatchAllItems) {
     if (monthsToWatchAllItems < 1) {
         return "Less than 1 month";
     }
-    else if (monthsToWatchAllItems == 0) {
-        return "(N/A)";
+    else if ((monthsToWatchAllItems != NaN) && (monthsToWatchAllItems != Infinity)) {
+        return monthsToWatchAllItems.toString();
     }
     else {
-        if ((monthsToWatchAllItems != NaN) && (monthsToWatchAllItems != Infinity)) {
-            return monthsToWatchAllItems.toString();
-        }
+        return "(N/A)";
     }
     
 }
@@ -89,21 +88,16 @@ function getTotalSubCostsDisplayValue(monthlySubCost, totalWatchlistTimeInHours)
 }
 
 function displayWatchlistStats(totalWatchtimeInHours, monthsToWatchAllItems, totalSubCosts) {
-        totalWatchtimeInHours = Number(totalWatchtimeInHours);
-        monthsToWatchAllItems = Number(monthsToWatchAllItems);
-        totalSubCosts = Number(totalSubCosts);
+    totalWatchtimeInHours = Number(totalWatchtimeInHours);
+    monthsToWatchAllItems = Number(monthsToWatchAllItems);
+    totalSubCosts = Number(totalSubCosts);
 
     let totalWatchtimeInHoursDisplay = "(N/A)";
     let monthsToWatchDisplay = "(N/A)";
     let totalSubCostsDisplay = "(N/A)";
 
-    console.log("totalWatchtimeInHours (type): " + typeof totalWatchtimeInHours);
 
-    if (typeof (totalWatchtimeInHours)) {
-        totalWatchtimeInHoursDisplay = totalWatchtimeInHours.toString();
-    }
-    
-
+    totalWatchtimeInHoursDisplay = getTotalWatchtimeInHoursDisplayValue(totalWatchtimeInHours);
     monthsToWatchDisplay = getMonthsToWatchDisplayValue(monthsToWatchAllItems);
     totalSubCostsDisplay = getTotalSubCostsDisplayValue(totalSubCosts, totalWatchtimeInHours);
    

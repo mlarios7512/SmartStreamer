@@ -8,7 +8,7 @@ $("#generate-watchlist-stats-btn").click(function () {
     const formValues = getWatchlistStatsFormValues();
 
     if (!formValues.status) {
-  /*      console.log(`Form returned "false" status. Discontinuing.`)*/
+     /*   console.log(`Form returned "false" status. Discontinuing.`)*/
         return;
     }
 
@@ -16,7 +16,7 @@ $("#generate-watchlist-stats-btn").click(function () {
 
     let totalWatchlistTimeInHours = 0;
     $.each(watchtimesArray, function (index, item) {
-     /*   console.log(`item: ${item.value}`);*/
+  /*      console.log(`item: ${item.value}`);*/
         totalWatchlistTimeInHours += parseInt(item.value);
     });
 
@@ -33,10 +33,9 @@ $("#generate-watchlist-stats-btn").click(function () {
     let totalSubscriptionCosts = monthsToFinishAllSeries * formValues.monthlySubscriptionCost;
 
     //console.log(`Months to finish all series: ${monthsToFinishAllSeries}`);
-    //console.log(`Total subscription costs: ~ $${totalSubscriptionCosts}`);
-
+    /*console.log(`Total subscription costs: ~ $${totalSubscriptionCosts}`);*/
     //------
-    if (totalWatchlistTimeInHours > 0) {
+    if (totalWatchlistTimeInHours <= 0) {
         totalSubscriptionCosts = formValues.monthlySubscriptionCost;
     }
 

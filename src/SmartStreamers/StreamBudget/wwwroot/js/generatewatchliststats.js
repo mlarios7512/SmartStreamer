@@ -68,7 +68,7 @@ function getMonthsToWatchDisplayValue(monthsToWatchAllItems) {
     if (monthsToWatchAllItems < 1) {
         return "Less than 1 month";
     }
-    else if ((monthsToWatchAllItems != NaN) && (monthsToWatchAllItems != Infinity)) {
+    else if ((monthsToWatchAllItems != NaN) && (monthsToWatchAllItems != Infinity) && (monthsToWatchAllItems != NaN)) {
         return monthsToWatchAllItems.toString();
     }
     else {
@@ -79,7 +79,7 @@ function getMonthsToWatchDisplayValue(monthsToWatchAllItems) {
 
 function getTotalSubCostsDisplayValue(monthlySubCost, totalWatchlistTimeInHours) {
     if (typeof monthlySubCost == 'number' && typeof totalWatchlistTimeInHours == 'number') {
-        if (monthlySubCost > 0 && totalWatchlistTimeInHours > 0) {
+        if ((monthlySubCost > 0) && (totalWatchlistTimeInHours > 0) && (monthlySubCost !== Infinity)) {
             return "$" + monthlySubCost.toString();
         }
     }

@@ -99,15 +99,6 @@ namespace StreamBudget.Controllers
             watchlistToAdd.OwnerId = curUser.Id;
             watchlistToAdd.SelectedStreamingCost = newWatchlist.SelectedStreamingCost;
 
-            if(newWatchlist.SelectedStreamingCost < 0)
-            {
-                newWatchlist.SelectedStreamingCost = null;
-            }
-            else
-            {
-                watchlistToAdd.StreamingPlatform = newWatchlist.StreamingPlatform;
-            }
-            
             _watchlistRepository.AddOrUpdate(watchlistToAdd);
 
             return RedirectToAction("ViewWatchlists", "Watchlist");

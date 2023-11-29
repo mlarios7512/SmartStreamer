@@ -49,10 +49,10 @@
                 <tr class="table-active" id="watchlist-entry-@item.ImdbId">
                     <td>@item.Title (@item.FirstAirYear)</td>
 
-                    @if(Model.CompletionTimes.ElementAtOrDefault(i).EstimatedWatchtime != null)
+                    @if(Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInHours != null)
                     {
-                        <td>@Model.CompletionTimes.ElementAtOrDefault(i).EstimatedWatchtime</td>
-                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input"  value="@Model.CompletionTimes.ElementAtOrDefault(i).EstimatedWatchtime"></td>
+                        <td>@Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInHours</td>
+                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input"  value="@Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInHours"></td>
                     }
                     else
                     {

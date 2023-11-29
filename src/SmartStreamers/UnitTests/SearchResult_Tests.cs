@@ -319,7 +319,7 @@ public class Tests
 
         //Assert
         Assert.That(SeasonInfo.Count == 1);
-        Assert.That(SeasonInfo.First().OfficialName == "Season 1");
+        Assert.That(SeasonInfo.First().SeasonName == "Season 1");
         Assert.That(SeasonInfo.First().EpisodeCount == 2);
     }
 
@@ -367,10 +367,10 @@ public class Tests
 
         //Assert
         Assert.That(SeasonInfo.Count == 2);
-        Assert.That(SeasonInfo.First().OfficialName == "Season 1");
+        Assert.That(SeasonInfo.First().SeasonName == "Season 1");
         Assert.That(SeasonInfo.First().EpisodeCount == 2);
 
-        Assert.That(SeasonInfo.ElementAt(1).OfficialName == "Season 2");
+        Assert.That(SeasonInfo.ElementAt(1).SeasonName == "Season 2");
         Assert.That(SeasonInfo.ElementAt(1).EpisodeCount == 1);
     }
 

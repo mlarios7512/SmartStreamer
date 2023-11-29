@@ -75,16 +75,17 @@
                                 <thead>
                                 <tr>
                                     <th>Season #</th>
-                                    <th>Time (in hours)</th>
+                                    <th>Runtime (in hours)</th>
+                                    <th>Runtime (in minutes)</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>Full series</td>
                                         @{
-                                            if (Model.CompletionTimes.ElementAtOrDefault(seriesIndex).EstimatedWatchtime != null)
+                                            if (Model.CompletionTimes.ElementAtOrDefault(seriesIndex).WatchtimeInHours != null)
                                             {
-                                                <td id="full-series-watchtime-series-@item.ImdbId">~@Model.CompletionTimes.ElementAtOrDefault(seriesIndex).EstimatedWatchtime</td>
+                                                <td id="full-series-watchtime-series-@item.ImdbId">~@Model.CompletionTimes.ElementAtOrDefault(seriesIndex).WatchtimeInHours</td>
                                             }
                                             else
                                             {
@@ -101,9 +102,9 @@
                
                                                 <td>@season.SeasonName</td>
 
-                                                @if(season.EstimatedWatchtime != null)
+                                                @if(season.WatchtimeInHours != null)
                                                 {
-                                                    <td>~@season.EstimatedWatchtime</td>
+                                                    <td>~@season.WatchtimeInHours</td>
                                                 }
                                                 else
                                                 {

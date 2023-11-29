@@ -82,40 +82,17 @@
                                 <tbody>
                                     <tr>
                                         <td>Full series</td>
-                                        @{
-                                            if (Model.CompletionTimes.ElementAtOrDefault(seriesIndex).WatchtimeInHours != null)
-                                            {
-                                                <td class="user-friendly-watchtime-display">@Model.CompletionTimes.ElementAtOrDefault(seriesIndex).UserFriendlyDisplay</td>
-
-                                            }
-                                            else
-                                            {
-                                                <td>(N/A)</td>
-                                            }
-                                        }
+                                        <td class="user-friendly-watchtime-display">@Model.CompletionTimes.ElementAtOrDefault(seriesIndex).UserFriendlyDisplay</td>
                                     </tr>
-                                    
                                     @{
-                                        
                                         @foreach(var season in Model.CompletionTimes.ElementAt(seriesIndex).SeasonWatchtimes)
                                         {
                                             <tr>
-               
                                                 <td>@season.SeasonName</td>
-
-                                                @if(season.WatchtimeInHours != null)
-                                                {
-                                                    <td>@season.UserFriendlyDisplay</td>
-                                                }
-                                                else
-                                                {
-                                                    <td>(N/A)</td>
-                                                }
-
+                                                <td>@season.UserFriendlyDisplay</td>
                                             </tr>
                                         }
                                     }
-                                    
                                 </tbody>
                             </table>
 
@@ -140,7 +117,6 @@
                                                     <th>@platform.PlatformName</th>
                                                 }
                                             }
-                                        
                                         </tr>
                                     </thead>
                                     <tbody>

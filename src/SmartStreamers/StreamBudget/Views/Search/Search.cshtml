@@ -75,8 +75,8 @@
                                 <thead>
                                 <tr>
                                     <th>Season #</th>
-                                    <th>Runtime (in hours)</th>
-                                    <th>Runtime (in minutes)</th>
+                                    <th>Runtime</th>
+                                   
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -85,11 +85,12 @@
                                         @{
                                             if (Model.CompletionTimes.ElementAtOrDefault(seriesIndex).WatchtimeInHours != null)
                                             {
-                                                <td id="full-series-watchtime-series-@item.ImdbId">~@Model.CompletionTimes.ElementAtOrDefault(seriesIndex).WatchtimeInHours</td>
+                                                <td class="user-friendly-watchtime-display">@Model.CompletionTimes.ElementAtOrDefault(seriesIndex).UserFriendlyDisplay</td>
+
                                             }
                                             else
                                             {
-                                                <td id="full-series-watchtime-series-@item.ImdbId">(N/A)</td>
+                                                <td>(N/A)</td>
                                             }
                                         }
                                     </tr>
@@ -104,7 +105,7 @@
 
                                                 @if(season.WatchtimeInHours != null)
                                                 {
-                                                    <td>~@season.WatchtimeInHours</td>
+                                                    <td>@season.UserFriendlyDisplay</td>
                                                 }
                                                 else
                                                 {

@@ -7,6 +7,7 @@ namespace StreamBudget.Models.Other
         public string SectionName { get; set; } = null; 
         public int? WatchtimeInHours { get; set; } = null;
         public int? WatchtimeInMinutes { get; set; } = null;
+        public string UserFriendlyDisplay = null;
         public List<SeasonWatchtimeEstimate> SeasonWatchtimes {get; set;} = null;
 
         public SeriesWatchtimeEstimate(string sectionName = "Full series", int? totalEpisodeCount = null, int? episodeRuntimeInMinutes = null) 
@@ -16,6 +17,7 @@ namespace StreamBudget.Models.Other
             {
                 WatchtimeInHours = GetWatchtimeEstimateInHours(totalEpisodeCount, episodeRuntimeInMinutes);
                 WatchtimeInMinutes = GetWatchtimeEstimateInMinutes(totalEpisodeCount, episodeRuntimeInMinutes);
+                UserFriendlyDisplay = GetFriendlyWatchtimeEstimate(totalEpisodeCount, episodeRuntimeInMinutes);
             }
         }
 
@@ -26,6 +28,19 @@ namespace StreamBudget.Models.Other
         public int GetWatchtimeEstimateInMinutes(int? episodeCount, int? avgEpisodeRuntimeInMinutes) 
         {
             return (int)(episodeCount * avgEpisodeRuntimeInMinutes);
+        }
+        public string GetFriendlyWatchtimeEstimate(int? episodeCount, int? avgEpisodeRuntimeInMinutes)
+        {
+            double totalTime = (double)(episodeCount * avgEpisodeRuntimeInMinutes);
+            string timeSpanAsString = $"{TimeSpan.FromMinutes(totalTime):hh\\:mm}".ToString();
+
+            int hrsMinSeperatorIndex = timeSpanAsString.IndexOf(":");
+            string neatDisplay = timeSpanAsString.Insert(hrsMinSeperatorIndex, "h ");
+            neatDisplay = neatDisplay.Replace(":", "");
+            neatDisplay = neatDisplay + "m";
+
+            return neatDisplay;
+
         }
     }
 }

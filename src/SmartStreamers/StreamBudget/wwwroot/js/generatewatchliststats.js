@@ -4,10 +4,12 @@
     })
 });
 
-//------------NEW DISPLAY, not yet implemented (below)---------------------
-
 //The function below was taken from here: https://www.geeksforgeeks.org/convert-minutes-to-hours-minutes-with-the-help-of-jquery/
-function conversion(mins) { //Might be the new "getTotalWatchtimeInHoursDisplayValue()";
+function conversion(mins) {
+    if (typeof (mins) != 'number') {
+        return null;
+    }
+
     // getting the hours.
     let hrs = Math.floor(mins / 60);
     // getting the minutes.
@@ -20,22 +22,13 @@ function conversion(mins) { //Might be the new "getTotalWatchtimeInHoursDisplayV
     return `${hrs} hrs ${min} min`;
 }
 
-//This code below probably doesn't need an entire function for it. Just doing this for now
-//because it helps me think.
-function calculateFullWatchlistEstimateOfMonths_NEW(formattedTotalWatchtime, formInput) //Intended to be the new "getMonthsToWatchDisplayValue()".
+function getFullWatchlistTimeInMonths(fullWatchlistTimeInHours, formInput)
 {
-    let hours = formattedTotalWatchtime.substring(0, formattedTotalWatchtime.indexOf('h'));
-    let minutes = formattedTotalWatchtime.substring(formattedTotalWatchtime.indexOf('s')+1, formattedTotalWatchtime.indexOf('m'))
-    console.log(`hours (as number): ${Number(hours)}`);
-/*    console.log(`minutes (as number): ${Number(minutes)}`);*/
-
     const HOURS_PER_MONTH = 730.5;
-    let totalWatchlistTimeInHours = hours;
-    ////Can't remember why I created 2 of these statements for "monthsToFinishAllSeries". (This lines below were copy & pasted from guest version.)
-    let monthsToFinishAllSeries = Math.round(((totalWatchlistTimeInHours / formInput.tvHours) / HOURS_PER_MONTH) / 30); //NOT 100% accurate. (730 is close though.)
-    monthsToFinishAllSeries = Math.round((totalWatchlistTimeInHours / formInput.tvHours) / 30); //Produces some inaccuracy (trailing decimals).
 
-/*    console.log(`Total months to finish watchlist: ${monthsToFinishAllSeries}`);*/
+    //Can't remember why I created 2 of these statements for "monthsToFinishAllSeries". (This lines below were copy & pasted from guest version.)
+    let monthsToFinishAllSeries = Math.round(((fullWatchlistTimeInHours / formInput.tvHours) / HOURS_PER_MONTH) / 30); //NOT 100% accurate. (730 is close though.)
+    monthsToFinishAllSeries = Math.round((fullWatchlistTimeInHours / formInput.tvHours) / 30); //Produces some inaccuracy (trailing decimals).
     return monthsToFinishAllSeries;
 }
 
@@ -53,31 +46,21 @@ $("#generate-watchlist-stats-btn").click(function () {
     const formValues = getWatchlistStatsFormValues();
 
     if (!formValues.status) {
-        console.log(`Form returned "false" status. Discontinuing.`)
         return;
     }
 
     let watchtimeEstimates = document.getElementsByName("FullSeriesHoursWatchtime");
     let fullWatchllistEstimateInMinutes = 0;
     $.each(watchtimeEstimates, function (index, item) {
-        /*      console.log(`item: ${item.value}`);*/
         fullWatchllistEstimateInMinutes += parseInt(item.value);
     });
 
+    let fullWatchlistInHours = Math.round(fullWatchllistEstimateInMinutes / 60);
+    let monthsToFinishFullWatchlist = getFullWatchlistTimeInMonths(fullWatchlistInHours, formValues);
+    let totalSubscriptionCosts = calculateFullWatchlistSubscriptionCosts(monthsToFinishFullWatchlist, formValues.monthlySubscriptionCost, fullWatchlistInHours);
 
     let formattedTime = conversion(fullWatchllistEstimateInMinutes);
-    let monthsToFinishFullWatchlist = calculateFullWatchlistEstimateOfMonths_NEW(formattedTime, formValues);
-    console.log(`\n\n------------------\n`)
-
-    let fullWatchlistInHours = Math.round(fullWatchllistEstimateInMinutes / 60);
-    console.log(`Total hours to watch (rounded): ${fullWatchlistInHours}`);
-    console.log(`months to finish: ${monthsToFinishFullWatchlist}`);
-
-    //Need to get the total number of hours watched (for the last parameter).
-    let totalSubscriptionCosts = calculateFullWatchlistSubscriptionCosts(monthsToFinishFullWatchlist, formValues.monthlySubscriptionCost, Math.round(fullWatchllistEstimateInMinutes / 60));
-    console.log(`Total subscription costs: ${totalSubscriptionCosts}`);
-
-    displayWatchlistStats(fullWatchlistInHours, monthsToFinishFullWatchlist, totalSubscriptionCosts);
+    displayWatchlistStats(formattedTime, monthsToFinishFullWatchlist, totalSubscriptionCosts);
 });
 
 
@@ -98,55 +81,33 @@ function getWatchlistStatsFormValues() {
         monthlySubscriptionCost: Number(streamingCostPerMonthInput.value)
     }
 }
-function getTotalWatchtimeInHoursDisplayValue(totalWatchtimeInHours) {
-    if (typeof (totalWatchtimeInHours) == 'number') {
-        return totalWatchtimeInHours.toString();
-    }
-    return "(N/A)";
-}
 function getMonthsToWatchDisplayValue(monthsToWatchAllItems) {
-    if (monthsToWatchAllItems < 1) {
-        return "Less than 1 month";
-    }
-    else if ((monthsToWatchAllItems != NaN) && (monthsToWatchAllItems != Infinity) && (monthsToWatchAllItems != NaN)) {
-        return monthsToWatchAllItems.toString();
+
+    if ((monthsToWatchAllItems !== NaN) && (monthsToWatchAllItems !== Infinity)) {
+        if (monthsToWatchAllItems < 1) {
+            return "Less than 1 month";
+        }
+        return "~" + monthsToWatchAllItems.toString();
     }
     else {
         return "(N/A)";
     }
     
 }
-
-function getTotalSubCostsDisplayValue(monthlySubCost, totalWatchlistTimeInHours) {
-    if (typeof monthlySubCost == 'number' && typeof totalWatchlistTimeInHours == 'number') {
-        if ((monthlySubCost > 0) && (totalWatchlistTimeInHours > 0) && (monthlySubCost !== Infinity)) {
-            return "$" + monthlySubCost.toString();
-        }
-    }
-    return "(N/A)";
-}
-
-function displayWatchlistStats(totalWatchtimeInHours, monthsToWatchAllItems, totalSubCosts) {
-    totalWatchtimeInHours = Number(totalWatchtimeInHours);
-    monthsToWatchAllItems = Number(monthsToWatchAllItems);
-    totalSubCosts = Number(totalSubCosts);
-
-    let totalWatchtimeInHoursDisplay = "(N/A)";
-    let monthsToWatchDisplay = "(N/A)";
-    let totalSubCostsDisplay = "(N/A)";
-
-
-    totalWatchtimeInHoursDisplay = getTotalWatchtimeInHoursDisplayValue(totalWatchtimeInHours);
-    monthsToWatchDisplay = getMonthsToWatchDisplayValue(monthsToWatchAllItems);
-    totalSubCostsDisplay = getTotalSubCostsDisplayValue(totalSubCosts, totalWatchtimeInHours);
-   
+function displayWatchlistStats(userFriendlyTimeToFinishWatchlist, monthsToWatchAllItems, totalSubCosts) {
 
     let stats = `
-        <p><span class="fw-bold">Total hours to watch:</span> ${totalWatchtimeInHoursDisplay}</p>
-        <p><span class="fw-bold">Months to finish:</span> ${monthsToWatchDisplay}</p>
-        <p><span class="fw-bold">Total subscription costs:</span> ${totalSubCostsDisplay}</p>
+        <p><span class="fw-bold">Total watchtime:</span> <span id="full-watchlist-time-in-stats-modal"><span></p>
+        <p><span class="fw-bold">Months to finish:</span> <span id="full-watchlist-months-to-finish-in-stats-modal"><span></p>
+        <p><span class="fw-bold">Total subscription costs:</span> <span id="full-watchlist-total-sub-costs-in-stats-modal"><span></p>
     `;
 
     $("#watchlist-stats-modal-body").empty();
     $("#watchlist-stats-modal-body").append(stats);
+
+    $("#full-watchlist-time-in-stats-modal").text(userFriendlyTimeToFinishWatchlist);
+
+    let monthsToWatchDisplay = getMonthsToWatchDisplayValue(monthsToWatchAllItems);
+    $("#full-watchlist-months-to-finish-in-stats-modal").text(monthsToWatchDisplay);
+    $("#full-watchlist-total-sub-costs-in-stats-modal").text("~$" + totalSubCosts);
 }

@@ -45,7 +45,6 @@ namespace StreamBudget.Controllers
             string aspId = _userManager.GetUserId(User);
             Person curUser = _personRepository.FindPersonByAspId(aspId);
 
-            //NEED TO ADD SAFEGUARD TO PREVENT a user accessing another user's items!
             if (_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, watchlistId) == false)
             {
                 return RedirectToAction("Index", "Home");

@@ -51,12 +51,12 @@
 
                     @if(Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInHours != null)
                     {
-                        <td>@Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInHours</td>
-                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input"  value="@Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInHours"></td>
+                        <td>@Model.CompletionTimes.ElementAtOrDefault(i).UserFriendlyDisplay</td>
+                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input"  value="@Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInMinutes"></td>
                     }
                     else
                     {
-                        <td>(N/A)</td>
+                        <td>@Model.CompletionTimes.ElementAtOrDefault(i).UserFriendlyDisplay</td>
                         <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input" value="0"></td>
                     }
 

@@ -7,7 +7,7 @@ namespace StreamBudget.Models.Other
         public string SectionName { get; set; } = null; 
         public int? WatchtimeInHours { get; set; } = null;
         public int? WatchtimeInMinutes { get; set; } = null;
-        public string UserFriendlyDisplay = null;
+        public string UserFriendlyDisplay { get; set; } = "(N/A)";
         public List<SeasonWatchtimeEstimate> SeasonWatchtimes {get; set;} = null;
 
         public SeriesWatchtimeEstimate(string sectionName = "Full series", int? totalEpisodeCount = null, int? episodeRuntimeInMinutes = null) 

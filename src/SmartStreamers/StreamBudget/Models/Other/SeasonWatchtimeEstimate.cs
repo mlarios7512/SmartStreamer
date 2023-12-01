@@ -11,7 +11,7 @@
         {
             SeasonName = seasonName;
 
-            if(episodeCount != null && episodeRuntimeInMinutes != null) 
+            if(episodeCount != null && episodeRuntimeInMinutes != null)
             {
                 WatchtimeInHours = GetWatchtimeEstimateInHours(episodeCount, episodeRuntimeInMinutes);
                 WatchtimeInMinutes = GetWatchtimeEstimateInMinutes(episodeCount, episodeRuntimeInMinutes);
@@ -27,7 +27,6 @@
         {
             return (int)(episodeCount * avgEpisodeRuntimeInMinutes);
         }
-
         public string GetFriendlyWatchtimeEstimate(int? episodeCount, int? avgEpisodeRuntimeInMinutes)
         {
             if(episodeCount != null && avgEpisodeRuntimeInMinutes != null) 
@@ -43,7 +42,6 @@
                 return neatDisplay;
             }
             return "(N/A)";
-
         }
     }
 }

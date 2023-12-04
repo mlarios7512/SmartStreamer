@@ -1,7 +1,6 @@
 ﻿@model StreamBudget.ViewModels.WatchlistVM
 
 <head>
-    <link rel="stylesheet" href="~/css/regwatchlist.css" />
     <link rel="stylesheet" href="~/css/viewwatchlistitems.css" />
 </head>
 
@@ -36,8 +35,8 @@
         <tr>
             <th>Title</th>
             <th>Hours to watch</th>
+            <th>Exclude from stats</th> <!--Intentionally blank (meant for "O" when toggling whether to count an item's total watchtime hours).-->
             <th></th> <!--Intentionally blank (meant for "X" when removing a watchlist item)-->
-            <th></th> <!--Intentionall blank (meant for "O" when toggling whether to count an item's total watchtime hours).-->
         </tr>
     </thead>
     <tbody>
@@ -60,7 +59,7 @@
                         <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input" value="0"></td>
                     }
 
-                    <td><span type="button" class="hoverable-indication togglable-watchlist-item-icon" id="toggle-watchtime-inclusion-btn-item-@item.ImdbId">O</span></td>
+                    <td><span class="hoverable-indication togglable-watchlist-item-indication" id="toggle-watchtime-inclusion-btn-item-@item.ImdbId">No</span></td>
                     <td><span type="button" class="hoverable-indication remove-watchlist-series-btn" id="remove-watchlist-item-@item.ImdbId">X</span></td>
                 </tr>
                 i++;

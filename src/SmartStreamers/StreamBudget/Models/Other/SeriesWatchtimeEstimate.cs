@@ -5,7 +5,6 @@ namespace StreamBudget.Models.Other
     public class SeriesWatchtimeEstimate
     {
         public string SectionName { get; set; } = null; 
-        public int? WatchtimeInHours { get; set; } = null;
         public int? WatchtimeInMinutes { get; set; } = null;
         public string UserFriendlyDisplay { get; set; } = "(N/A)";
         public List<SeasonWatchtimeEstimate> SeasonWatchtimes {get; set;} = null;
@@ -15,15 +14,9 @@ namespace StreamBudget.Models.Other
             SectionName = sectionName;
             if (episodeRuntimeInMinutes != null & totalEpisodeCount != null)
             {
-                WatchtimeInHours = GetWatchtimeEstimateInHours(totalEpisodeCount, episodeRuntimeInMinutes);
                 WatchtimeInMinutes = GetWatchtimeEstimateInMinutes(totalEpisodeCount, episodeRuntimeInMinutes);
                 UserFriendlyDisplay = GetFriendlyWatchtimeEstimate(totalEpisodeCount, episodeRuntimeInMinutes);
             }
-        }
-
-        public int GetWatchtimeEstimateInHours(int? episodeCount, int? avgEpisodeRuntimeInMinutes) 
-        {
-            return (int)Math.Ceiling(((double)episodeCount * (double)avgEpisodeRuntimeInMinutes) / 60);
         }
         public int GetWatchtimeEstimateInMinutes(int? episodeCount, int? avgEpisodeRuntimeInMinutes) 
         {

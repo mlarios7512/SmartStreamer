@@ -35,7 +35,7 @@
         <tr>
             <th>Title</th>
             <th>Hours to watch</th>
-            <th>Exclude from stats</th> <!--Intentionally blank (meant for "O" when toggling whether to count an item's total watchtime hours).-->
+            <th>Exclude from stats</th>
             <th></th> <!--Intentionally blank (meant for "X" when removing a watchlist item)-->
         </tr>
     </thead>
@@ -48,7 +48,7 @@
                 <tr class="table-active" id="watchlist-entry-@item.ImdbId">
                     <td>@item.Title (@item.FirstAirYear)</td>
 
-                    @if(Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInHours != null)
+                    @if(Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInMinutes != null)
                     {
                         <td>@Model.CompletionTimes.ElementAtOrDefault(i).UserFriendlyDisplay</td>
                         <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input"  value="@Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInMinutes"></td>

@@ -36,7 +36,6 @@ function getFullWatchlistTimeInMonths(fullWatchlistTimeInHours, formInput)
 function calculateFullWatchlistSubscriptionCosts(monthsToCompleteFullWatchlist, monthlySubscriptionCostInput, totalWatchtimeInHours)
 {
     let totalSubscriptionCosts = monthsToCompleteFullWatchlist * monthlySubscriptionCostInput;
-    console.log(`total sub costs: ${totalSubscriptionCosts}`);
     if (totalWatchtimeInHours <= 0 || monthsToCompleteFullWatchlist <= 0){
         totalSubscriptionCosts = monthlySubscriptionCostInput;
     }

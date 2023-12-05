@@ -12,6 +12,8 @@ public partial class WatchlistItem
     [StringLength(64, MinimumLength = 1, ErrorMessage = "Title must be between {1} and {2} characters.")]
     public string Title { get; set; } = null!;
 
+    //See "Better Call Saul Employee Training (2017)". It does NOT have an ImdbId, so a new scheme will need to be used
+    //for the page responsbile for generating full watchlist stats.
     [StringLength(64, MinimumLength = 1, ErrorMessage = "ImdbId must be between {1} and {2} characters.")]
     public string ImdbId { get; set; } = null!;
 

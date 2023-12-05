@@ -57,7 +57,6 @@ namespace StreamBudget.Controllers
             watchlistDisplay.WatchlistItems = itemsInWatchlist.AsEnumerable();
             watchlistDisplay.WatchlistPlatformPrice = _watchlistRepository.FindById(watchlistId).SelectedStreamingCost;
 
-            //Probably best to try to implement the watchtime estimates using the factory pattern (in case we want to use "movie" type from API too).
             SeriesWatchtimeEstimate seriesCompletionTime = null;
             foreach (var item in itemsInWatchlist)
             {

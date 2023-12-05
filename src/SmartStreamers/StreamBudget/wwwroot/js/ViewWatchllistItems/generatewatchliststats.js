@@ -43,7 +43,7 @@ function calculateFullWatchlistSubscriptionCosts(monthsToCompleteFullWatchlist, 
 
 $("#generate-watchlist-stats-btn").click(function () {
     const formValues = getWatchlistStatsFormValues();
-
+    console.log(`form status: ${formValues.status}`);
     if (!formValues.status) {
         return;
     }
@@ -74,6 +74,19 @@ function getWatchlistStatsFormValues() {
         return { status: false };
     }
 
+
+    console.log("\n\n------------\n")
+    console.log(`Monthly sub costs (validity check): ${checkIfNumIsValid(Number(streamingCostPerMonthInput.value))}. Type: ${typeof Number(streamingCostPerMonthInput.value)}. Value: ${Number(streamingCostPerMonthInput.value)})`);
+    console.log(`TV hours (validity check): ${checkIfNumIsValid(Number(tvHoursPerDayInput.value))}. Type: ${typeof Number(tvHoursPerDayInput.value)}. Value: ${Number(tvHoursPerDayInput.value)}`);
+
+
+    if (checkIfNumIsValid(Number(tvHoursPerDayInput.value)) === false || checkIfNumIsValid(Number(streamingCostPerMonthInput.value)) === false) {
+        console.log("Please enter input for both fields");
+        alert("Enter a number greater than 0 for both fields.")
+
+        return { status: false };
+    }
+
     return {
         status: true,
         tvHours: Number(tvHoursPerDayInput.value),
@@ -90,10 +103,35 @@ function getMonthsToWatchDisplayValue(monthsToWatchAllItems) {
     }
     else {
         return "(N/A)";
-    }
-    
+    }   
 }
+
+function checkIfNumIsValid(number) {
+
+    if (typeof number != "number" || number === "undefined") {
+        return false;
+    }
+    if (Number.isNaN(number)) {
+        return false;
+    }
+    if (number == Infinity || number <= 0) {
+        return false;
+    }
+
+    return true;
+
+}
+
 function displayWatchlistStats(userFriendlyTimeToFinishWatchlist, monthsToWatchAllItems, totalSubCosts) {
+
+    //console.log("\n\n------------\n")
+    //console.log(`Total sub costs (validity check): ${checkIfNumIsValid(totalSubCosts)}. Type: ${typeof totalSubCosts}. Value: ${totalSubCosts}`);
+    //console.log(`Months to watch all (validity check): ${checkIfNumIsValid(monthsToWatchAllItems)}. Type: ${typeof monthsToWatchAllItems}. Value: ${monthsToWatchAllItems}`);
+
+    //if (checkIfNumIsValid(monthsToWatchAllItems) === false && checkIfNumIsValid(totalSubCosts) === false) {
+    //    console.log("Please enter input for both fields");
+
+    //}
 
     let stats = `
         <p><span class="fw-bold">Total watchtime:</span> <span id="full-watchlist-time-in-stats-modal"><span></p>

@@ -16,13 +16,14 @@ namespace StreamBudget.Controllers
             _streamAvailService = streamAvailService;
         }
 
+        // REAL VER (uses API calls. Used for visitor page only.
         //[HttpGet("search/title/{titleName}")]
         //public async Task<IEnumerable<SearchResultDTO>> GetSearchResults(string titleName)
         //{
         //    return await _streamAvailService.GetBasicSearch(titleName);
         //}
 
-        //PRACTICE VER (to save on API calls).
+        //PRACTICE VER (to save on API calls). Used for visitor page only.
         [HttpGet("search/title/{titleName}")]
         public async Task<IEnumerable<SearchResultDTO>> GetSearchResults(string titleName)
         {

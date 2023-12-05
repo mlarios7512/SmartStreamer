@@ -74,8 +74,7 @@ namespace StreamBudget.Controllers
                 }
                 searchVM.CompletionTimes.Add(seriesCompletionTime);
             }
-            
-
+    
             return View(searchVM);
         }
     }

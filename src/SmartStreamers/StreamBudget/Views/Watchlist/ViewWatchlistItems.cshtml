@@ -41,7 +41,6 @@
     </thead>
     <tbody>
         @{
-
             int i = 0;
             foreach(var item in Model.WatchlistItems)
             {
@@ -51,7 +50,7 @@
                     @if(Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInMinutes != null)
                     {
                         <td>@Model.CompletionTimes.ElementAtOrDefault(i).UserFriendlyDisplay</td>
-                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input"  value="@Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInMinutes"></td>
+                        <td class="hidden watchlist-entry-fs-watchtime"><input type="hidden" name="FullSeriesHoursWatchtime" id="total-watchtime-@item.ImdbId-input" value="@Model.CompletionTimes.ElementAtOrDefault(i).WatchtimeInMinutes"></td>
                     }
                     else
                     {
@@ -79,7 +78,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="watchlist-stats-modal-body">
-        
+            <p><span class="fw-bold">Total watchtime:</span> <span id="full-watchlist-time-in-stats-modal"></span></p>
+            <p><span class="fw-bold">Months to finish:</span> <span id="full-watchlist-months-to-finish-in-stats-modal"></span></p>
+            <p><span class="fw-bold">Total subscription costs:</span> <span id="full-watchlist-total-sub-costs-in-stats-modal"></span></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

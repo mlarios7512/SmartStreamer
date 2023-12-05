@@ -24,17 +24,19 @@ function minToUserFriendlyDisplayString(mins) {
 
 function getFullWatchlistTimeInMonths(fullWatchlistTimeInHours, formInput)
 {
-    const HOURS_PER_MONTH = 730.5;
+    const AVG_HOURS_PER_MONTH = 730.5;
+    const AVG_DAYS_PER_MONTH = 30; //Not really sure if "DAYS_PER_MONTH" is what "30" stood for. (I just guessed based off working old code.)
 
     //Can't remember why I created 2 of these statements for "monthsToFinishAllSeries". (This lines below were copy & pasted from guest version.)
-    let monthsToFinishAllSeries = Math.round(((fullWatchlistTimeInHours / formInput.tvHours) / HOURS_PER_MONTH) / 30); //NOT 100% accurate. (730 is close though.)
-    monthsToFinishAllSeries = Math.round((fullWatchlistTimeInHours / formInput.tvHours) / 30); //Produces some inaccuracy (trailing decimals).
+    let monthsToFinishAllSeries = Math.round(((fullWatchlistTimeInHours / formInput.tvHours) / AVG_HOURS_PER_MONTH) / AVG_DAYS_PER_MONTH); //NOT 100% accurate. (730 is close though.)
+    monthsToFinishAllSeries = Math.round((fullWatchlistTimeInHours / formInput.tvHours) / AVG_DAYS_PER_MONTH); //Produces some inaccuracy (trailing decimals).
     return monthsToFinishAllSeries;
 }
 
 function calculateFullWatchlistSubscriptionCosts(monthsToCompleteFullWatchlist, monthlySubscriptionCostInput, totalWatchtimeInHours)
 {
     let totalSubscriptionCosts = monthsToCompleteFullWatchlist * monthlySubscriptionCostInput;
+    console.log(`total sub costs: ${totalSubscriptionCosts}`);
     if (totalWatchtimeInHours <= 0 || monthsToCompleteFullWatchlist <= 0){
         totalSubscriptionCosts = monthlySubscriptionCostInput;
     }
@@ -56,6 +58,7 @@ $("#generate-watchlist-stats-btn").click(function () {
     let fullWatchlistInHours = Math.round(fullWatchllistEstimateInMinutes / 60);
     let monthsToFinishFullWatchlist = getFullWatchlistTimeInMonths(fullWatchlistInHours, formValues);
     let totalSubscriptionCosts = calculateFullWatchlistSubscriptionCosts(monthsToFinishFullWatchlist, formValues.monthlySubscriptionCost, fullWatchlistInHours);
+
 
     let formattedTime = minToUserFriendlyDisplayString(fullWatchllistEstimateInMinutes);
     displayWatchlistStats(formattedTime, monthsToFinishFullWatchlist, totalSubscriptionCosts);
@@ -93,7 +96,7 @@ function checkIfNumIsValid(number) {
     if (Number.isNaN(number)) {
         return false;
     }
-    if (number == Infinity || number <= 0) {
+    if (number == Infinity || number < 0) {
         return false;
     }
 
@@ -107,6 +110,7 @@ function displayWatchlistStats(userFriendlyTimeToFinishWatchlist, monthsToWatchA
 
     $("#full-watchlist-time-in-stats-modal").text(userFriendlyTimeToFinishWatchlist);
     if (checkIfNumIsValid(monthsToWatchAllItems) === false || checkIfNumIsValid(totalSubCosts) === false) {
+
         $("#full-watchlist-months-to-finish-in-stats-modal").text("(N/A)");
         $("#full-watchlist-total-sub-costs-in-stats-modal").text("(N/A)");
     }

@@ -87,7 +87,9 @@
                 <div class="row mt-5">
                     <div class="d-flex justify-content-center gap-5">
                         <a role="button" class="w-25 btn btn-primary form-control" asp-controller="Watchlist" asp-action="ViewWatchlists" id="try-it-btn">Get started</a>
-                        <a role="button" class="w-25 btn btn-light form-control" asp-action="SeriesSearchResults" asp-controller="Home" id="try-it-btn">Try as guest (limited features)</a>
+
+                        <!--This btn is currently intended to do NOTHING except serve as a reminder to fix the visitor page when possible. -->
+                        <a role="button" class="w-25 btn btn-light form-control" asp-action="Watchlist" asp-controller="ViewWatchlists">Try as guest (limited features)</a>
                     </div>
                 </div>
             </div>

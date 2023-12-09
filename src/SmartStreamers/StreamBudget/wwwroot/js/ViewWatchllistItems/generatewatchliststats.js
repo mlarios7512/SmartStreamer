@@ -25,10 +25,9 @@ function minToUserFriendlyDisplayString(mins) {
 function getFullWatchlistTimeInMonths(fullWatchlistTimeInHours, formInput)
 {
     const AVG_HOURS_PER_MONTH = 730.5;
-    const AVG_DAYS_PER_MONTH = 30; //Not really sure if "DAYS_PER_MONTH" is what "30" stood for. (I just guessed based off working old code.)
+    const AVG_DAYS_PER_MONTH = 30;
 
-    //Can't remember why I created 2 of these statements for "monthsToFinishAllSeries". (This lines below were copy & pasted from guest version.)
-    let monthsToFinishAllSeries = Math.round(((fullWatchlistTimeInHours / formInput.tvHours) / AVG_HOURS_PER_MONTH) / AVG_DAYS_PER_MONTH); //NOT 100% accurate. (730 is close though.)
+    let monthsToFinishAllSeries = Math.round(((fullWatchlistTimeInHours / formInput.tvHours) / AVG_HOURS_PER_MONTH) / AVG_DAYS_PER_MONTH); //NOT 100% accurate. (but 730 is close enough for it's purpose.)
     monthsToFinishAllSeries = Math.round((fullWatchlistTimeInHours / formInput.tvHours) / AVG_DAYS_PER_MONTH); //Produces some inaccuracy (trailing decimals).
     return monthsToFinishAllSeries;
 }

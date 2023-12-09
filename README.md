@@ -1,7 +1,9 @@
 
 # StreamBudget
 ### State of site (video)
-https://github.com/mlarios7512/SmartStreamer/assets/108952101/e45f0cd2-9ab9-4936-9145-7776aecef88b
+https://github.com/mlarios7512/SmartStreamer/assets/108952101/f11f8187-001c-4b78-bb4d-4030d2583403
+
+
 
 
 * Note: The video shows only features for a logged in user. The "visitor" page (the link that is visible at the start but not demoed in the video) does not allow for the creation of multiple watchlists (just one that can't be saved). Vistor page also does not display watchtime estimates for each season in the results.

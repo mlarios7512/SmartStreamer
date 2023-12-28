@@ -9,152 +9,47 @@ namespace StreamBudget.Models.DTO.StreamAvail
 
         public StreamingPlatformDTO()
         {
-
+        }
+        public enum Platform
+        {
+            Apple = 0,
+            Disney = 1,
+            HBO = 2,
+            Hulu = 3,
+            Netflix = 4,
+            Paramount = 5,
+            Prime = 6
         }
 
         public static void GetPlatformDetails_FromJSON(List<JToken> allTitles, List<SearchResultDTO> mediaItems)
         {
-
             List<StreamingPlatformDTO> PlatformDetails = new List<StreamingPlatformDTO>();
             int mediaItemIndex = 0;
 
             StreamingPlatformDTO StreamingPlatformInfo = new StreamingPlatformDTO();
 
-
             foreach (var item in mediaItems)
             {
-                bool? availableOnappleSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("apple")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
-                bool? availableOnDisneySub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("disney")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
-                bool? availableOnHboSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("hbo")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
-                bool? availableOnHuluSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("hulu")?.Any(x => x.SelectToken("type")?.ToString() == "subscription"); ;
-                bool? availableOnNetflixSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("netflix")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
-                bool? availableOnParamountSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("paramount")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
-                bool? availableOnPeacockSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("peacock")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
-                bool? availableOnPrimeSub = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken("prime")?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
+                List<bool?> platformAvailability = new();
+                foreach (var platform in Enum.GetValues(typeof(Platform)))
+                {
+                    string curPlatform = platform.ToString().ToLower();
+                    bool? result = allTitles.ElementAtOrDefault(mediaItemIndex)?.SelectToken("streamingInfo")?.SelectToken("us")?.SelectToken(curPlatform)?.Any(x => x.SelectToken("type")?.ToString() == "subscription");
+                    platformAvailability.Add(result);
+                }
 
                 item.StreamingInfo = new List<StreamingPlatformDTO>();
-                StreamingPlatformInfo = new StreamingPlatformDTO();
-                StreamingPlatformInfo.PlatformName = "Apple";
-                if (availableOnappleSub != null)
-                {
-                    if (availableOnappleSub == true)
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = true;
-                    }
-                    else
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = false;
-                    }
-                }
-                item.StreamingInfo.Add(StreamingPlatformInfo);
 
-                //-----------------
-                StreamingPlatformInfo = new StreamingPlatformDTO();
-                StreamingPlatformInfo.PlatformName = "Disney+";
-                if (availableOnDisneySub != null)
+                int platformAvailIValuelndex = 0;
+                foreach (var platform in Enum.GetValues(typeof(Platform)))
                 {
-                    if (availableOnDisneySub == true)
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = true;
-                    }
-                    else
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = false;
-                    }
-                }
-                item.StreamingInfo.Add(StreamingPlatformInfo);
+                    StreamingPlatformInfo = new StreamingPlatformDTO();
+                    StreamingPlatformInfo.PlatformName = platform.ToString();
+                    StreamingPlatformInfo.AvailableOnSubscription = platformAvailability.ElementAt(platformAvailIValuelndex);
+                    item.StreamingInfo.Add(StreamingPlatformInfo);
 
-                //---------
-                StreamingPlatformInfo = new StreamingPlatformDTO();
-                StreamingPlatformInfo.PlatformName = "HBO";
-                if (availableOnHboSub != null)
-                {
-                    if (availableOnHboSub == true)
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = true;
-                    }
-                    else
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = false;
-                    }
+                    platformAvailIValuelndex++;
                 }
-                item.StreamingInfo.Add(StreamingPlatformInfo);
-                //-----
-                StreamingPlatformInfo = new StreamingPlatformDTO();
-                StreamingPlatformInfo.PlatformName = "Hulu";
-                if (availableOnHuluSub != null)
-                {
-                    if (availableOnHuluSub == true)
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = true;
-                    }
-                    else
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = false;
-                    }
-                }
-                item.StreamingInfo.Add(StreamingPlatformInfo);
-                //-------
-                StreamingPlatformInfo = new StreamingPlatformDTO();
-                StreamingPlatformInfo.PlatformName = "Netflix";
-                if (availableOnNetflixSub != null)
-                {
-                    if (availableOnNetflixSub == true)
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = true;
-                    }
-                    else
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = false;
-                    }
-                }
-                item.StreamingInfo.Add(StreamingPlatformInfo);
-                //-------
-                StreamingPlatformInfo = new StreamingPlatformDTO();
-                StreamingPlatformInfo.PlatformName = "Paramount";
-                if (availableOnParamountSub != null)
-                {
-                    if (availableOnParamountSub == true)
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = true;
-                    }
-                    else
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = false;
-                    }
-                }
-                item.StreamingInfo.Add(StreamingPlatformInfo);
-                //--------
-                StreamingPlatformInfo = new StreamingPlatformDTO();
-                StreamingPlatformInfo.PlatformName = "Peacock";
-                if (availableOnPeacockSub != null)
-                {
-                    if (availableOnPeacockSub == true)
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = true;
-                    }
-                    else
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = false;
-                    }
-                }
-                item.StreamingInfo.Add(StreamingPlatformInfo);
-                //--------
-                StreamingPlatformInfo = new StreamingPlatformDTO();
-                StreamingPlatformInfo.PlatformName = "Prime";
-                if (availableOnPrimeSub != null) //Ensures the platform exists.
-                {
-                    if (availableOnPrimeSub == true) //Ensures the series is avaiable through that platform as part of the platform's "subscription".
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = true;
-                    }
-                    else
-                    {
-                        StreamingPlatformInfo.AvailableOnSubscription = false;
-                    }
-
-                }
-                item.StreamingInfo.Add(StreamingPlatformInfo);
 
                 mediaItemIndex++;
             }

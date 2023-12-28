@@ -97,13 +97,13 @@ public class Tests
         //Assert
         foreach (SearchResultDTO mediaItem in SeriesSearchResults)
         {
-            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault(0).AvailableOnSubscription == false);
-            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault(1).AvailableOnSubscription == false);
-            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault(2).AvailableOnSubscription == false);
-            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault(3).AvailableOnSubscription == false);
-            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault(4).AvailableOnSubscription == false);
-            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault(5).AvailableOnSubscription == false);
-            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault(6).AvailableOnSubscription == true);
+            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault((int)Platform.Apple).AvailableOnSubscription == false);
+            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault((int)Platform.Disney).AvailableOnSubscription == false);
+            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault((int)Platform.HBO).AvailableOnSubscription == false);
+            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault((int)Platform.Hulu).AvailableOnSubscription == false);
+            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault((int)Platform.Netflix).AvailableOnSubscription == false);
+            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault((int)Platform.Paramount).AvailableOnSubscription == false);
+            Assert.That(mediaItem.StreamingInfo.ElementAtOrDefault((int)Platform.Prime).AvailableOnSubscription == true);
         }
     }
 

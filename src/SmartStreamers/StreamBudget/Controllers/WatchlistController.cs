@@ -52,11 +52,13 @@ namespace StreamBudget.Controllers
 
             List<WatchlistItem> itemsInWatchlist = _watchlistItemRepository.GetWatchlistItemByWatchlistId(watchlistId);
 
+            
             WatchlistVM watchlistDisplay = new WatchlistVM();
             watchlistDisplay.WatchlistId = watchlistId;
             watchlistDisplay.WatchlistItems = itemsInWatchlist.AsEnumerable();
             watchlistDisplay.WatchlistPlatformPrice = _watchlistRepository.FindById(watchlistId).SelectedStreamingCost;
 
+            //A lot to revise here but need to revised service and parsing methods first.
             SeriesWatchtimeEstimate seriesCompletionTime = null;
             foreach (var item in itemsInWatchlist)
             {

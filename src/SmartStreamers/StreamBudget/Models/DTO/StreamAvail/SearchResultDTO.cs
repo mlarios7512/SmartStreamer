@@ -51,8 +51,6 @@ namespace StreamBudget.Models.DTO.StreamAvail
                 this.Runtime = (int?)jObject["result"]["episodeRuntimes"]?.FirstOrDefault();
                 this.EpisodeCount = (int)jObject["result"]["episodeCount"];
                 this.SeasonCount = (int)jObject["result"]["seasonCount"];
-
-
             }
         }
 
@@ -87,25 +85,6 @@ namespace StreamBudget.Models.DTO.StreamAvail
                                                                                                         .ToList()
                                                                                                          )
                 });
-
-                //OLD CODE (above)------------
-
-                //IEnumerable<SearchResultDTO> MediaItemsAsEnum = jObject["result"].Select(i => new SearchResultDTO()
-                //{
-                //    Type = (string)i["type"],
-                //    Title = (string)i["title"],
-                //    Overview = (string)i["overview"],
-                //    FirstAirYear = (int)i["firstAirYear"],
-                //    LastAirYear = (int)i["lastAirYear"],
-                //    ImdbRating = (int)i["imdbRating"],
-                //    BackdropURL = (string)i["backdropURLs"]["original"],
-                //    AdvisedMinimumAudienceAge = (int)i["advisedMinimumAudienceAge"],
-                //    ImdbId = (string)i["imdbId"],
-                //    Runtime = (int?)i["episodeRuntimes"]?.FirstOrDefault(),
-                //    EpisodeCount = (int)i["episodeCount"],
-                //    SeasonCount = (int)i["seasonCount"],
-                //    SeasonDetails = null
-                //});
 
                 return MediaItemsAsEnum.ToList();
             }

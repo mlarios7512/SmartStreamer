@@ -47,11 +47,12 @@ namespace StreamBudget.Controllers
 
             if (_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, watchlistId) == false)
             {
-                return RedirectToAction("Index", "Home");
+                return NotFound();
             }
 
             List<WatchlistItem> itemsInWatchlist = _watchlistItemRepository.GetWatchlistItemByWatchlistId(watchlistId);
 
+            
             WatchlistVM watchlistDisplay = new WatchlistVM();
             watchlistDisplay.WatchlistId = watchlistId;
             watchlistDisplay.WatchlistItems = itemsInWatchlist.AsEnumerable();
@@ -83,6 +84,8 @@ namespace StreamBudget.Controllers
             string aspId = _userManager.GetUserId(User);
             Person curUser = _personRepository.FindPersonByAspId(aspId);
             newWatchlist.OwnerId = curUser.Id;
+
+            //Making sure the watchlist belongs to an existing owner.
             ModelState.ClearValidationState("Owner");
             newWatchlist.Owner = _personRepository.FindPersonByAspId(aspId);
             TryValidateModel(newWatchlist);

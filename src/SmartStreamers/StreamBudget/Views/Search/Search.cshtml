@@ -124,7 +124,7 @@
                                             @{
                                                 foreach (var platform in item.StreamingInfo)
                                                 {
-                                                    if(platform.AvailableOnSubscription != null)
+                                                    if(platform.AvailableOnSubscription == null)
                                                     {
                                                         <td class="fw-bold">???</td>
                                                     }

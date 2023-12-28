@@ -8,6 +8,7 @@ using StreamBudget.Models.DTO.StreamAvail;
 using StreamBudget.Models.Other;
 using StreamBudget.Services.Abstract;
 using StreamBudget.ViewModels;
+using System.Text.RegularExpressions;
 
 namespace StreamBudget.Controllers
 {
@@ -47,7 +48,11 @@ namespace StreamBudget.Controllers
             IEnumerable<SearchResultDTO> searchResults = Enumerable.Empty<SearchResultDTO>();
             if (!titleName.IsNullOrEmpty()) 
             {
-                searchResults = await _streamAvailService.GetBasicSearch(titleName);
+                Regex regex = new Regex(@"^[a-zA-Z \w\d:;!]{1,100}$");
+                if (regex.IsMatch(titleName)) 
+                {
+                    searchResults = await _streamAvailService.GetBasicSearch(titleName);
+                }
             }
 
             SeriesSearchVM searchVM = new SeriesSearchVM() 

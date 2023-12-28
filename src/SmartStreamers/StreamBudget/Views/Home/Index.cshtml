@@ -31,7 +31,7 @@
 
             </div>
             <!--MOBILE BORDER 1 -->
-            <div class="d-xl-none my-3 border-bottom"></div>
+            <div class="d-xl-none my-3 border-bottom container-fill"></div>
             <div class="col-xxl-4 mb-sm-5">
                 <h4 class="mb-5">
                     Get watchtime estimates
@@ -56,7 +56,8 @@
                 <div class="d-flex justify-content-center gap-5">
                     <a role="button" class="w-25 btn btn-primary form-control" asp-controller="Watchlist" asp-action="ViewWatchlists" id="try-it-btn">Get started</a>
 
-                    <a role="button" class="w-25 btn btn-light form-control" asp-action="SeriesSearchResults" asp-controller="Home">Try as guest (limited features)</a>
+                    <!--Placeholder btn. Will likely create a new visitor page in the future.-->
+                    <a role="button" class="w-25 btn btn-light form-control" asp-action="Watchlist" asp-controller="ViewWatchlists">Try as guest (limited features)</a>
                 </div>
             </div>
         </div>

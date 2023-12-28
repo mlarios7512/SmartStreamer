@@ -19,7 +19,7 @@ CREATE TABLE [WatchlistItem](
     [ImdbId]                nvarchar(64)        NOT NULL,
     [FirstAirYear]          int         NOT NULL,
     [EpisodeRuntime]        int         NULL, --Avg runtime in minutes.
-    [TotalEpisodeCount]     int         NULL,  --Full series
+    [TotalEpisodeCount]     int         NULL,  --For a full series.
     [WatchlistID]           int         NOT NULL 
 );
 

@@ -126,17 +126,15 @@
                                                 {
                                                     if(platform.AvailableOnSubscription != null)
                                                     {
-                                                        if(platform.AvailableOnSubscription == true)
-                                                        {
-                                                            <td><img src="~/img/check-solid.svg" class="green-check" alt="Yes" /></td>
-                                                        }else
-                                                        {
-                                                            <td><img src="~/img/xmark-solid.svg" class="red-xmark" alt="No"/></td>
-                                                        }
+                                                        <td class="fw-bold">???</td>
+                                                    }
+                                                    else if(platform.AvailableOnSubscription == true)
+                                                    {
+                                                        <td><img src="~/img/check-solid.svg" class="green-check" alt="Yes" /></td>
                                                     }
                                                     else
                                                     {
-                                                        <td class="fw-bold">???</td>
+                                                        <td><img src="~/img/xmark-solid.svg" class="red-xmark" alt="No" /></td>
                                                     }
                                                 }
                                             }

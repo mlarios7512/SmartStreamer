@@ -36,6 +36,7 @@ namespace StreamBudget.Controllers
         [HttpPost("add/series")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status304NotModified)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult AddSeriesToWatchlist([Bind("CurWatchlistId , TitleSTA, ImdbIdSTA, FirstYearSTA, RuntimeSTA, TotalEpisodeCountSTA")] WatchlistItemDTO newWatchlistItemInfo) 
         {
@@ -62,7 +63,7 @@ namespace StreamBudget.Controllers
                     _watchlistItemRepository.AddOrUpdate(newEntry);
                     return Ok(newWatchlistItemInfo);
                 }
-                return NotFound ();
+                return NotFound();
             }
 
             return BadRequest();   
@@ -70,7 +71,7 @@ namespace StreamBudget.Controllers
 
         [HttpPost("remove/series/{imdbId}/{watchlistId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<string>> RemoveSeriesFromWatchlist(string imdbId, int watchlistId)
         {
             try 
@@ -80,7 +81,7 @@ namespace StreamBudget.Controllers
 
                 if (_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, watchlistId) == false) 
                 {
-                    return NotFound("tt-ERROR-DELETION");
+                    return BadRequest();
                 }
 
                 int curwatchlistId = _watchlistRepository.FindById(watchlistId).Id;
@@ -89,7 +90,7 @@ namespace StreamBudget.Controllers
             }
             catch (NullReferenceException)
             {
-                return BadRequest("tt-ERROR-DELETION");
+                return BadRequest();
             }
             
         }

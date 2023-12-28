@@ -1,3 +1,15 @@
-﻿#stream-avail-title-search{
-    display:none;
+﻿html {
+    background-color: black;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+#core-features-container {
+    padding-top: 50px;
+}
+
+#core-feature-outer-container {
+    margin-top: 250px;
 }

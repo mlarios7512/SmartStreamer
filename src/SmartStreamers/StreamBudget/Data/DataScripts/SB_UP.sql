@@ -3,6 +3,7 @@
     [ASPNetIdentityID]  nvarchar(64)    NOT NULL,
 );
 
+--Need to update table schemes below. The current one was only meant to be used by one person on a local machine.
 
 CREATE TABLE [Watchlist](
     [ID]                    int             PRIMARY KEY IDENTITY(1, 1),
@@ -17,7 +18,7 @@ CREATE TABLE [WatchlistItem](
     [Title]                 nvarchar(64)        NOT NULL,
     [ImdbId]                nvarchar(64)        NOT NULL,
     [FirstAirYear]          int         NOT NULL,
-    [EpisodeRuntime]        int         NULL, --Should be in minutes
+    [EpisodeRuntime]        int         NULL, --Best to rename this to "AvgEpisodeRuntime". Should be in minutes.
     [TotalEpisodeCount]     int         NULL,  --Full series
     [WatchlistID]           int         NOT NULL 
 );

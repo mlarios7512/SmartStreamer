@@ -1,113 +1,74 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
+﻿
 <html lang="en" class="bg-dark">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - StreamBudget</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <title>StreamBudget</title>
     <link rel="stylesheet" href="~/css/index.css" />
-    <link rel="stylesheet" href="~/css/uniqueindex.css" />
     <link rel="stylesheet" href="~/css/searchresults.css" />
-    <link rel="stylesheet" href="~/StreamBudget.styles.css" asp-append-version="true" />
-    <script src="https://kit.fontawesome.com/a189c30564.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow pb-2 mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">StreamBudget</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-white" asp-area="" asp-controller="Watchlist" asp-action="ViewWatchlists">Watchlists</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
+
+    <div class="row mt-5">
+        <div class="text-center col-xxl-5">
+            <h3>StreamBudget</h3>
+        </div>
+        <div class="col-xxl-6">
+            Introducing StreamBudget. A site intended to help you watch your favorite shows like Netflix, Disney+, & Hulu while on a budget.
+        </div>
+    </div>
+
+    <div class="text-center px-5 pt-5 pb-4 bg-dark" id="core-feature-outer-container">
+        <div class="row" id="core-features-container">
+            <div class="col-xxl-4">
+                <h4 class="mb-5">
+                    Compare platform availability
+                    <br />
+                    <i class="mt-5  fa-solid fa-magnifying-glass text-white" style="font-size:54px;"></i>
+                </h4>
+                <p class="mb-5">
+                    Find out which streaming platform hosts that show. We provide results for 8
+                    platforms, including some of the most popular like Netflix, Disney+, and HBO.
+                </p>
+
+            </div>
+            <!--MOBILE BORDER 1 -->
+            <div class="d-xl-none my-3 border-bottom"></div>
+            <div class="col-xxl-4 mb-sm-5">
+                <h4 class="mb-5">
+                    Get watchtime estimates
+                    <br />
+                    <i class="mt-5  fa-solid fa-clock text-white" style="font-size:54px;"></i>
+                </h4>
+                <p class="mb-5">Get estimates to finish particular seasons of series or from start to finish.</p>
+
+            </div>
+            <!--MOBILE BORDER 2--->
+            <div class="d-xl-none my-3 border-bottom container-fill"></div>
+            <div class="col-xxl-4 mb-sm-5">
+                <h4 class="mb-5">
+                    Use multiple watchlists
+                    <br />
+                    <i class="mt-5 fa-solid fa-list text-white" style="font-size:54px;"></i>
+                </h4>
+                <p class="mb-5">Organizing shows using different watchlists helps keep things if you want to track series by groups.</p>
+            </div>
+
+            <div class="row mt-5">
+                <div class="d-flex justify-content-center gap-5">
+                    <a role="button" class="w-25 btn btn-primary form-control" asp-controller="Watchlist" asp-action="ViewWatchlists" id="try-it-btn">Get started</a>
+
+                    <a role="button" class="w-25 btn btn-light form-control" asp-action="SeriesSearchResults" asp-controller="Home">Try as guest (limited features)</a>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="">
-        <div class="row mt-5">
-            <div class="text-center col-xxl-5">
-                <h3>StreamBudget</h3>
-            </div>
-            <div class="col-xxl-6">
-                Introducing StreamBudget. A site intended to help you watch your favorite shows like Netflix, Disney+, & Hulu while on a budget.
             </div>
         </div>
 
-        <div class="text-center px-5 pt-5 pb-4 bg-dark" id="core-feature-outer-container">
-            <div class="row" id="core-features-container">
-                <div class="col-xxl-4">
-                    <h4 class="mb-5">
-                        Compare platform availability
-                        <br />
-                        <i class="mt-5  fa-solid fa-magnifying-glass" style="font-size:54px; color: #ffffff;"></i>
-                    </h4>
-                    <p class="mb-5">Find out which streaming platform hosts that show. We provide results for 8 
-                        platforms, including some of the most popular like Netflix, Disney+, and HBO.
-                    </p>
-
-                </div>
-                <!--MOBILE BORDER 1 -->
-                <div class="d-xl-none my-3 border-bottom"></div>
-                <div class="col-xxl-4 mb-sm-5">
-                    <h4 class="mb-5">
-                        Get watchtime estimates
-                        <br />
-                        <i class="mt-5  fa-solid fa-clock" style="font-size:54px; color: #ffffff;"></i>
-                    </h4>
-                    <p class="mb-5">Get estimates to finish particular seasons of series or from start to finish.</p>
-
-                </div>
-                <!--MOBILE BORDER 2--->
-                <div class="d-xl-none my-3 border-bottom"></div>
-                <div class="col-xxl-4 mb-sm-5">
-                    <h4 class="mb-5">
-                        Use multiple watchlists
-                        <br />
-                        <i class="mt-5 fa-solid fa-list" style="font-size:54px; color: #ffffff;"></i>
-                    </h4>
-                    <p class="mb-5">Organizing shows using different watchlists helps keep things if you want to track series by groups.</p>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="d-flex justify-content-center gap-5">
-                        <a role="button" class="w-25 btn btn-primary form-control" asp-controller="Watchlist" asp-action="ViewWatchlists" id="try-it-btn">Get started</a>
-
-                        <!--This btn is currently intended to do NOTHING except serve as a reminder to fix the visitor page when possible. -->
-                        <a role="button" class="w-25 btn btn-light form-control" asp-action="Watchlist" asp-controller="ViewWatchlists">Try as guest (limited features)</a>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-
-
-
     </div>
 
-    @*  <footer class="border-top footer text-muted">
-    <div class="container">
-    &copy; 2023 - StreamBudget - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
-    </footer>*@
+
+
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-  @*  @await RenderSectionAsync("Scripts", required: false)*@
 </body>
 </html>

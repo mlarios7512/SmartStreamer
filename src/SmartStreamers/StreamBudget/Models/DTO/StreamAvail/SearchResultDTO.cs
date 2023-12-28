@@ -26,7 +26,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
 
         public List<SeasonDetailsDTO> SeasonDetails { get; set; } = new List<SeasonDetailsDTO>();
 
-        public void FromJSON_SingleSeriesDetails(object? obj)
+        public void Parse_IndividualSeriesDetails(object? obj)
         {
             JObject jObject = null;
             try
@@ -54,7 +54,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
             }
         }
 
-        public static IList<SearchResultDTO> FromJSON(object? obj)
+        public static IList<SearchResultDTO> Parse_GetAllTVShows(object? obj)
         {
             JObject? jObject = null;
             try
@@ -81,7 +81,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
                     Runtime = (int?)i["episodeRuntimes"]?.FirstOrDefault(),
                     EpisodeCount = (int)i["episodeCount"],
                     SeasonCount = (int)i["seasonCount"],
-                    SeasonDetails = (List<SeasonDetailsDTO>)SeasonDetailsDTO.GetSeasonDetails_FromJSON(i.SelectToken("seasons")
+                    SeasonDetails = (List<SeasonDetailsDTO>)SeasonDetailsDTO.Parse_GetSeasonSpecificDetails(i.SelectToken("seasons")
                                                                                                         .ToList()
                                                                                                          )
                 });

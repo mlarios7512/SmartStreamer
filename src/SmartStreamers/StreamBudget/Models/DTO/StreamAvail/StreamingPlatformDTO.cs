@@ -21,7 +21,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
             Prime = 6
         }
 
-        public static void GetPlatformDetails_FromJSON(List<JToken> allTitles, List<SearchResultDTO> mediaItems)
+        public static void Parse_GetPlatformAvailability(List<JToken> allTitles, List<SearchResultDTO> mediaItems)
         {
             List<StreamingPlatformDTO> PlatformDetails = new List<StreamingPlatformDTO>();
             int mediaItemIndex = 0;

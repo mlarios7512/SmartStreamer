@@ -28,8 +28,6 @@ function getSeriesToAddInfo(imdbId) {
     let approxEpisodeTimes = $(`#episode-run-time-${imdbId}`).text();
     let totalEpisodesInSeries = $(`#episode-count-${imdbId}`).text();
 
-    console.log(`epInSeries (): ${totalEpisodesInSeries}`)
-
     return {
         //"STA" here stands for : "Series To Add".
         CurWatchlistId: watchlistId,

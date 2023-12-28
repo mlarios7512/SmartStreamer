@@ -16,6 +16,3 @@ A web app intended to help watch shows from different platforms like Netflix, Di
 	* A list of streaming platform that the shows available.
 		* 8 total platforms supported: Apple, Disney+, HBO, Hulu, Netflix, Paramount, Peacock, and Prime (video).
 * Track shows using multiple watchlists. Each watchlist can be used with the site's calculator that estimates subscription time & cost needed to binge the entire watchlist.
-
-### Notes
-* Next update will be focused on refactoring/revising project (instead of new features).

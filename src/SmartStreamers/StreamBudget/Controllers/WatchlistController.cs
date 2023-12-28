@@ -47,7 +47,7 @@ namespace StreamBudget.Controllers
 
             if (_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, watchlistId) == false)
             {
-                return RedirectToAction("Index", "Home");
+                return NotFound();
             }
 
             List<WatchlistItem> itemsInWatchlist = _watchlistItemRepository.GetWatchlistItemByWatchlistId(watchlistId);

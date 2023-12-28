@@ -40,7 +40,7 @@ namespace StreamBudget.Controllers
             Person curUser = _personRepository.FindPersonByAspId(aspId);
             if (_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, watchlistId) == false)
             {
-                return RedirectToAction("Index", "Home");
+                return NotFound();
             }
 
 

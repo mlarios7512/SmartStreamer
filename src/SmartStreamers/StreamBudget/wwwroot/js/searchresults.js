@@ -72,30 +72,21 @@ function notifyUserItemWasAlreadyInWatchlist(seriesTitle, seriesImdbId) {
 
     let alertToDisplay = `
     <div class="alert alert-warning watchlist-crud-alert" id="series-${seriesImdbId}-already-in-watchlist-notification" role="alert">
-        "${seriesTitle}" already in watchlist.
-    </div>`
+        Item already in watchlist.
+    </div>`;
         ;
     $(`body`).append(alertToDisplay);
 
     const clearAlertTimeout = setTimeout(clearNotification, 3000, `series-${seriesImdbId}-already-in-watchlist-notification`);
 }
 
-//NEED TO RETURN "title" & "imdbId" of item that was removed!
 function displayItemSavedMsg(data) {
 
-    if (data["runtimeSTA"] === -304) {
-        console.log("NO MODIFICATIONS NECESSARY");
+    if (data == "preexisting entry") {
         notifyUserItemWasAlreadyInWatchlist(data["titleSTA"], data["imdbIdSTA"]);
-
     }
     else {
-        console.log(`Data (not modified) :${data}`)
-        console.log(`Sub-Data returned: ${data["titleSTA"]}`);
-
-        //NEED TO VERIFY THAT THIS WORKS!
         notifyUserItemWasAddedToWatchlist(data["titleSTA"], data["imdbIdSTA"]);
-
-        console.log(`\n\n---------------`);
     }
 }
 

@@ -36,7 +36,7 @@ namespace StreamBudget.Controllers
         [HttpPost("add/series")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status304NotModified)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult AddSeriesToWatchlist([Bind("CurWatchlistId , TitleSTA, ImdbIdSTA, FirstYearSTA, RuntimeSTA, TotalEpisodeCountSTA")] WatchlistItemDTO newWatchlistItemInfo) 
         {
             if (ModelState.IsValid)
@@ -46,12 +46,9 @@ namespace StreamBudget.Controllers
 
                 if(_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, newWatchlistItemInfo.CurWatchlistId) == true)
                 {
-                   
-
                     if (_watchlistItemRepository.DoesItemAlreadyExistInWatchlist(newWatchlistItemInfo.ImdbIdSTA, newWatchlistItemInfo.CurWatchlistId) == true)
                     {
-                        newWatchlistItemInfo.RuntimeSTA = -304;
-                        return Ok(newWatchlistItemInfo);
+                        return Ok("preexisting entry");
                     }
 
                     WatchlistItem newEntry = new WatchlistItem();
@@ -63,10 +60,9 @@ namespace StreamBudget.Controllers
                     newEntry.WatchlistId = newWatchlistItemInfo.CurWatchlistId;
 
                     _watchlistItemRepository.AddOrUpdate(newEntry);
-
                     return Ok(newWatchlistItemInfo);
                 }
-                
+                return NotFound ();
             }
 
             return BadRequest();   
@@ -74,7 +70,7 @@ namespace StreamBudget.Controllers
 
         [HttpPost("remove/series/{imdbId}/{watchlistId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<string>> RemoveSeriesFromWatchlist(string imdbId, int watchlistId)
         {
             try 
@@ -84,7 +80,7 @@ namespace StreamBudget.Controllers
 
                 if (_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, watchlistId) == false) 
                 {
-                    return BadRequest("tt-ERROR-DELETION");
+                    return NotFound("tt-ERROR-DELETION");
                 }
 
                 int curwatchlistId = _watchlistRepository.FindById(watchlistId).Id;

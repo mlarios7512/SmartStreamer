@@ -46,14 +46,7 @@ namespace StreamBudget.Controllers
 
 
             IEnumerable<SearchResultDTO> searchResults = Enumerable.Empty<SearchResultDTO>();
-            if (!titleName.IsNullOrEmpty()) 
-            {
-                Regex regex = new Regex(@"^[a-zA-Z \w\d:;!]{1,100}$");
-                if (regex.IsMatch(titleName)) 
-                {
-                    searchResults = await _streamAvailService.GetBasicSearch(titleName);
-                }
-            }
+            searchResults = await _streamAvailService.GetBasicSearch(titleName);
 
             SeriesSearchVM searchVM = new SeriesSearchVM() 
             {

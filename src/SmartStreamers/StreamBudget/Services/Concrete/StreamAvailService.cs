@@ -5,6 +5,8 @@ using Microsoft.Net.Http.Headers;
 using StreamBudget.Services.Abstract;
 using System.Diagnostics;
 using StreamBudget.Models.DTO.StreamAvail;
+using System.Text.RegularExpressions;
+using Microsoft.IdentityModel.Tokens;
 
 
 
@@ -50,20 +52,31 @@ namespace StreamBudget.Services.Concrete
 
         public async Task<IEnumerable<SearchResultDTO>> GetBasicSearch(string titleName)
         {
-            string source = BaseSource + "/search/title?title=" + titleName + "&country=us&show_type=series&output_language=en";
-            string response = await GetJsonStringFromEndpoint(Key, source);
-
-            IEnumerable<SearchResultDTO> SearchResults = SearchResultDTO.Parse_GetAllTVShows(response).AsEnumerable();
-
-            JObject? jObj = JObject.Parse((string)response);
-            if (jObj != null)
+            if (!titleName.IsNullOrEmpty())
             {
-                StreamingPlatformDTO.Parse_GetPlatformAvailability(jObj["result"].Children().ToList(), SearchResults.ToList());
+                Regex regex = new Regex(@"^[a-zA-Z \w\d:;!]{1,100}$");
+                if (regex.IsMatch(titleName))
+                {
+                    //Perform the search
+                    string source = BaseSource + "/search/title?title=" + titleName + "&country=us&show_type=series&output_language=en";
+                    string response = await GetJsonStringFromEndpoint(Key, source);
 
-                //Reminder: Find alternative way to decouple "GetSeasonSpecificDetails" method from "GetAllTVShows" in the future.
+                    IEnumerable<SearchResultDTO> SearchResults = SearchResultDTO.Parse_GetAllTVShows(response).AsEnumerable();
+
+                    JObject? jObj = JObject.Parse((string)response);
+                    if (jObj != null)
+                    {
+                        StreamingPlatformDTO.Parse_GetPlatformAvailability(jObj["result"].Children().ToList(), SearchResults.ToList());
+
+                        //Reminder: Find alternative way to decouple "GetSeasonSpecificDetails" method from "GetAllTVShows" in the future.
+                    }
+
+                    return SearchResults;
+                }
+                
             }
 
-            return SearchResults;
+            return new List<SearchResultDTO>();
         }
 
         public async Task<SearchResultDTO> GetSeriesDetails(string imdbId)

@@ -1,15 +1,7 @@
 ﻿$(".add-series-to-watchlist-btn").click(function () {
     let imdbIdOfSeries = $(this).attr('id').substring(32);
-
     const valuesToSubmit = getSeriesToAddInfo(imdbIdOfSeries);
-    console.log(`watchlist ID (thing): ${valuesToSubmit.CurWatchlistId}`)
-    console.log(`Title (thing): ${valuesToSubmit.TitleSTA}`);
-    console.log(`FirstYear (thing): ${valuesToSubmit.FirstYearSTA}`);
-    console.log(`runtime (thing): ${valuesToSubmit.RuntimeSTA}`);
-    console.log(`totalEpisodes (thing): ${valuesToSubmit.TotalEpisodeCountSTA}`);
 
-    //The error message still triggers but the HTTP response is 200. Try:
-    // 1) Make sure the "$.ajax" method (below) is correct. (Even 1 mistake can trigger the error.)
     $.ajax({
         type: "POST",
         url: `/api/WatchlistInfo/add/series`,
@@ -25,7 +17,6 @@ function getSeriesToAddInfo(imdbId) {
     let watchlistId = $(`#watchlist-id`).val();
 
     watchlistId = parseInt(watchlistId);
-  /*  console.log(`watchlistId (type): ${typeof watchlistId}`);*/
 
     if (typeof watchlistId != Number)
     {
@@ -67,23 +58,23 @@ function notifyUserItemWasAddedToWatchlist(seriesTitle, seriesImdbId) {
     const clearAlertTimeout = setTimeout(clearNotification, 3000, `series-${seriesImdbId}-added-to-watchlist-notification`);
 }
 
-function notifyUserItemWasAlreadyInWatchlist(seriesTitle, seriesImdbId) {
+function notifyUserItemWasAlreadyInWatchlist(seriesImdbId) {
     $(`.watchlist-crud-alert`).remove();
 
     let alertToDisplay = `
-    <div class="alert alert-warning watchlist-crud-alert" id="series-${seriesImdbId}-already-in-watchlist-notification" role="alert">
+    <div class="alert alert-warning watchlist-crud-alert" id="series-already-in-watchlist-notification" role="alert">
         Item already in watchlist.
     </div>`;
-        ;
+        
     $(`body`).append(alertToDisplay);
 
-    const clearAlertTimeout = setTimeout(clearNotification, 3000, `series-${seriesImdbId}-already-in-watchlist-notification`);
+    const clearAlertTimeout = setTimeout(clearNotification, 3000, `series-already-in-watchlist-notification`);
 }
 
 function displayItemSavedMsg(data) {
 
     if (data == "preexisting entry") {
-        notifyUserItemWasAlreadyInWatchlist(data["titleSTA"], data["imdbIdSTA"]);
+        notifyUserItemWasAlreadyInWatchlist();
     }
     else {
         notifyUserItemWasAddedToWatchlist(data["titleSTA"], data["imdbIdSTA"]);

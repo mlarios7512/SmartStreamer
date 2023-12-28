@@ -37,10 +37,8 @@ builder.Services.AddScoped<IStreamAvailService, StreamAvailService>(s => new Str
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-//This code was taken from OSWAP: https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html#a07-identification-and-authentication-failures
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    // Password settings
     options.Password.RequireDigit = true;
     options.Password.RequiredLength = 8;
     options.Password.RequireNonAlphanumeric = true;

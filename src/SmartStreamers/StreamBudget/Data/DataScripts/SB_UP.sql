@@ -8,8 +8,8 @@
 CREATE TABLE [Watchlist](
     [ID]                    int             PRIMARY KEY IDENTITY(1, 1),
     [Name]                  nvarchar(64)        NOT NULL,
-    [StreamingPlatform]     nvarchar(64)        NULL,  --Name of streaming platform this watchlist is meant for.
-    [SelectedStreamingCost] decimal(18,2)       NULL,  --Monthly subscription cost attached to the watchlist.
+    [StreamingPlatform]     nvarchar(64)        NULL,
+    [SelectedStreamingCost] decimal(18,2)       NULL,
     [OwnerID]               int         NOT NULL
 );
 
@@ -18,7 +18,7 @@ CREATE TABLE [WatchlistItem](
     [Title]                 nvarchar(64)        NOT NULL,
     [ImdbId]                nvarchar(64)        NOT NULL,
     [FirstAirYear]          int         NOT NULL,
-    [EpisodeRuntime]        int         NULL, --Best to rename this to "AvgEpisodeRuntime". Should be in minutes.
+    [EpisodeRuntime]        int         NULL, --Avg runtime in minutes.
     [TotalEpisodeCount]     int         NULL,  --Full series
     [WatchlistID]           int         NOT NULL 
 );

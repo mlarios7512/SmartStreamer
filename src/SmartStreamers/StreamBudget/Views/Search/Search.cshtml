@@ -9,14 +9,14 @@
 <form asp-action="Search" asp-controller="Search" method="get" class="row g-3 mb-5">
     <input type="hidden" name="watchlistId" value="@Model.WatchlistId" id="watchlist-id"/>
     <div class="col-9 ms-xxl-5 col-xxl-7">
-        <input type="text" class="form-control" name="titleName" placeholder="Search for a TV series..." maxlength="100" required />
+        <input type="text" class="form-control" name="titleName" placeholder="Search for a TV series..." minlength="1" maxlength="100" required />
     </div>
     <div class="col-3 col-xxl-3">
         <button type="submit" class="btn btn-primary">Search</button>
     </div>
 </form>
 
-<div class="d-flex flex-column gap-5">
+<section class="d-flex flex-column gap-5">
 @{
     int seriesIndex = 0;
     foreach(var item in Model.SearchResults)
@@ -153,7 +153,7 @@
         seriesIndex++;
     }
 }
-</div>
+</section>
 
 @section Scripts{
     <script type="text/javascript" src="~/js/searchresults.js"></script>

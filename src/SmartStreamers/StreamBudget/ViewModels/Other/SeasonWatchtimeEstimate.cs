@@ -1,4 +1,4 @@
-﻿namespace StreamBudget.Models.Other
+﻿namespace StreamBudget.ViewModels.Other
 {
     public class SeasonWatchtimeEstimate
     {
@@ -10,19 +10,19 @@
         {
             SeasonName = seasonName;
 
-            if(episodeCount != null && episodeRuntimeInMinutes != null)
+            if (episodeCount != null && episodeRuntimeInMinutes != null)
             {
                 WatchtimeInMinutes = GetWatchtimeEstimateInMinutes(episodeCount, episodeRuntimeInMinutes);
                 UserFriendlyDisplay = GetFriendlyWatchtimeEstimate(episodeCount, episodeRuntimeInMinutes);
-            }   
+            }
         }
-        public int GetWatchtimeEstimateInMinutes(int? episodeCount, int? avgEpisodeRuntimeInMinutes) 
+        public int GetWatchtimeEstimateInMinutes(int? episodeCount, int? avgEpisodeRuntimeInMinutes)
         {
             return (int)(episodeCount * avgEpisodeRuntimeInMinutes);
         }
         public string GetFriendlyWatchtimeEstimate(int? episodeCount, int? avgEpisodeRuntimeInMinutes)
         {
-            if(episodeCount != null && avgEpisodeRuntimeInMinutes != null) 
+            if (episodeCount != null && avgEpisodeRuntimeInMinutes != null)
             {
                 double totalTime = (double)(episodeCount * avgEpisodeRuntimeInMinutes);
                 string timeSpanAsString = $"{TimeSpan.FromMinutes(totalTime):hh\\:mm}".ToString();

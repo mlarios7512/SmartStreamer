@@ -5,9 +5,9 @@ using Microsoft.IdentityModel.Tokens;
 using StreamBudget.DAL.Abstract;
 using StreamBudget.Models;
 using StreamBudget.Models.DTO.StreamAvail;
-using StreamBudget.Models.Other;
 using StreamBudget.Services.Abstract;
 using StreamBudget.ViewModels;
+using StreamBudget.ViewModels.Other;
 using System.Text.RegularExpressions;
 
 namespace StreamBudget.Controllers

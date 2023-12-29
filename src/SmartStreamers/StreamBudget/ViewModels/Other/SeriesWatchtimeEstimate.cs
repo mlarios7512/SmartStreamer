@@ -1,15 +1,15 @@
 ﻿using StreamBudget.Models.DTO.StreamAvail;
 
-namespace StreamBudget.Models.Other
+namespace StreamBudget.ViewModels.Other
 {
     public class SeriesWatchtimeEstimate
     {
-        public string SectionName { get; set; } = null; 
+        public string SectionName { get; set; } = null;
         public int? WatchtimeInMinutes { get; set; } = null;
         public string UserFriendlyDisplay { get; set; } = "(N/A)";
-        public List<SeasonWatchtimeEstimate> SeasonWatchtimes {get; set;} = null;
+        public List<SeasonWatchtimeEstimate> SeasonWatchtimes { get; set; } = null;
 
-        public SeriesWatchtimeEstimate(string sectionName = "Full series", int? totalEpisodeCount = null, int? episodeRuntimeInMinutes = null) 
+        public SeriesWatchtimeEstimate(string sectionName = "Full series", int? totalEpisodeCount = null, int? episodeRuntimeInMinutes = null)
         {
             SectionName = sectionName;
             if (episodeRuntimeInMinutes != null & totalEpisodeCount != null)
@@ -18,7 +18,7 @@ namespace StreamBudget.Models.Other
                 UserFriendlyDisplay = GetFriendlyWatchtimeEstimate(totalEpisodeCount, episodeRuntimeInMinutes);
             }
         }
-        public int GetWatchtimeEstimateInMinutes(int? episodeCount, int? avgEpisodeRuntimeInMinutes) 
+        public int GetWatchtimeEstimateInMinutes(int? episodeCount, int? avgEpisodeRuntimeInMinutes)
         {
             return (int)(episodeCount * avgEpisodeRuntimeInMinutes);
         }

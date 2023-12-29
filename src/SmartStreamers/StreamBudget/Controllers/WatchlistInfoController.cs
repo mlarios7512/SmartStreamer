@@ -35,7 +35,6 @@ namespace StreamBudget.Controllers
 
         [HttpPost("add/series")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status304NotModified)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult AddSeriesToWatchlist([Bind("CurWatchlistId , Title, ImdbId, FirstYear, Runtime, TotalEpisodeCount")] NewWatchlistItemDTO newWatchlistItemInfo) 

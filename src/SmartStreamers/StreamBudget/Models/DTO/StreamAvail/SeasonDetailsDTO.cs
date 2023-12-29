@@ -11,7 +11,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
         {
 
         }
-        public static List<SeasonDetailsDTO> GetSeasonDetails_FromJSON(List<JToken> allSeasonsForATvSeries)
+        public static List<SeasonDetailsDTO> Parse_GetSeasonSpecificDetails(List<JToken> allSeasonsForATvSeries)
         {
             if (allSeasonsForATvSeries != null)
             {

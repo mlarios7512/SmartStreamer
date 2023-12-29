@@ -35,10 +35,9 @@ namespace StreamBudget.Controllers
 
         [HttpPost("add/series")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status304NotModified)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult AddSeriesToWatchlist([Bind("CurWatchlistId , TitleSTA, ImdbIdSTA, FirstYearSTA, RuntimeSTA, TotalEpisodeCountSTA")] WatchlistItemDTO newWatchlistItemInfo) 
+        public ActionResult AddSeriesToWatchlist([Bind("CurWatchlistId , Title, ImdbId, FirstYear, Runtime, TotalEpisodeCount")] NewWatchlistItemDTO newWatchlistItemInfo) 
         {
             if (ModelState.IsValid)
             {
@@ -47,17 +46,17 @@ namespace StreamBudget.Controllers
 
                 if(_watchlistRepository.DoesUserOwnWatchlist(curUser.Id, newWatchlistItemInfo.CurWatchlistId) == true)
                 {
-                    if (_watchlistItemRepository.DoesItemAlreadyExistInWatchlist(newWatchlistItemInfo.ImdbIdSTA, newWatchlistItemInfo.CurWatchlistId) == true)
+                    if (_watchlistItemRepository.DoesItemAlreadyExistInWatchlist(newWatchlistItemInfo.ImdbId, newWatchlistItemInfo.CurWatchlistId) == true)
                     {
                         return Ok("preexisting entry");
                     }
 
                     WatchlistItem newEntry = new WatchlistItem();
-                    newEntry.Title = newWatchlistItemInfo.TitleSTA;
-                    newEntry.ImdbId = newWatchlistItemInfo.ImdbIdSTA;
-                    newEntry.FirstAirYear = newWatchlistItemInfo.FirstYearSTA;
-                    newEntry.EpisodeRuntime = newWatchlistItemInfo.RuntimeSTA;
-                    newEntry.TotalEpisodeCount = newWatchlistItemInfo.TotalEpisodeCountSTA;
+                    newEntry.Title = newWatchlistItemInfo.Title;
+                    newEntry.ImdbId = newWatchlistItemInfo.ImdbId;
+                    newEntry.FirstAirYear = newWatchlistItemInfo.FirstYear;
+                    newEntry.EpisodeRuntime = newWatchlistItemInfo.Runtime;
+                    newEntry.TotalEpisodeCount = newWatchlistItemInfo.TotalEpisodeCount;
                     newEntry.WatchlistId = newWatchlistItemInfo.CurWatchlistId;
 
                     _watchlistItemRepository.AddOrUpdate(newEntry);

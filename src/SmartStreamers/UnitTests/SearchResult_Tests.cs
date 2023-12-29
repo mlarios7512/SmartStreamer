@@ -36,7 +36,7 @@ public class Tests
         }";
 
         //Act
-        IEnumerable<SearchResultDTO> ParsedJson = SearchResultDTO.FromJSON(API_Response);
+        IEnumerable<SearchResultDTO> ParsedJson = SearchResultDTO.Parse_GetAllTVShows(API_Response);
 
         //Assert
         foreach (SearchResultDTO i in ParsedJson)
@@ -60,7 +60,7 @@ public class Tests
     [Test]
     public void FromJson_WithInvalidAPIResponse_ShouldReturnEnumerableWithZeroItems()
     {
-        IEnumerable<SearchResultDTO> ParsedJson = SearchResultDTO.FromJSON("");
+        IEnumerable<SearchResultDTO> ParsedJson = SearchResultDTO.Parse_GetAllTVShows("");
         Assert.That(ParsedJson.ToList().Count.Equals(0));
     }
 
@@ -92,7 +92,7 @@ public class Tests
         }";
 
         //Act
-        IEnumerable<SearchResultDTO> SeriesSearchResults = SearchResultDTO.FromJSON(API_Response);
+        IEnumerable<SearchResultDTO> SeriesSearchResults = SearchResultDTO.Parse_GetAllTVShows(API_Response);
 
         //Assert
         foreach (SearchResultDTO mediaItem in SeriesSearchResults)
@@ -130,7 +130,7 @@ public class Tests
         }";
 
         //Act
-        IEnumerable<SearchResultDTO> SeriesSearchResults = SearchResultDTO.FromJSON(API_Response);
+        IEnumerable<SearchResultDTO> SeriesSearchResults = SearchResultDTO.Parse_GetAllTVShows(API_Response);
 
         //Assert
         foreach (SearchResultDTO mediaItem in SeriesSearchResults)
@@ -170,7 +170,7 @@ public class Tests
         }";
 
         //Act
-        IEnumerable<SearchResultDTO> SeriesSearchResults = SearchResultDTO.FromJSON(API_Response);
+        IEnumerable<SearchResultDTO> SeriesSearchResults = SearchResultDTO.Parse_GetAllTVShows(API_Response);
 
         //Assert
         foreach (SearchResultDTO mediaItem in SeriesSearchResults)
@@ -221,7 +221,7 @@ public class Tests
         List<JToken> seasonsInTVSeries = jObject.SelectToken("seasons").ToList();
 
         //Act
-        List<SeasonDetailsDTO> SeasonInfo = SeasonDetailsDTO.GetSeasonDetails_FromJSON(seasonsInTVSeries);
+        List<SeasonDetailsDTO> SeasonInfo = SeasonDetailsDTO.Parse_GetSeasonSpecificDetails(seasonsInTVSeries);
 
         //Assert
         Assert.That(SeasonInfo.Count == 1);
@@ -269,7 +269,7 @@ public class Tests
 
         //Act
         List<SeasonDetailsDTO> SeasonInfo = new List<SeasonDetailsDTO>();
-        SeasonInfo = SeasonDetailsDTO.GetSeasonDetails_FromJSON(myScope);
+        SeasonInfo = SeasonDetailsDTO.Parse_GetSeasonSpecificDetails(myScope);
 
         //Assert
         Assert.That(SeasonInfo.Count == 2);

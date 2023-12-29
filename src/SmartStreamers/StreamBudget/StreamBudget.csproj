@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Other\TVInfo\" />
+    <Folder Include="Models\Other\" />
   </ItemGroup>
 
 </Project>

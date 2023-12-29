@@ -28,16 +28,13 @@ function getSeriesToAddInfo(imdbId) {
     let approxEpisodeTimes = $(`#episode-run-time-${imdbId}`).text();
     let totalEpisodesInSeries = $(`#episode-count-${imdbId}`).text();
 
-    console.log(`epInSeries (): ${totalEpisodesInSeries}`)
-
     return {
-        //"STA" here stands for : "Series To Add".
         CurWatchlistId: watchlistId,
-        TitleSTA: title,
-        ImdbIDSTA: imdbId,
-        FirstYearSTA: Number(yearAired),
-        RuntimeSTA: Number(approxEpisodeTimes),
-        TotalEpisodeCountSTA: Number(totalEpisodesInSeries)
+        Title: title,
+        ImdbID: imdbId,
+        FirstYear: Number(yearAired),
+        Runtime: Number(approxEpisodeTimes),
+        TotalEpisodeCount: Number(totalEpisodesInSeries)
     }
 }
 
@@ -77,7 +74,7 @@ function displayItemSavedMsg(data) {
         notifyUserItemWasAlreadyInWatchlist();
     }
     else {
-        notifyUserItemWasAddedToWatchlist(data["titleSTA"], data["imdbIdSTA"]);
+        notifyUserItemWasAddedToWatchlist(data["title"], data["imdbId"]);
     }
 }
 

@@ -1,5 +1,5 @@
 ﻿using StreamBudget.Models.DTO.StreamAvail;
-using StreamBudget.Models.Other;
+using StreamBudget.ViewModels.Other;
 
 namespace StreamBudget.ViewModels
 {

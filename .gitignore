@@ -52,6 +52,7 @@ TestResults/
 ######################
 *.log
 *.sqlite
+*.ps1
 # OS generated files #
 ######################
 .DS_Store?

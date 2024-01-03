@@ -3,7 +3,7 @@
     const values = getInfoRequiredToDeleteWatchlistItem(itemToRemoveImdbId);
 
     $.ajax({
-        method: "POST",
+        method: "DELETE",
         url: `/api/watchlistinfo/remove/series/${values.imdbId}/${values.watchlistId}`,
         contentType: "application/json; charset=UTF-8",
         data: JSON.stringify(values),

@@ -68,12 +68,12 @@ namespace StreamBudget.Controllers
             return BadRequest();   
         }
 
-        [HttpPost("remove/series/{imdbId}/{watchlistId}")]
+        [HttpDelete("remove/series/{imdbId}/{watchlistId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<string>> RemoveSeriesFromWatchlist(string imdbId, int watchlistId)
         {
-            try 
+            try
             {
                 string aspId = _userManager.GetUserId(User);
                 Person curUser = _personRepo.FindPersonByAspId(aspId);

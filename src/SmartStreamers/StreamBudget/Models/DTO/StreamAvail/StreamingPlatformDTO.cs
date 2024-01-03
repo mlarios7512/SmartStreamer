@@ -2,6 +2,17 @@
 
 namespace StreamBudget.Models.DTO.StreamAvail
 {
+    public enum Platform
+    {
+        Apple = 0,
+        Disney = 1,
+        HBO = 2,
+        Hulu = 3,
+        Netflix = 4,
+        Paramount = 5,
+        Prime = 6
+    }
+
     public class StreamingPlatformDTO
     {
         public string PlatformName { get; set; } = "(???)";
@@ -10,16 +21,7 @@ namespace StreamBudget.Models.DTO.StreamAvail
         public StreamingPlatformDTO()
         {
         }
-        public enum Platform
-        {
-            Apple = 0,
-            Disney = 1,
-            HBO = 2,
-            Hulu = 3,
-            Netflix = 4,
-            Paramount = 5,
-            Prime = 6
-        }
+
 
         public static void Parse_GetPlatformAvailability(List<JToken> allTitles, List<SearchResultDTO> mediaItems)
         {

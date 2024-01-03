@@ -9,6 +9,7 @@ using StreamBudget.ViewModels.Other;
 
 namespace StreamBudget.Controllers
 {
+    [Authorize]
     public class WatchlistController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -28,7 +29,6 @@ namespace StreamBudget.Controllers
             _watchlistRepository = watchlistRepository;
         }
 
-        [Authorize]
         public IActionResult ViewWatchlists()
         {
             string aspId = _userManager.GetUserId(User);
@@ -39,7 +39,6 @@ namespace StreamBudget.Controllers
             return View(userWatchlists);
         }
 
-        [Authorize]
         public IActionResult ViewWatchlistItems(int watchlistId)
         {
             string aspId = _userManager.GetUserId(User);
@@ -68,7 +67,6 @@ namespace StreamBudget.Controllers
             return View(watchlistDisplay);
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult CreateWatchlist() 
         {
@@ -76,7 +74,6 @@ namespace StreamBudget.Controllers
             return View(watchlist);
         }
 
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateWatchlist(Watchlist newWatchlist) 

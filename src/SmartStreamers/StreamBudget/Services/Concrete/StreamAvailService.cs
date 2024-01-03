@@ -81,6 +81,7 @@ namespace StreamBudget.Services.Concrete
 
         public async Task<SearchResultDTO> GetSeriesDetails(string imdbId)
         {
+
             string source = BaseSource + "get/basic?imdb_id=" + imdbId + "&country=us";
             source = "https://streaming-availability.p.rapidapi.com/v2/get/basic?imdb_id=" + imdbId + "&country=us";
             string response = await GetJsonStringFromEndpoint(Key, source);

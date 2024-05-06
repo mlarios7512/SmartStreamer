@@ -1,7 +1,5 @@
 
 # StreamBudget
-### State of app
-https://github.com/mlarios7512/SmartStreamer/assets/108952101/f11f8187-001c-4b78-bb4d-4030d2583403
 
 
 
